@@ -13,9 +13,42 @@
             <a href="{{ route('main') }}" class="nav-item nav-link active">Accueil</a>
             <a href="{{ route('main') }}#about-section" class="nav-item nav-link">A Propos</a>
             <a href="{{ route('main') }}#contact-section" class="nav-item nav-link">Contactez Nous</a>
-            <a href="{{ route('login') }}" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Se Connecter
-                <i class="fa fa-arrow-right ms-3"></i></a>
+            @if (session()->has('user'))
+                <div class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        {{ session('user')->username }}
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-left" aria-labelledby="userDropdown">
+                        <li><a class="dropdown-item" href="{{ route('profile') }}">Profile</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        @if (session('user')->type == 'Admin')
+                            <li><a class="dropdown-item" href="{{ route('admin') }}">Admin </a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                        @endif
+                        <li>
+                            <a class="dropdown-item" href="{{ route('logout') }}">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            @else
+                <a href="{{ route('login-form') }}" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Se
+                    connecter</a>
+            @endif
+
         </div>
     </div>
 </nav>
 <!-- Navbar End -->
+
+<style>
+    .dropdown-menu-left {
+        right: auto;
+        left: -50%;
+        width: 150%;
+    }
+</style>

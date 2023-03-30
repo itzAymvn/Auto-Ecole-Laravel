@@ -20,7 +20,7 @@
     <link href="{{ asset('css/style.css') }}" rel="stylesheet" />
 </head>
 
-<body class="d-flex flex-column vh-100">
+<body class="d-flex flex-column vh-100 justify-content-between">
 
     <!-- Spinner Start -->
     <div id="spinner"
@@ -37,7 +37,8 @@
 
     <!-- Importing Necessary Javascript Files -->
     <script src="{{ asset('js/jquery-3.6.3.min.js') }}"></script>
-    <script src="{{ asset('js/bootstrap-5.2.3.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.bundle.min.js.map') }}"></script>
+    <script src="{{ asset('js/bootstrap.bundle-5.1.1.min.js') }}"></script>
 
     <!-- Custom Javascript File -->
     <script src="{{ asset('js/script.js') }}"></script>

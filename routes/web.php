@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\SessionController;
+use App\Http\Controllers\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,4 +17,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::view('/', 'main')->name('main');
-Route::view('/login', 'login')->name('login');
+Route::get('/login', [LoginController::class, 'loginform'])->name('login-form'); # Route to the login form
+Route::post('/log', [LoginController::class, 'authenticate'])->name('login'); # Route to actually log in
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout'); # Route to log out
+Route::get('/profile', [LoginController::class, 'profile'])->name('profile'); # Route to the profile page
+Route::get('/admin', [LoginController::class, 'admin'])->name('admin'); # Route to the admin page (only accessible if logged in as admin)
+
+Route::resource('users', UserController::class); # Route to the user page (only accessible if logged in as admin)
