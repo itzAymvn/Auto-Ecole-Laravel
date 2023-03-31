@@ -37,7 +37,7 @@ class LoginController extends Controller
 
         $request->validate([
             'email' => ['required', 'email'],
-            'password' => ['required', 'min:8'],
+            'password' => ['required'],
         ]);
 
         // Check if the email exists in the database
