@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
             'fullname' => 'Admin',
             'username' => 'admin',
             'email' => 'admin@mail.com',
-            'password' => 'admin',
+            'password' => 'admin1234',
             'type' => 'Admin',
             'profile' => '',
         ]);
@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
             'fullname' => 'Instructor',
             'username' => 'instructor',
             'email' => 'instructor@mail.com',
-            'password' => 'instructor',
+            'password' => 'instructor1234',
             'type' => 'Instructor',
             'profile' => '',
         ]);
@@ -36,7 +36,7 @@ class DatabaseSeeder extends Seeder
             'fullname' => 'Student',
             'username' => 'student',
             'email' => 'student@mail.com',
-            'password' => 'student',
+            'password' => 'student1234',
             'type' => 'Student',
             'profile' => '',
         ]);

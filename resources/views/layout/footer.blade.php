@@ -11,5 +11,5 @@
  <!-- End of copyright section -->
 
  <!-- Back to Top Button -->
- <a href="#" class="btn btn-lg btn-primary btn-lg-square d-flex align-items-center back-to-top"><i
+ <a href="#" class="btn btn-lg btn-primary btn-lg-square d-flex align-items-center back-to-top rounded-circle"><i
          class="bi bi-arrow-up"></i></a>

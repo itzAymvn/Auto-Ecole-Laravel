@@ -35,9 +35,10 @@
 
     @include('layout.footer')
 
+
+    @stack('scripts')
     <!-- Importing Necessary Javascript Files -->
     <script src="{{ asset('js/jquery-3.6.3.min.js') }}"></script>
-    <script src="{{ asset('js/bootstrap.bundle.min.js.map') }}"></script>
     <script src="{{ asset('js/bootstrap.bundle-5.1.1.min.js') }}"></script>
 
     <!-- Custom Javascript File -->

@@ -31,7 +31,7 @@
                             </li>
                         @endif
                         <li>
-                            <a class="dropdown-item" href="{{ route('logout') }}">Logout</a>
+                            <a class="dropdown-item" href="{{ route('logout') }}">Se déconnecter</a>
                         </li>
                     </ul>
                 </div>
