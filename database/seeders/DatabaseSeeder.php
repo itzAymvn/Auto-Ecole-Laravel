@@ -47,10 +47,10 @@ class DatabaseSeeder extends Seeder
             'profile' => '',
         ]);
 
-        User::factory(10)->create();
-        Vehicle::factory(10)->create();
-        Session::factory(10)->create();
-        Exam::factory(10)->create();
-        Progress::factory(10)->create();
+        User::factory(30)->create();
+        Vehicle::factory(30)->create();
+        Session::factory(30)->create();
+        Exam::factory(30)->create();
+        Progress::factory(30)->create();
     }
 }

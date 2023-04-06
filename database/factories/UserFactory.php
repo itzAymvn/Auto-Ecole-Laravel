@@ -20,8 +20,8 @@ class UserFactory extends Factory
             'fullname' => $this->faker->name,
             'username' => $this->faker->userName,
             'email' => $this->faker->safeEmail,
-            'password' => bcrypt('password'),
-            'type' => $this->faker->randomElement(['Admin', 'Instructor', 'Student']),
+            'password' => $this->faker->password,
+            'type' => $this->faker->randomElement(['Instructor', 'Student']),
         ];
     }
 }

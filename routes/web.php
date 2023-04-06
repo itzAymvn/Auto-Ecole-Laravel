@@ -25,8 +25,4 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout'); # Rou
 Route::get('/profile', [LoginController::class, 'profile'])->name('profile'); # Route to the profile page
 Route::get('/admin', [LoginController::class, 'admin'])->name('admin'); # Route to the admin page (only accessible if logged in as admin)
 
-// Route::get('/users', [UserController::class, 'index'])->name('users.index');
-// Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
-// Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
-
 Route::resource('users', UserController::class);

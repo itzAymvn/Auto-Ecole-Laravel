@@ -8,13 +8,26 @@ use Termwind\Components\Dd;
 
 class UserController extends Controller
 {
+
+    /*
+    * Middleware to protect routes.
+    */
+
+    public function __construct()
+    {
+        $this->middleware('loggedIn');
+        $this->middleware('redirectIfNotAdmin')->only(['index', 'show', 'edit', 'update', 'destroy']);
+    }
+
+
+
     /*
     * Display all users.
     */
 
     public function index()
     {
-        $users = User::paginate(5);
+        $users = User::where('type', '!=', 'Admin')->paginate(5);
         return view('users.index', compact('users'));
     }
 
