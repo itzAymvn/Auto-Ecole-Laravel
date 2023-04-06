@@ -4,72 +4,95 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Termwind\Components\Dd;
 
 class UserController extends Controller
 {
+    /*
+    * Display all users.
+    */
 
-    public function __construct()
-    {
-        $this->middleware('redirectIfNotAdmin');
-    }
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        return view('users.index', [
-            'users' => User::all(),
-        ]);
+        $users = User::paginate(5);
+        return view('users.index', compact('users'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+    /*
+    * Display a user.
+    * Display all sessions, exams and progress for a user (if any)
+    */
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
     public function show(User $user)
     {
-        $user = User::findOrfail($user->id);
-        return view('users.show', [
-            'user' => $user,
-        ]);
+        // Paginate the sessions, exams and progress
+
+        $sessions = $user->sessions;
+        $exams = $user->exams;
+        $progress = $user->progress;
+        return view('users.show', compact('user', 'sessions', 'exams', 'progress'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    /*
+    * Display a form to edit a user.
+    */
+
     public function edit(User $user)
     {
-        //
+        return view('users.edit', compact('user'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, User $user)
+    /*
+    * Update a user.
+    */
+
+    public function update(User $user, Request $request)
     {
-        //
+        $request->validate(
+            [
+                'fullname' => 'required',
+                'username' => 'required',
+                'email' => 'required|email',
+                'profile' => 'file|image|max:2000',
+            ]
+        );
+
+        if ($request->hasFile('profile')) {
+            // move the file to the public folder
+            $profile = $request->file('profile');
+            $profile->store('public/profiles');
+
+            // Delete the old profile picture
+            if ($user->profile) {
+                unlink(storage_path('app/public/profiles/' . $user->profile));
+            }
+
+            // Update the profile picture
+            $user->profile = $profile->hashName();
+        }
+
+        $user->fullname = $request->fullname;
+        $user->username = $request->username;
+        $user->email = $request->email;
+        $user->save();
+
+        return redirect()->route('users.show', $user);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    /*
+    * Delete a user.
+    */
+
     public function destroy(User $user)
     {
-        //
+
+        // Delete the profile picture
+        if ($user->profile) {
+            unlink(storage_path('app/public/profiles/' . $user->profile));
+        }
+
+        $user->delete();
+
+        return redirect()->route('users.index');
     }
 }

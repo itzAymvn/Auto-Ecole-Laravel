@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('progress', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('student_id')->constrained('users');
+            $table->foreignId('student_id')->constrained('users')->onDelete('cascade');
             $table->string('progress_status');
             $table->string('notes');
             $table->timestamps();

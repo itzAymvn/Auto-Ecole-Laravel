@@ -16,9 +16,9 @@ return new class extends Migration
             $table->date('date');
             $table->time('time');
             $table->string('location');
-            $table->foreignId('instructor_id')->constrained('users');
-            $table->foreignId('student_id')->constrained('users');
-            $table->foreignId('vehicle_id')->constrained('vehicles');
+            $table->foreignId('instructor_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('student_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('vehicle_id')->constrained('vehicles')->onDelete('cascade');
             $table->timestamps();
         });
     }

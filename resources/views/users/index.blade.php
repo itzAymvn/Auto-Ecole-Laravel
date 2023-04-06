@@ -11,7 +11,7 @@
                     <h2>Gérer les utilisateurs
                         <span class="badge bg-primary">{{ count($users) }}</span>
                     </h2>
-                    <a href="{{ route('users.create') }}" class="btn btn-primary d-flex align-items-center">
+                    <a href="" class="btn btn-primary d-flex align-items-center">
                         Ajouter un utilisateur
                     </a>
                 </div>
@@ -38,29 +38,36 @@
                                             alt="Image" width="50" height="50">
                                     </td>
                                 @else
-                                    <td><img src="{{ $user->profile }}" alt="Image" width="50" height="50"></td>
-                                @endempty
+                                    <td><img src="{{ asset('storage/profiles/' . $user->profile) }}" alt="Image"
+                                            width="50" height="50">
+                                    @endempty
                                 <td class="align-middle">{{ $user->fullname }}</td>
                                 <td class="align-middle">{{ $user->username }}</td>
                                 <td class="align-middle">{{ $user->email }}</td>
                                 <td class="align-middle">{{ $user->type }}</td>
                                 <td class="align-middle">{{ $user->created_at }}</td>
                                 <td class="align-middle">{{ $user->updated_at }}</td>
-                                <td class="align-middle">
+                                <td class="d-flex justify-content-around align-items-center">
                                     <a href="{{ route('users.show', $user->id) }}">
                                         <i class="fas fa-eye"></i>
                                     </a>
                                     <a href="{{ route('users.edit', $user->id) }}">
                                         <i class="fas fa-edit"></i>
                                     </a>
-                                    <a href="{{ route('users.destroy', $user->id) }}">
-                                        <i class="fas fa-trash"></i>
-                                    </a>
+                                    <form action="{{ route('users.destroy', $user->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-link p-0">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
+
+                {{ $users->links() }}
             @else
                 <div class="alert alert-info">
                     <h2 class="text-center">Aucun utilisateur trouvé</h2>

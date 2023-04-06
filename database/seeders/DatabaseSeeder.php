@@ -5,6 +5,13 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
+// Models
+use App\Models\User;
+use App\Models\Session;
+use App\Models\Progress;
+use App\Models\Vehicle;
+use App\Models\Exam;
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -12,7 +19,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\User::factory(10)->create();
 
         \App\Models\User::factory()->create([
             'fullname' => 'Admin',
@@ -40,5 +46,11 @@ class DatabaseSeeder extends Seeder
             'type' => 'Student',
             'profile' => '',
         ]);
+
+        User::factory(10)->create();
+        Vehicle::factory(10)->create();
+        Session::factory(10)->create();
+        Exam::factory(10)->create();
+        Progress::factory(10)->create();
     }
 }
