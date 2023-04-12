@@ -13,12 +13,14 @@ return new class extends Migration
     {
         Schema::create('sessions', function (Blueprint $table) {
             $table->id();
-            $table->date('date');
-            $table->time('time');
-            $table->string('location');
-            $table->foreignId('instructor_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('student_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('instructor_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('vehicle_id')->constrained('vehicles')->onDelete('cascade');
+            $table->string('title', 100);
+            $table->date('session_date');
+            $table->time('session_time');
+            $table->string('session_location', 100);
+            $table->boolean('is_completed')->default(false);
             $table->timestamps();
         });
     }

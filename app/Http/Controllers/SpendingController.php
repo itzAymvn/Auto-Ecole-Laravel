@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Progress;
+use App\Models\Spending;
 use Illuminate\Http\Request;
 
-class ProgressController extends Controller
+class SpendingController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +34,7 @@ class ProgressController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Progress $progress)
+    public function show(Spending $spending)
     {
         //
     }
@@ -42,7 +42,7 @@ class ProgressController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Progress $progress)
+    public function edit(Spending $spending)
     {
         //
     }
@@ -50,7 +50,7 @@ class ProgressController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Progress $progress)
+    public function update(Request $request, Spending $spending)
     {
         //
     }
@@ -58,7 +58,7 @@ class ProgressController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Progress $progress)
+    public function destroy(Spending $spending)
     {
         //
     }

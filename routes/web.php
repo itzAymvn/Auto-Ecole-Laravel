@@ -19,10 +19,19 @@ use App\Http\Controllers\ExamController;
 */
 
 Route::view('/', 'main')->name('main');
+
 Route::get('/login', [LoginController::class, 'loginform'])->name('login-form'); # Route to the login form
+
 Route::post('/login', [LoginController::class, 'authenticate'])->name('login'); # Route to actually log in
+
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout'); # Route to log out
+
 Route::get('/profile', [LoginController::class, 'profile'])->name('profile'); # Route to the profile page
+
+Route::post('/profile', [LoginController::class, 'edit'])->name('edit-profile'); # Route to the edit profile page
+
 Route::get('/admin', [LoginController::class, 'admin'])->name('admin'); # Route to the admin page (only accessible if logged in as admin)
+
+
 
 Route::resource('users', UserController::class);

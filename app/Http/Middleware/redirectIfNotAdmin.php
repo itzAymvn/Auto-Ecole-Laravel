@@ -15,7 +15,7 @@ class redirectIfNotAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (session()->get('user')->type != 'Admin') {
+        if (session()->get('user')->type != 'admin') {
             abort(403, 'You are not allowed to access this page');
         }
         return $next($request);

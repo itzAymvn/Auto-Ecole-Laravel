@@ -6,60 +6,181 @@
 
     <main class="d-flex justify-content-between flex-column">
         @include('users.panel')
-        <section class="manage-users-section container py-5">
-            <div class="d-flex justify-content-between mb-3">
-                <h2>Modifier l'utilisateur</h2>
-                <a href="{{ route('users.index') }}" class="btn btn-primary d-flex align-items-center">
-                    Retour
-                </a>
+
+        @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-            <form action="{{ route('users.update', $user->id) }}" method="POST" enctype="multipart/form-data">
+        @endif
+
+        @if (session('error'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ session('error') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
+        <h3 class="text-center my-3">
+            What do you want to do?
+        </h3>
+        <hr class="my-0 my-3">
+        <section class="manage-users-section container py-2">
+            <div class="d-flex justify-content-between mb-3">
+                <h5 data-bs-target="#updateuserform" data-bs-toggle="collapse" role="button" aria-expanded="false"
+                    aria-controls="updateuserform">
+                    <i class="fas fa-user-edit"></i>
+                    <span>
+                        Modifier l'utilisateur
+                    </span>
+                </h5>
+            </div>
+            <form class="collapse multi-collapse" id="updateuserform" action="{{ route('users.update', $user->id) }}"
+                method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="mb-3">
-                    <label for="fullname" class="form-label">Nom Complet</label>
-                    <input type="text" class="form-control" id="fullname" name="fullname" value="{{ $user->fullname }}">
+                    <label for="name" class="form-label">Nom Complet</label>
+                    <input type="text" class="form-control" id="name" name="name" value="{{ $user->name }}">
 
-                    @error('fullname')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-
-                </div>
-                <div class="mb-3">
-                    <label for="username" class="form-label">Nom d'utilisateur</label>
-                    <input type="text" class="form-control" id="username" name="username" value="{{ $user->username }}">
-
-                    @error('username')
+                    @error('name')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
+                    <label for="email" class="form-label">Adresse email</label>
                     <input type="email" class="form-control" id="email" name="email" value="{{ $user->email }}">
-                </div>
 
-                @error('email')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-
-
-                @if ($user->profile)
-                    <img src="{{ asset('storage/profiles/' . $user->profile) }}" alt="Profile Image" width="100"
-                        class="mb-3 rounded-circle">
-                @endif
-
-                <div class="mb-3">
-
-                    <label for="profile" class="form-label">Image</label>
-                    <input class="form-control" type="file" id="profile" name="profile">
-
-                    @error('profile')
+                    @error('email')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Telephone</label>
+                    <input type="text" class="form-control" id="phone" name="phone" value="{{ $user->phone }}">
+
+                    @error('phone')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="mb-3">
+                    <label for="address" class="form-label">Adresse</label>
+                    <input type="string" class="form-control" id="address" name="address" value="{{ $user->address }}">
+
+                    @error('address')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="mb-3">
+                    <label for="birthdate" class="form-label">Date de naissance</label>
+                    <input type="date" class="form-control" id="birthdate" name="birthdate"
+                        value="{{ $user->birthdate }}">
+
+                    @error('birthdate')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="mb-3">
+                    <label for="image" class="form-label">
+                        @if ($user->image)
+                            <img src="{{ asset('storage/profiles/' . $user->image) }}" alt="Profile Image" width="100"
+                                class="mb-3 rounded-circle">
+                        @else
+                            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                                alt="Profile Image" width="100" class="mb-3 rounded-circle">
+                        @endif
+                    </label>
+                    <input class="form-control d-none" type="file" id="image" name="image">
+                    @error('image')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+
                 <button type="submit" class="btn btn-primary">Modifier</button>
             </form>
         </section>
+
+        {{-- Delete user section --}}
+
+        <section class="delete-user-section container py-2">
+            <div class="d-flex justify-content-between mb-3">
+                <h5 data-bs-target="#deleteuserform" data-bs-toggle="collapse" role="button" aria-expanded="false"
+                    aria-controls="deleteuserform">
+                    <i class="fas fa-trash"></i>
+                    <span>
+                        Supprimer l'utilisateur
+                    </span>
+                </h5>
+            </div>
+            <form class="collapse multi-collapse" id="deleteuserform" action="{{ route('users.destroy', $user->id) }}"
+                method="POST">
+                @csrf
+                @method('DELETE')
+
+                <div class="mb-3">
+                    <p class="alert alert-danger">
+                        Attention! Vous êtes sur le point de supprimer cet utilisateur. Cette action est irréversible.
+                        <button type="submit" class="btn btn-danger mt-3">Supprimer</button>
+
+                    </p>
+                </div>
+        </section>
+
+        {{-- More data section --}}
+
+        <section class="container py-2">
+            <div class="d-flex justify-content-between mb-3">
+                <h5 data-bs-target="#moredata" data-bs-toggle="collapse" role="button" aria-expanded="false"
+                    aria-controls="moredata">
+                    <i class="fas fa-trash"></i>
+                    <span>
+                        Voir plus d'informations
+                    </span>
+                </h5>
+            </div>
+            <div class="collapse multi-collapse" id="moredata">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <a href="/aaa">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                            <span>
+                                Les seances
+                            </span>
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="/aaa">
+                            <i class="fa-solid fa-car"></i>
+                            <span>
+                                Les examens
+                            </span>
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="/aaa">
+                            <i class="fa-regular fa-credit-card"></i>
+                            <span>
+                                Les paiements
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        {{-- Back button --}}
+
+        <section class="container py-2">
+            <div class="d-flex justify-content-between mb-3">
+                <a href="{{ route('users.index') }}" class="btn btn-primary">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>
+                        Retour
+                    </span>
+                </a>
+            </div>
+        </section>
+
     </main>
 
 @endsection

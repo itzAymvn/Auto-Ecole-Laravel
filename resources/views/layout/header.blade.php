@@ -1,5 +1,6 @@
 <!-- Navbar Start -->
-<nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0 shadow-sm">
+
+<nav class="w-100 navbar navbar-expand-lg bg-white navbar-light sticky-top p-0 shadow-sm">
     <a href="{{ route('main') }}" class="navbar-brand d-flex align-items-center border-end px-4 px-lg-5">
         <h2 class="m-0">
             <i class="fas fa-car text-primary me-2"></i>Auto-Ecole
@@ -17,14 +18,14 @@
                 <div class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                        {{ session('user')->username }}
+                        {{ session('user')->name }}
                     </a>
                     <ul class="dropdown-menu dropdown-menu-left" aria-labelledby="userDropdown">
-                        <li><a class="dropdown-item" href="{{ route('profile') }}">Profile</a></li>
+                        <li><a class="dropdown-item " href="{{ route('profile') }}">Profile</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        @if (session('user')->type == 'Admin')
+                        @if (session('user')->type === 'admin')
                             <li><a class="dropdown-item" href="{{ route('admin') }}">Admin </a></li>
                             <li>
                                 <hr class="dropdown-divider">

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
+use Termwind\Components\Dd;
 
 class LoginController extends Controller
 {
@@ -22,7 +24,7 @@ class LoginController extends Controller
 
     public function loginform()
     {
-        return view('login');
+        return view('auth.login');
     }
 
     /**
@@ -45,8 +47,8 @@ class LoginController extends Controller
 
         if ($admin) {
 
-            // Check if the password is correct
-            if ($request->password == $admin->password) {
+            // Check if the password is correct (hashed)
+            if (password_verify($request->password, $admin->password)) {
 
                 // save the user in the session
                 $request->session()->put('user', $admin);
@@ -90,7 +92,7 @@ class LoginController extends Controller
         if (session()->has('user')) {
             // Get the user from the session
             $user = $request->session()->get('user');
-            return view('profile', ['user' => $user]);
+            return view('auth.profile', ['user' => $user]);
         } else {
             // Redirect to the main page
             return redirect()->route('main');
@@ -106,12 +108,63 @@ class LoginController extends Controller
         if (session()->has('user')) {
             // Get the user from the session
             $user = $request->session()->get('user');
-            if ($user->type == 'Admin') {
+            if ($user->type == 'admin') {
                 return view('admin.dashboard');
             } else {
                 // Redirect to the main page
                 return redirect()->route('main');
             }
+        } else {
+            // Redirect to the main page
+            return redirect()->route('main');
+        }
+    }
+
+    /**
+     * Handle an edit profile request to the application.
+     */
+
+    public function edit(Request $request)
+    {
+        if (session()->has('user')) {
+            // Get the user from the session
+            $user = User::find($request->session()->get('user')->id);
+
+            $validated = $request->validate([
+                'name' => ['required', 'string', 'max:100'],
+                'email' => ['required', 'email', 'unique:users,email,' . $user->id],
+                'phone' => ['required', 'string', 'max:20'],
+                'address' => ['required', 'string', 'max:255'],
+                'birthdate' => ['required', 'date'],
+                'image' => ['nullable', 'image', 'max:1024', 'mimes:jpg,jpeg,png'],
+            ]);
+
+            if ($request->hasFile('image')) {
+                // move the file to the public folder
+                $image = $request->file('image');
+                $image->store('public/profiles');
+
+                // Delete the old profile picture
+                if ($user->image) {
+                    unlink(storage_path('app/public/profiles/' . $user->image));
+                }
+
+                // Update the profile picture
+                $user->image = $image->hashName();
+            }
+
+            $user->name = $validated['name'];
+            $user->email = $validated['email'];
+            $user->phone = $validated['phone'];
+            $user->address = $validated['address'];
+            $user->birthdate = $validated['birthdate'];
+            $user->save();
+
+            // Update the user in the session
+            $request->session()->put('user', $user);
+
+            // Redirect to the main page
+            return redirect()->route('profile')->with('success', 'Profile updated successfully!');
         } else {
             // Redirect to the main page
             return redirect()->route('main');

@@ -9,37 +9,39 @@ class User extends Model
 {
     use HasFactory;
 
-    /*
-    * The user has many sessions.
-    * student_id is the foreign key (in the sessions table).
-    * id is the primary key (in the users table).
+    protected $fillable = [
+        'name',
+        'email',
+        'phone',
+        'address',
+        'birthdate',
+        'password',
+        'type',
+        'image',
+    ];
 
-    */
-
-    public function sessions()
+    public function vehicles()
     {
-        return $this->hasMany(Session::class, 'student_id', 'id');
+        return $this->hasMany(Vehicle::class);
     }
-
-    /*
-    * The user has many exams.
-    * student_id is the foreign key (in the exams table).
-    * id is the primary key (in the users table).
-    */
 
     public function exams()
     {
-        return $this->hasMany(Exam::class, 'student_id', 'id');
+        return $this->hasMany(Exam::class);
     }
 
-    /*
-    * The user has many progress.
-    * student_id is the foreign key (in the progress table).
-    * id is the primary key (in the users table).
-    */
-
-    public function progress()
+    public function sessions()
     {
-        return $this->hasMany(Progress::class, 'student_id', 'id');
+        return $this->hasMany(Session::class);
+    }
+
+    public function spendings()
+    {
+        return $this->hasMany(Spending::class);
+    }
+
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
     }
 }

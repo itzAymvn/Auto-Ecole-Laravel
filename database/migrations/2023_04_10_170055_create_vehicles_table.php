@@ -13,11 +13,9 @@ return new class extends Migration
     {
         Schema::create('vehicles', function (Blueprint $table) {
             $table->id();
-            $table->string('make');
-            $table->string('model');
-            $table->integer('year');
-            $table->string('license_plate');
-            $table->string('condition');
+            $table->string('matricule', 20)->unique();
+            $table->string('model', 50);
+            $table->string('image', 200)->nullable();
             $table->timestamps();
         });
     }

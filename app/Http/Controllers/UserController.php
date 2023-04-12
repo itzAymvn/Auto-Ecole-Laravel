@@ -9,103 +9,148 @@ use Termwind\Components\Dd;
 class UserController extends Controller
 {
 
-    /*
-    * Middleware to protect routes.
-    */
-
     public function __construct()
     {
-        $this->middleware('loggedIn');
-        $this->middleware('redirectIfNotAdmin')->only(['index', 'show', 'edit', 'update', 'destroy']);
+        $this->middleware('redirectIfNotAdmin')->only('index', 'create', 'store', 'show', 'edit', 'update', 'destroy');
     }
 
 
-
-    /*
-    * Display all users.
-    */
-
+    /**
+     * Display a listing of the resource.
+     */
     public function index()
     {
-        $users = User::where('type', '!=', 'Admin')->paginate(5);
+        $users = User::paginate(10);
         return view('users.index', compact('users'));
     }
 
-    /*
-    * Display a user.
-    * Display all sessions, exams and progress for a user (if any)
-    */
-
-    public function show(User $user)
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
     {
-        // Paginate the sessions, exams and progress
-
-        $sessions = $user->sessions;
-        $exams = $user->exams;
-        $progress = $user->progress;
-        return view('users.show', compact('user', 'sessions', 'exams', 'progress'));
+        return view('users.create');
     }
 
-    /*
-    * Display a form to edit a user.
-    */
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        // Validate the request
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'phone' => 'required|numeric|digits:10',
+            'address' => 'required',
+            'birthdate' => 'required',
+            'password' => 'required|confirmed',
+            'image' => 'image|mimes:jpeg,png,jpg|max:2048',
+        ]);
 
+        // Check if password and password_confirmation are the same
+        if ($request->password != $request->password_confirmation) {
+            return redirect()->back()->with('error', 'Password and password confirmation are not the same');
+        }
+
+        // Create a new user object
+        $user = new User();
+
+        // Assign the values to the user object
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->phone = $request->phone;
+        $user->address = $request->address;
+        $user->birthdate = $request->birthdate;
+        $user->password = bcrypt($request->password);
+
+        // Check if the request has a file
+        if ($request->hasFile('image')) {
+
+            // Hash the image name and store it in the folder & update the user object
+            $image = $request->image;
+            $image->store('public/profiles');
+            $user->image = $image->hashName();
+        }
+
+        // Save the user object with an error/success message
+        if ($user->save()) {
+            return redirect()->back()->with('success', 'User created successfully');
+        } else {
+            return redirect()->back()->with('error', 'Something went wrong');
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(User $user)
+    {
+        return view('users.show', compact('user'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
     public function edit(User $user)
     {
         return view('users.edit', compact('user'));
     }
 
-    /*
-    * Update a user.
-    */
-
-    public function update(User $user, Request $request)
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, User $user)
     {
-        $request->validate(
-            [
-                'fullname' => 'required',
-                'username' => 'required',
-                'email' => 'required|email',
-                'profile' => 'file|image|max:2000',
-            ]
-        );
+        // Validate the request
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'phone' => 'required|numeric|digits:10',
+            'address' => 'required',
+            'birthdate' => 'required',
+            'image' => 'image|mimes:jpeg,png,jpg|max:2048',
+        ]);
 
-        if ($request->hasFile('profile')) {
-            // move the file to the public folder
-            $profile = $request->file('profile');
-            $profile->store('public/profiles');
+        // Update the user object
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->phone = $request->phone;
+        $user->address = $request->address;
+        $user->birthdate = $request->birthdate;
 
-            // Delete the old profile picture
-            if ($user->profile) {
-                unlink(storage_path('app/public/profiles/' . $user->profile));
+        // Check if the request has a file
+        if ($request->hasFile('image')) {
+
+            // Delete the old image
+            if ($user->image) {
+                unlink(storage_path('app/public/profiles/' . $user->image));
             }
 
-            // Update the profile picture
-            $user->profile = $profile->hashName();
+            // Hash the image name and store it in the folder & update the user object
+            $image = $request->image;
+            $image->store('public/profiles');
+            $user->image = $image->hashName();
         }
 
-        $user->fullname = $request->fullname;
-        $user->username = $request->username;
-        $user->email = $request->email;
-        $user->save();
-
-        return redirect()->route('users.show', $user);
+        // Save the user object with an error/success message
+        if ($user->save()) {
+            return redirect()->back()->with('success', 'User updated successfully');
+        } else {
+            return redirect()->back()->with('error', 'Something went wrong');
+        }
     }
 
-    /*
-    * Delete a user.
-    */
-
+    /**
+     * Remove the specified resource from storage.
+     */
     public function destroy(User $user)
     {
-
-        // Delete the profile picture
-        if ($user->profile) {
-            unlink(storage_path('app/public/profiles/' . $user->profile));
+        // Delete the user object with an error/success message
+        if ($user->delete()) {
+            return redirect()->route('users.index')->with('success', 'User deleted successfully');
+        } else {
+            return redirect()->route('users.index')->with('error', 'Something went wrong');
         }
-
-        $user->delete();
-
-        return redirect()->route('users.index');
     }
 }
