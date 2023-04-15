@@ -1,11 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\SessionController;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\ExamController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\SessionController;
+use App\Http\Controllers\VehicleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,10 +28,10 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout'); # Rou
 
 Route::get('/profile', [LoginController::class, 'profile'])->name('profile'); # Route to the profile page
 
-Route::post('/profile', [LoginController::class, 'edit'])->name('edit-profile'); # Route to the edit profile page
-
-Route::get('/admin', [LoginController::class, 'admin'])->name('admin'); # Route to the admin page (only accessible if logged in as admin)
+Route::post('/profile', [LoginController::class, 'update'])->name('update-profile'); # Route to the edit profile page
 
 
-
-Route::resource('users', UserController::class);
+Route::prefix('dashboard')->group(function () {
+    Route::get('/', [LoginController::class, 'admin'])->name('dashboard'); # Route to the admin page (only accessible if logged in as admin)
+    Route::resource('users', UserController::class);
+});

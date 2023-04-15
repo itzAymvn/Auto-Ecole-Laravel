@@ -10,29 +10,91 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
-        <div class="navbar-nav ms-auto p-4 p-lg-0">
-            <a href="{{ route('main') }}" class="nav-item nav-link active">Accueil</a>
-            <a href="{{ route('main') }}#about-section" class="nav-item nav-link">A Propos</a>
-            <a href="{{ route('main') }}#contact-section" class="nav-item nav-link">Contactez Nous</a>
+        <div class="navbar-nav ms-auto p-4 p-lg-0 align-items-lg-center">
+            <a href="{{ route('main') }}" class="nav-item nav-link {{ request()->routeIs('main') ? 'active' : '' }}">
+                <i class="fas fa-home"></i>
+                <span>Accueil</span>
+            </a>
+            <a href="{{ route('main') }}#about-section" class="nav-item nav-link">
+                <i class="fas fa-info-circle"></i>
+                <span>A propos</span>
+            </a>
+            <a href="{{ route('main') }}#contact-section" class="nav-item nav-link">
+                <i class="fas fa-phone"></i>
+                <span>Contact</span>
+            </a>
+            @if (request()->is('dashboard*'))
+                @if ((session()->has('user') && session('user')->type == 'admin') || session('user')->type == 'superadmin')
+                    <div class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center gap-2" id="dashboardDropdown"
+                            role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa-solid fa-gear"></i>
+                            <span>Gestion</span>
+                        </a>
+
+                        <ul class="dropdown-menu dropdown-menu w-100 border-0 shadow" aria-labelledby="userDropdown">
+                            <li>
+                                <a class="dropdown-item" href="{{ route('users.index') }}">
+                                    <i class="fas fa-users"></i>
+                                    <span>Utilisateurs</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item">
+                                    <i class="fas fa-clipboard-list"></i>
+                                    <span>Examens</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item">
+                                    <i class="fas fa-money-bill-wave"></i>
+                                    <span>Paiements</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                @endif
+            @endif
             @if (session()->has('user'))
                 <div class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                    <a class="nav-link dropdown-toggle d-flex align-items-center gap-2" id="userDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
+                        @if (session('user')->image)
+                            <img src="{{ asset('storage/profiles/' . session('user')->image) }}" alt="user image"
+                                class="rounded-circle" width="30" height="30">
+                        @else
+                            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                                alt="user image" class="rounded-circle" width="30" height="30">
+                        @endif
+
                         {{ session('user')->name }}
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-left" aria-labelledby="userDropdown">
-                        <li><a class="dropdown-item " href="{{ route('profile') }}">Profile</a></li>
+                    <ul class="dropdown-menu dropdown-menu w-100 border-0 shadow" aria-labelledby="userDropdown">
+                        <li>
+                            <a class="dropdown-item " href="{{ route('profile') }}">
+                                <i class="fas fa-user-circle"></i>
+                                <span>Profile</span>
+                            </a>
+                        </li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        @if (session('user')->type === 'admin')
-                            <li><a class="dropdown-item" href="{{ route('admin') }}">Admin </a></li>
+                        @if (session('user')->type === 'admin' || session('user')->type === 'superadmin')
+                            <li>
+                                <a class="dropdown-item" href="{{ route('dashboard') }}">
+                                    <i class="fas fa-user-cog"></i>
+                                    <span>Dashboard</span>
+                                </a>
+                            </li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
                         @endif
                         <li>
-                            <a class="dropdown-item" href="{{ route('logout') }}">Se déconnecter</a>
+                            <a class="dropdown-item" href="{{ route('logout') }}">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Se déconnecter</span>
+                            </a>
                         </li>
                     </ul>
                 </div>
@@ -45,11 +107,3 @@
     </div>
 </nav>
 <!-- Navbar End -->
-
-<style>
-    .dropdown-menu-left {
-        right: auto;
-        left: -50%;
-        width: 150%;
-    }
-</style>

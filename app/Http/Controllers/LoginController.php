@@ -109,7 +109,7 @@ class LoginController extends Controller
             // Get the user from the session
             $user = $request->session()->get('user');
             if ($user->type == 'admin') {
-                return view('admin.dashboard');
+                return view('dashboard.dashboard');
             } else {
                 // Redirect to the main page
                 return redirect()->route('main');
@@ -121,10 +121,10 @@ class LoginController extends Controller
     }
 
     /**
-     * Handle an edit profile request to the application.
+     * Handle an update profile request to the application.
      */
 
-    public function edit(Request $request)
+    public function update(Request $request)
     {
         if (session()->has('user')) {
             // Get the user from the session
@@ -133,7 +133,7 @@ class LoginController extends Controller
             $validated = $request->validate([
                 'name' => ['required', 'string', 'max:100'],
                 'email' => ['required', 'email', 'unique:users,email,' . $user->id],
-                'phone' => ['required', 'string', 'max:20'],
+                'phone' => ['required', 'string', 'max:10'],
                 'address' => ['required', 'string', 'max:255'],
                 'birthdate' => ['required', 'date'],
                 'image' => ['nullable', 'image', 'max:1024', 'mimes:jpg,jpeg,png'],

@@ -16,7 +16,7 @@
             <div>
                 <h1 class="text-center">Bienvenue <span class="text-primary">{{ session('user')->name }}</span>!</h1>
             </div>
-            <div class="row">
+            <div class="row mt-5">
                 <div class="col-md-4">
                     <div class="card shadow-sm">
                         <div class="card-body">
@@ -42,17 +42,15 @@
                     <div class="card shadow-sm">
                         <div class="card-body">
                             <h5 class="mb-3">Mes informations</h5>
-                            <form action="{{ route('profile') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('update-profile') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="mb-3">
-
-
                                             <label for="image" class="form-label">
                                                 @if (session('user')->image)
                                                     <img src="{{ asset('storage/profiles/' . session('user')->image) }}"
-                                                        alt="profile" class="rounded-circle" width="60" height="60">
+                                                        alt="profile" class="rounded-circle" width="100" height="100">
                                                 @else
                                                     <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
                                                         alt="profile" class="rounded-circle" width="60" height="60">

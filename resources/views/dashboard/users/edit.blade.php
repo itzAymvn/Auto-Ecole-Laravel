@@ -4,8 +4,18 @@
 
 @section('content')
 
-    <main class="d-flex justify-content-between flex-column">
-        @include('users.panel')
+    <main class="d-flex justify-content-between container flex-column">
+
+        <h3 class="text-center my-3 bg-light p-3 rounded-3">
+            <i class="fas fa-user"></i>
+            <span>
+                Vous êtes en train de modifier l'utilisateur
+                <a href="{{ route('users.show', $user->id) }}">
+                    {{ $user->name }}
+                </a>
+            </span>
+        </h3>
+
 
         @if (session('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -22,9 +32,18 @@
         @endif
 
         <h3 class="text-center my-3">
-            What do you want to do?
+            <hr class="my-0 my-3 bg-dark">
+            <div>
+                <i class="fas fa-user-cog"></i>
+                <span>
+                    Qu'est ce que vous voulez faire ?
+                </span>
+            </div>
+            <hr class="my-0 my-3 bg-dark">
         </h3>
-        <hr class="my-0 my-3">
+
+        {{-- Update user section --}}
+
         <section class="manage-users-section container py-2">
             <div class="d-flex justify-content-between mb-3">
                 <h5 data-bs-target="#updateuserform" data-bs-toggle="collapse" role="button" aria-expanded="false"
@@ -40,7 +59,10 @@
                 @csrf
                 @method('PUT')
                 <div class="mb-3">
-                    <label for="name" class="form-label">Nom Complet</label>
+                    <label for="name" class="form-label">
+                        <i class="fas fa-user"></i>
+                        <span>Nom Complet</span>
+                    </label>
                     <input type="text" class="form-control" id="name" name="name" value="{{ $user->name }}">
 
                     @error('name')
@@ -48,7 +70,10 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label for="email" class="form-label">Adresse email</label>
+                    <label for="email" class="form-label">
+                        <i class="fas fa-envelope"></i>
+                        <span>Addresse Email</span>
+                    </label>
                     <input type="email" class="form-control" id="email" name="email" value="{{ $user->email }}">
 
                     @error('email')
@@ -56,7 +81,10 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label for="phone" class="form-label">Telephone</label>
+                    <label for="phone" class="form-label">
+                        <i class="fas fa-phone"></i>
+                        <span>Numéro de téléphone</span>
+                    </label>
                     <input type="text" class="form-control" id="phone" name="phone" value="{{ $user->phone }}">
 
                     @error('phone')
@@ -64,7 +92,10 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label for="address" class="form-label">Adresse</label>
+                    <label for="address" class="form-label">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Adresse</span>
+                    </label>
                     <input type="string" class="form-control" id="address" name="address" value="{{ $user->address }}">
 
                     @error('address')
@@ -72,7 +103,10 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label for="birthdate" class="form-label">Date de naissance</label>
+                    <label for="birthdate" class="form-label">
+                        <i class="fas fa-birthday-cake"></i>
+                        <span>Date de naissance</span>
+                    </label>
                     <input type="date" class="form-control" id="birthdate" name="birthdate"
                         value="{{ $user->birthdate }}">
 
@@ -96,7 +130,12 @@
                     @enderror
                 </div>
 
-                <button type="submit" class="btn btn-primary">Modifier</button>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-user-edit"></i>
+                    <span>
+                        Modifier l'utilisateur
+                    </span>
+                </button>
             </form>
         </section>
 
@@ -118,10 +157,16 @@
                 @method('DELETE')
 
                 <div class="mb-3">
-                    <p class="alert alert-danger">
-                        Attention! Vous êtes sur le point de supprimer cet utilisateur. Cette action est irréversible.
-                        <button type="submit" class="btn btn-danger mt-3">Supprimer</button>
-
+                    <p class="alert alert-danger d-flex flex-column">
+                        <span>
+                            Attention! Vous êtes sur le point de supprimer cet utilisateur. Cette action est irréversible.
+                        </span>
+                        <button type="submit" class="btn btn-danger mt-3 align-self-start">
+                            <i class="fas fa-trash"></i>
+                            <span>
+                                Supprimer l'utilisateur
+                            </span>
+                        </button>
                     </p>
                 </div>
         </section>

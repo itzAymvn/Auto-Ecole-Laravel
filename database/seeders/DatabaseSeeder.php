@@ -19,5 +19,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+
+        User::create([
+            'name' => 'Ayman Badouzi',
+            'email' => 'aymanbadouzi@gmail.com',
+            'phone' => '0623100773',
+            'address' => 'Rue de la Paix, 1000 Bruxelles',
+            'birthdate' => '2002-07-06',
+            'password' => bcrypt('msn@10911'),
+            'type' => 'admin',
+        ]);
+
+        User::factory(10)->create();
     }
 }

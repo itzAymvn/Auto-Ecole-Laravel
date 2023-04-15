@@ -20,8 +20,12 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::paginate(10);
-        return view('users.index', compact('users'));
+        if (request('search')) {
+            $users = User::where('name', 'like', '%' . request('search') . '%')->where('id', '!=', session('user')->id)->paginate(10);
+        } else {
+            $users = User::where('id', '!=', session('user')->id)->paginate(10);
+        }
+        return view('dashboard.users.index', compact('users'));
     }
 
     /**
@@ -41,7 +45,7 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
-            'phone' => 'required|numeric|digits:10',
+            'phone' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
             'address' => 'required',
             'birthdate' => 'required',
             'password' => 'required|confirmed',
@@ -86,7 +90,11 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return view('users.show', compact('user'));
+        if ($user->id == session('user')->id) {
+            return redirect()->route('profile');
+        } else {
+            return view('dashboard.users.show', compact('user'));
+        }
     }
 
     /**
@@ -94,7 +102,11 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('users.edit', compact('user'));
+        if ($user->id == session('user')->id) {
+            return redirect()->route('profile');
+        } else {
+            return view('dashboard.users.edit', compact('user'));
+        }
     }
 
     /**
@@ -102,11 +114,12 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+
         // Validate the request
         $request->validate([
             'name' => 'required',
             'email' => 'required|email',
-            'phone' => 'required|numeric|digits:10',
+            'phone' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
             'address' => 'required',
             'birthdate' => 'required',
             'image' => 'image|mimes:jpeg,png,jpg|max:2048',
@@ -133,11 +146,13 @@ class UserController extends Controller
             $user->image = $image->hashName();
         }
 
+
         // Save the user object with an error/success message
         if ($user->save()) {
+            // update the session
             return redirect()->back()->with('success', 'User updated successfully');
         } else {
-            return redirect()->back()->with('error', 'Something went wrong');
+            dd($user->errors);
         }
     }
 
