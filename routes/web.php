@@ -18,20 +18,30 @@ use App\Http\Controllers\VehicleController;
 |
 */
 
+// Main page
 Route::view('/', 'main')->name('main');
 
-Route::get('/login', [LoginController::class, 'loginform'])->name('login-form'); # Route to the login form
+// Login Form
+Route::get('/login', [LoginController::class, 'loginform'])->name('login-form');
 
-Route::post('/login', [LoginController::class, 'authenticate'])->name('login'); # Route to actually log in
+// Authentication
+Route::post('/login', [LoginController::class, 'authenticate'])->name('login');
 
-Route::get('/logout', [LoginController::class, 'logout'])->name('logout'); # Route to log out
+// Logout
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::get('/profile', [LoginController::class, 'profile'])->name('profile'); # Route to the profile page
+// Profile page
+Route::get('/profile', [LoginController::class, 'profile'])->name('profile');
 
-Route::post('/profile', [LoginController::class, 'update'])->name('update-profile'); # Route to the edit profile page
+// Update profile
+Route::post('/profile', [LoginController::class, 'update'])->name('update-profile');
 
 
-Route::prefix('dashboard')->group(function () {
-    Route::get('/', [LoginController::class, 'admin'])->name('dashboard'); # Route to the admin page (only accessible if logged in as admin)
+// Dashboard (only accessible if logged in as admin)
+Route::prefix('dashboard')->middleware(['authenticated', 'admin'])->group(function () {
+    // Dashboard: /dashboard
+    Route::get('/', [LoginController::class, 'dashboard'])->name('dashboard');
+
+    // Users: /dashboard/users
     Route::resource('users', UserController::class);
 });

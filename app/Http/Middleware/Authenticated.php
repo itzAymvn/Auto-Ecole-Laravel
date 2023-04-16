@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class redirectIfNotAdmin
+class Authenticated
 {
     /**
      * Handle an incoming request.
@@ -15,8 +15,8 @@ class redirectIfNotAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (session()->get('user')->type != 'admin') {
-            abort(403, 'You are not allowed to access this page');
+        if (!session()->has('user')) {
+            return redirect()->route('login');
         }
         return $next($request);
     }

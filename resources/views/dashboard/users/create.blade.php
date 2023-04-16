@@ -5,7 +5,6 @@
 @section('content')
 
     <main class="d-flex justify-content-between flex-column">
-        @include('users.panel')
         <section class="manage-users-section container py-5">
 
             @if (session('success'))
@@ -44,7 +43,7 @@
                     </label>
                     <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}">
 
-                    @error('name')
+                    @error('email')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
@@ -59,7 +58,7 @@
                 <div class="mb-3">
                     <label for="address" class="form-label">Adresse</label>
                     <input type="string" class="form-control" id="address" name="address" value="{{ old('address') }}">
-                    @error('email')
+                    @error('address')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
@@ -90,7 +89,7 @@
                     <select class="form-select" aria-label="Default select example" name="type">
                         <option value="admin">Admin</option>
                         <option value="instructor">Instructor</option>
-                        <option value="student">Student</option>
+                        <option value="student" selected>Student</option>
                     </select>
                     @error('type')
                         <div class="alert alert-danger">{{ $message }}</div>

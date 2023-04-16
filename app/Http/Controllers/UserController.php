@@ -4,16 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Termwind\Components\Dd;
 
 class UserController extends Controller
 {
-
-    public function __construct()
-    {
-        $this->middleware('redirectIfNotAdmin')->only('index', 'create', 'store', 'show', 'edit', 'update', 'destroy');
-    }
-
 
     /**
      * Display a listing of the resource.
@@ -33,7 +26,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('users.create');
+        return view('dashboard.users.create');
     }
 
     /**
@@ -114,7 +107,6 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-
         // Validate the request
         $request->validate([
             'name' => 'required',
@@ -157,7 +149,7 @@ class UserController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Delete the user from the database
      */
     public function destroy(User $user)
     {

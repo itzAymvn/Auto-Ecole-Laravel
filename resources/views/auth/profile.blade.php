@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <section class="profile-section py-1">
+    <section class="profile-section py-3">
 
         <div class="container">
             @if (session()->has('success'))
@@ -13,6 +13,14 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
+
+            @if (session()->has('error'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ session('error') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+
             <div>
                 <h1 class="text-center">Bienvenue <span class="text-primary">{{ session('user')->name }}</span>!</h1>
             </div>
