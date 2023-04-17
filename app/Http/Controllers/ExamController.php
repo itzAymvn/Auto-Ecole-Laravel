@@ -62,17 +62,18 @@ class ExamController extends Controller
         // Save the exam
         $exam->save();
 
-        // Get the students ids (not all of them exist)
+        // Get the students ids that are in the request
         $students = [];
         foreach ($request->all() as $key => $value) {
             if (strpos($key, 'student_id_') !== false) {
-                if ($value != "Choisir un étudiant") {
+                if (preg_match('/[0-9]+/', $value)) {
                     $students[] = $value;
                 }
             }
         }
 
-        $exam->user()->sync($students);
+        // Attach the students to the exam
+        $exam->user()->attach($students);
 
         // Redirect to the exams index page
         return redirect()->route('exams.index')->with('success', 'Exam created successfully');
@@ -91,6 +92,18 @@ class ExamController extends Controller
 
         // Redirect to the exams show page
         return view('dashboard.exams.show', compact('exam', 'instructor', 'vehicle', 'students'));
+    }
+
+    /**
+     * Remove a student from an exam
+     */
+
+    public function removeStudent(Request $request)
+    {
+        $exam = Exam::find($request->exam_id);
+        $exam->user()->detach($request->student_id);
+
+        return redirect()->route('exams.show', $exam->id)->with('success', 'Student removed from exam successfully');
     }
 
     /**
