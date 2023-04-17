@@ -1,6 +1,6 @@
 @extends('layout.layout')
 
-@section('title', 'Edit User')
+@section('title', 'Modifier l\'utilisateur')
 
 @section('content')
 

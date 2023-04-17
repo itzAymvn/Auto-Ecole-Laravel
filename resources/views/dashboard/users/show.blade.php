@@ -1,6 +1,6 @@
 @extends('layout.layout')
 
-@section('title', 'Viewing User ID: ' . $user->id)
+@section('title', 'Page d\'utilisateur')
 
 @section('content')
 
@@ -15,7 +15,7 @@
                         Viewing User: <span class="text-primary">{{ $user->name }}</span>
                     </span>
 
-                    <a href="{{ route('users.index') }}" class="btn btn-primary float-end">Retour</a>
+                    <a href="{{ redirect()->back()->getTargetUrl() }}" class="btn btn-primary float-end">Retour</a>
                 </h1>
                 <table class="table">
                     <tbody>

@@ -1,6 +1,6 @@
 @extends('layout.layout')
 
-@section('title', 'Manage Users')
+@section('title', 'Gérer les utilisateurs')
 
 @section('content')
     <main class="d-flex justify-content-between flex-row">

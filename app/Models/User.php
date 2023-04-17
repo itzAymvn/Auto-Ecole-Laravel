@@ -27,7 +27,7 @@ class User extends Model
 
     public function exams()
     {
-        return $this->belongsToMany(Exam::class);
+        return $this->belongsToMany(Exam::class)->withTimestamps();
     }
 
     public function sessions()

@@ -44,4 +44,7 @@ Route::prefix('dashboard')->middleware(['authenticated', 'admin'])->group(functi
 
     // Users: /dashboard/users
     Route::resource('users', UserController::class);
+
+    // Exams: /dashboard/exams
+    Route::resource('exams', ExamController::class);
 });

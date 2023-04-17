@@ -40,7 +40,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item">
+                                <a class="dropdown-item" href="{{ route('exams.index') }}">
                                     <i class="fas fa-clipboard-list"></i>
                                     <span>Examens</span>
                                 </a>

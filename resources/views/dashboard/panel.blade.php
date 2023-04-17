@@ -9,7 +9,7 @@
             class="btn btn-primary btn-block flex-grow-1 mb-3 {{ request()->routeIs('users.*') ? 'btn-secondary' : '' }}">
             Manage Users
         </a>
-        <a class="btn btn-primary btn-block flex-grow-1 mb-3">
+        <a href="{{ route('exams.index') }}" class="btn btn-primary btn-block flex-grow-1 mb-3">
             Manage Sessions
         </a>
         <a class="btn btn-primary btn-block flex-grow-1 mb-3">

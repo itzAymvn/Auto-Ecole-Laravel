@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
+        // 1 admin
         User::create([
             'name' => 'Ayman Badouzi',
             'email' => 'aymanbadouzi@gmail.com',
@@ -29,6 +30,24 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('msn@10911'),
             'type' => 'admin',
         ]);
+
+        // 1 instructor
+        User::create([
+            'name' => 'Anaïs Van der Veken',
+            'email' => 'anais@gmail.com',
+            'phone' => '0623100783',
+            'address' => 'Rue druxelles',
+            'birthdate' => '2002-07-06',
+            'password' => bcrypt('msn@10911'),
+            'type' => 'instructor',
+        ]);
+
+        // 1 vehicle
+        Vehicle::create([
+            'matricule' => '1-ABC-123',
+            'model' => 'Peugeot 208',
+        ]);
+
 
         User::factory(10)->create();
     }
