@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Crud;
+use App\Http\Controllers\Controller;
 
-use App\Models\Spending;
+use App\Models\Session;
 use Illuminate\Http\Request;
 
-class SpendingController extends Controller
+class SessionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +35,7 @@ class SpendingController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Spending $spending)
+    public function show(Session $session)
     {
         //
     }
@@ -42,7 +43,7 @@ class SpendingController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Spending $spending)
+    public function edit(Session $session)
     {
         //
     }
@@ -50,7 +51,7 @@ class SpendingController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Spending $spending)
+    public function update(Request $request, Session $session)
     {
         //
     }
@@ -58,7 +59,7 @@ class SpendingController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Spending $spending)
+    public function destroy(Session $session)
     {
         //
     }

@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Crud;
+
+use App\Http\Controllers\Controller;
 
 use App\Models\Vehicle;
 use Illuminate\Http\Request;

@@ -1,13 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Storage;
-use Termwind\Components\Dd;
 
 class LoginController extends Controller
 {
@@ -15,14 +12,14 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('authenticated')->only('logout', 'profile', 'update');
-        $this->middleware('redirectIfLogged')->only('loginform', 'authenticate');
+        $this->middleware('redirectIfLogged')->only('show', 'login');
     }
 
     /**
      * Handle a login request to the application.
      */
 
-    public function loginform()
+    public function show()
     {
         return view('auth.login');
     }
@@ -30,36 +27,24 @@ class LoginController extends Controller
     /**
      * Handle an authentication attempt.
      */
-    public function authenticate(Request $request)
+    public function login(Request $request)
     {
 
         $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
+        $user = User::where('email', $request->email)->first();
 
-        // Check if the email exists in the database
-        $admin = User::where('email', $request->email)->first();
-
-        if ($admin) {
-
-            // Check if the password is correct (hashed)
-            if (password_verify($request->password, $admin->password)) {
-
-                // save the user in the session
-                $request->session()->put('user', $admin);
-
-                // Redirect to the main page
+        if ($user) {
+            if (password_verify($request->password, $user->password)) {
+                $request->session()->put('user', $user);
                 return redirect()->route('main');
             } else {
-
-                // Redirect back to the login page with an error message
-                return redirect()->route('login-form')->withInput()->withErrors(['password' => 'Did you forget your password?']);
+                return redirect()->route('login')->withInput()->withErrors(['password' => 'Did you forget your password?']);
             }
         } else {
-
-            // Redirect back to the login page with an error message
-            return redirect()->route('login-form')->withInput()->withErrors(['email' => 'This email does not exist in our database']);
+            return redirect()->route('login')->withInput()->withErrors(['email' => 'This email does not exist in our database']);
         }
     }
 
@@ -69,10 +54,7 @@ class LoginController extends Controller
 
     public function logout(Request $request)
     {
-        // Remove the user from the session
         $request->session()->forget('user');
-
-        // Redirect to the main page
         return redirect()->route('main');
     }
 
@@ -101,7 +83,6 @@ class LoginController extends Controller
 
     public function update(Request $request)
     {
-        // Get the user from the session
         $user = User::find($request->session()->get('user')->id);
 
         $validated = $request->validate([

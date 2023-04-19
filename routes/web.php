@@ -1,11 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ExamController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\SessionController;
-use App\Http\Controllers\VehicleController;
+
+use App\Http\Controllers\Auth\LoginController;
+
+use App\Http\Controllers\Crud\UserController;
+use App\Http\Controllers\Crud\ExamController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,33 +18,16 @@ use App\Http\Controllers\VehicleController;
 |
 */
 
-// Main page
 Route::view('/', 'main')->name('main');
-
-// Login Form
-Route::get('/login', [LoginController::class, 'loginform'])->name('login-form');
-
-// Authentication
-Route::post('/login', [LoginController::class, 'authenticate'])->name('login');
-
-// Logout
+Route::get('/login', [LoginController::class, 'show'])->name('login');
+Route::post('/login', [LoginController::class, 'login'])->name('login');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
-
-// Profile page
 Route::get('/profile', [LoginController::class, 'profile'])->name('profile');
-
-// Update profile
 Route::post('/profile', [LoginController::class, 'update'])->name('update-profile');
 
-
-// Dashboard (only accessible if logged in as admin)
+// Dashboard
 Route::prefix('dashboard')->middleware(['authenticated', 'admin'])->group(function () {
-    // Dashboard: /dashboard
     Route::get('/', [LoginController::class, 'dashboard'])->name('dashboard');
-
-    // Users: /dashboard/users
     Route::resource('users', UserController::class);
-
-    // Exams: /dashboard/exams
     Route::resource('exams', ExamController::class);
 });
