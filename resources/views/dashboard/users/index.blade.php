@@ -70,7 +70,9 @@
                                         <td><img src="{{ asset('storage/profiles/' . $user->image) }}" alt="Image"
                                                 width="50" height="50">
                                         @endempty
-                                    <td class="align-middle">{{ $user->name }}</td>
+                                    <td class="align-middle">
+                                        <a href="{{ route('users.show', $user->id) }}">{{ $user->name }}</a>
+                                    </td>
                                     <td class="align-middle">{{ $user->email }}</td>
                                     <td class="align-middle">{{ $user->phone }}</td>
                                     <td class="align-middle">{{ $user->address }}</td>
@@ -98,7 +100,7 @@
                     </table>
                 </div>
 
-                <div class="d-flex justify-content-center">
+                <div class="d-flex justify-content-center mt-3">
                     {{ $users->links() }}
                 </div>
             @else

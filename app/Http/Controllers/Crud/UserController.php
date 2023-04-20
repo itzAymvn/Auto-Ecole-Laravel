@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers\Crud;
-use App\Http\Controllers\Controller;
-
 use App\Models\User;
+
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -15,9 +16,9 @@ class UserController extends Controller
     public function index()
     {
         if (request('search')) {
-            $users = User::where('name', 'like', '%' . request('search') . '%')->where('id', '!=', session('user')->id)->paginate(10);
+            $users = User::where('name', 'like', '%' . request('search') . '%')->where('id', '!=', Auth::user()->id)->paginate(10);
         } else {
-            $users = User::where('id', '!=', session('user')->id)->paginate(10);
+            $users = User::where('id', '!=', Auth::user()->id)->paginate(10);
         }
         return view('dashboard.users.index', compact('users'));
     }
@@ -84,7 +85,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        if ($user->id == session('user')->id) {
+        if ($user->id == Auth::user()->id) {
             return redirect()->route('profile');
         } else {
             return view('dashboard.users.show', compact('user'));
@@ -96,7 +97,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        if ($user->id == session('user')->id) {
+        if ($user->id == Auth::user()->id) {
             return redirect()->route('profile');
         } else {
             return view('dashboard.users.edit', compact('user'));

@@ -2,10 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\ProfileController;
+use App\Http\Controllers\Auth\AuthController;
 
-use App\Http\Controllers\Crud\UserController;
 use App\Http\Controllers\Crud\ExamController;
+use App\Http\Controllers\Crud\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,15 +20,19 @@ use App\Http\Controllers\Crud\ExamController;
 */
 
 Route::view('/', 'main')->name('main');
-Route::get('/login', [LoginController::class, 'show'])->name('login');
-Route::post('/login', [LoginController::class, 'login'])->name('login');
-Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
-Route::get('/profile', [LoginController::class, 'profile'])->name('profile');
-Route::post('/profile', [LoginController::class, 'update'])->name('update-profile');
+
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
+Route::post('/profile', [ProfileController::class, 'update'])->name('update-profile');
 
 // Dashboard
-Route::prefix('dashboard')->middleware(['authenticated', 'admin'])->group(function () {
-    Route::get('/', [LoginController::class, 'dashboard'])->name('dashboard');
+Route::prefix('dashboard')->middleware(['auth', 'admin'])->group(function () {
+    Route::get('/', function () {
+        return view('dashboard.index');
+    })->name('dashboard');
     Route::resource('users', UserController::class);
     Route::resource('exams', ExamController::class);
 });

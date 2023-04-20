@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Crud;
+
 use App\Http\Controllers\Controller;
 
 use App\Models\Exam;
@@ -16,6 +17,11 @@ class ExamController extends Controller
     public function index()
     {
         $exams = Exam::all();
+        // for each exam, get the instructor name and number of students
+        foreach ($exams as $exam) {
+            $exam->students_count = $exam->user->count();
+            $exam->instructor_name = User::find($exam->instructor_id)->name;
+        }
         return view('dashboard.exams.index', compact('exams'));
     }
 

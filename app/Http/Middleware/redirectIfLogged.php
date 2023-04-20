@@ -17,8 +17,8 @@ class redirectIfLogged
     {
 
         // Check if user is already logged in
-        if (session()->has('user')) {
-            return redirect()->route('main');
+        if (auth()->check()) {
+            return redirect()->back();
         }
 
         return $next($request);

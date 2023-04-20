@@ -1,4 +1,4 @@
- <!-- Start of copyright section -->
+ <!-- Copyright section -->
  <div class="container-fluid copyright text-light py-4">
      <div class="container">
          <div class="row">
@@ -8,8 +8,8 @@
          </div>
      </div>
  </div>
- <!-- End of copyright section -->
 
  <!-- Back to Top Button -->
- <a href="#" class="btn btn-lg btn-primary btn-lg-square d-flex align-items-center back-to-top rounded-circle"><i
-         class="bi bi-arrow-up"></i></a>
+ <a href="#" class="btn btn-lg btn-primary btn-lg-square d-flex align-items-center back-to-top rounded-circle">
+     <i class="bi bi-arrow-up"></i>
+ </a>

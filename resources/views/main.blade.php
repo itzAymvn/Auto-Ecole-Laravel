@@ -3,7 +3,7 @@
 @section('title', 'Auto-école')
 
 @section('content')
-    <!-- Carousel Start -->
+    <!-- Carousel -->
     <section class="container-fluid p-0">
         <div id="header-carousel" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
@@ -48,9 +48,8 @@
             </button>
         </div>
     </section>
-    <!-- Carousel End -->
 
-    <!-- Start of summary section -->
+    <!-- Summary section -->
     <section class="container-fluid facts py-5 pt-lg-0">
         <div class="container py-5 pt-lg-0">
             <div class="row gx-0">
@@ -100,9 +99,8 @@
             </div>
         </div>
     </section>
-    <!-- End of summary section -->
 
-    <!-- Start of about section -->
+    <!-- About section -->
     <section class="container-xxl py-6" id="about-section">
         <div class="container">
             <div class="row g-5">
@@ -143,9 +141,8 @@
             </div>
         </div>
     </section>
-    <!-- End of about section -->
 
-    <!-- Start of features -->
+    <!-- Features -->
     <section class="container-xxl py-6">
         <div class="container">
             <div class="row g-5">
@@ -208,9 +205,8 @@
             </div>
         </div>
     </section>
-    <!-- End of Features section -->
 
-    <!-- Start of contact section -->
+    <!-- Contact section -->
     <section class="container-xxl py-6" id="contact-section">
         <div class="container">
             <div class="col-lg-6">
@@ -263,5 +259,4 @@
             </div>
         </div>
     </section>
-    <!-- End of contact section -->
 @endsection

@@ -41,6 +41,8 @@
                                 <th scope="col">Vehicle ID</th> --}}
                                 <th scope="col">Type</th>
                                 <th scope="col">Title</th>
+                                <th scope="col">Instructor</th>
+                                <th scope="col">Student</th>
                                 <th scope="col">Date</th>
                                 <th scope="col">Time</th>
                                 <th scope="col">Location</th>
@@ -53,10 +55,20 @@
                             @foreach ($exams as $exam)
                                 <tr>
                                     <th scope="row">{{ $exam->id }}</th>
-                                    {{-- <td>{{ $exam->instructor_id }}</td>
-                                    <td>{{ $exam->vehicle_id }}</td> --}}
                                     <td>{{ $exam->exam_type }}</td>
-                                    <td>{{ $exam->exam_title }}</td>
+                                    <td>
+                                        <a href="{{ route('exams.show', $exam->id) }}">
+                                            {{ $exam->exam_title }}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('users.show', $exam->instructor_id) }}">
+                                            {{ $exam->instructor_name }}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        {{ $exam->students_count }}/5
+                                    </td>
                                     <td>{{ $exam->exam_date }}</td>
                                     <td>{{ $exam->exam_time }}</td>
                                     <td>{{ $exam->exam_location }}</td>

@@ -50,7 +50,9 @@
                         </tr>
                         <tr>
                             <td><strong>Date & Time:</strong></td>
-                            <td>{{ $exam->exam_date }} at {{ $exam->exam_time }}</td>
+                            <td>
+                                {{ $exam->exam_date }} at {{ $exam->exam_time }}
+                            </td>
                     </tbody>
                 </table>
             </div>

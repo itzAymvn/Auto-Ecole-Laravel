@@ -1,5 +1,4 @@
-<!-- Navbar Start -->
-
+<!-- Navbar -->
 <nav class="w-100 navbar navbar-expand-lg bg-white navbar-light sticky-top p-0 shadow-sm">
     <a href="{{ route('main') }}" class="navbar-brand d-flex align-items-center border-end px-4 px-lg-5">
         <h2 class="m-0">
@@ -24,7 +23,7 @@
                 <span>Contact</span>
             </a>
             @if (request()->is('dashboard*'))
-                @if ((session()->has('user') && session('user')->type == 'admin') || session('user')->type == 'superadmin')
+                @if ((Auth::user() && Auth::user()->type == 'admin') || Auth::user()->type == 'superadmin')
                     <div class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle d-flex align-items-center gap-2" id="dashboardDropdown"
                             role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -55,19 +54,21 @@
                     </div>
                 @endif
             @endif
-            @if (session()->has('user'))
+            @if (Auth::check())
                 <div class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle d-flex align-items-center gap-2" id="userDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                        @if (session('user')->image)
-                            <img src="{{ asset('storage/profiles/' . session('user')->image) }}" alt="user image"
+                        @if (Auth::user()->image)
+                            <img src="{{ asset('storage/profiles/' . Auth::user()->image) }}" alt="user image"
                                 class="rounded-circle" width="30" height="30">
                         @else
                             <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
                                 alt="user image" class="rounded-circle" width="30" height="30">
                         @endif
 
-                        {{ session('user')->name }}
+                        <div>
+                            {{ Auth::user()->name }}
+                        </div>
                     </a>
                     <ul class="dropdown-menu dropdown-menu w-100 border-0 shadow" aria-labelledby="userDropdown">
                         <li>
@@ -79,7 +80,7 @@
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        @if (session('user')->type === 'admin' || session('user')->type === 'superadmin')
+                        @if (Auth::user()->type === 'admin' || Auth::user()->type === 'superadmin')
                             <li>
                                 <a class="dropdown-item" href="{{ route('dashboard') }}">
                                     <i class="fas fa-user-cog"></i>
@@ -106,4 +107,3 @@
         </div>
     </div>
 </nav>
-<!-- Navbar End -->

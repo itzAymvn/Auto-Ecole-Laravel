@@ -22,19 +22,17 @@
 
 <body class="d-flex flex-column vh-100 justify-content-between">
 
-    <!-- Spinner Start -->
+    <!-- Spinner -->
     <div id="spinner"
         class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
         <div class="spinner-grow text-primary" role="status"></div>
     </div>
-    <!-- Spinner End -->
 
     @include('layout.header')
 
     @yield('content')
 
     @include('layout.footer')
-
 
     @stack('scripts')
     <!-- Importing Necessary Javascript Files -->
