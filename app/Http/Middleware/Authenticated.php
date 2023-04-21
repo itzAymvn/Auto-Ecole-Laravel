@@ -16,7 +16,7 @@ class Authenticated
     public function handle(Request $request, Closure $next): Response
     {
         if (!session()->has('user')) {
-            return redirect()->route('login');
+            return redirect()->route('login-show');
         }
         return $next($request);
     }

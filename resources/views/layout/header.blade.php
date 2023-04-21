@@ -100,7 +100,7 @@
                     </ul>
                 </div>
             @else
-                <a href="{{ route('login') }}" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Se
+                <a href="{{ route('login-show') }}" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Se
                     connecter</a>
             @endif
 

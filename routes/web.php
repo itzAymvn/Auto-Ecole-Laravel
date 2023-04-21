@@ -21,7 +21,7 @@ use App\Http\Controllers\Crud\UserController;
 
 Route::view('/', 'main')->name('main');
 
-Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login-show');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
@@ -30,9 +30,8 @@ Route::post('/profile', [ProfileController::class, 'update'])->name('update-prof
 
 // Dashboard
 Route::prefix('dashboard')->middleware(['auth', 'admin'])->group(function () {
-    Route::get('/', function () {
-        return view('dashboard.index');
-    })->name('dashboard');
+    Route::view('/', 'dashboard.index')->name('dashboard');
     Route::resource('users', UserController::class);
     Route::resource('exams', ExamController::class);
+    Route::post('/exams/updateResult', [ExamController::class, 'updateResult'])->name('exams.updateResult');        
 });

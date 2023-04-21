@@ -118,7 +118,13 @@ class ExamController extends Controller
      */
     public function edit(Exam $exam)
     {
-        //
+        $exam = Exam::with('user')->find($exam->id);
+        $instructors = User::where('type', 'instructor')->get();
+        $exam_students = $exam->user;
+        $vehicles = Vehicle::all();
+
+        // Redirect to the exams show page
+        return view('dashboard.exams.edit', compact('exam', 'instructors', 'vehicles', 'exam_students'));
     }
 
     /**
@@ -135,5 +141,26 @@ class ExamController extends Controller
     public function destroy(Exam $exam)
     {
         //
+    }
+
+    public function addStudent(Request $request)
+    {
+        $exam = Exam::find($request->exam_id);
+        $exam->user()->attach($request->student_id);
+
+        return redirect()->route('exams.show', $exam->id)->with('success', 'Student added to exam successfully');
+    }
+
+    public function updateResult(Request $request)
+    {
+        // Validate the request
+        $request->validate([
+            'result' => 'required|numeric|min:0|max:100',
+        ]);
+
+        $exam = Exam::findOrFail($request->exam_id);
+        $exam->user()->updateExistingPivot($request->student_id, ['result' => $request->result]);
+
+        return redirect()->back()->with('success', 'Result updated successfully');          
     }
 }

@@ -65,46 +65,49 @@
                         <span class="text-primary">{{ $students->count() }}/5</span>
                     </span>
                 </h1>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Phone</th>
-                            <th>Address</th>
-                            <th>Birthdate</th>
-                            <th>Type</th>
-                            <th>Image</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($students as $user)
+                <div class="table-responsive table-responsive-md">
+                    <table class="table table-responsive">
+                        <thead>
                             <tr>
-                                <td>{{ $user->id }}</td>
-                                <td>
-                                    <a href="{{ route('users.show', $user->id) }}">{{ $user->name }}</a>
-                                </td>
-                                <td>{{ $user->email }}</td>
-                                <td>{{ $user->phone }}</td>
-                                <td>{{ $user->address }}</td>
-                                <td>{{ $user->birthdate }}</td>
-                                <td>{{ $user->type }}</td>
-                                <td>
-                                    @empty($user->image)
-                                        <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-                                            alt="Image" width="50" height="50">
-                                    @else
-                                        <img src="{{ asset('storage/profiles/' . $user->image) }}" alt="Image"
-                                            width="50" height="50">
-                                    @endempty
-                                </td>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Address</th>
+                                <th>Birthdate</th>
+                                <th>Resultat</th>
+                                <th>Image</th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach ($students as $user)
+                                <tr>
+                                    <td>{{ $user->id }}</td>
+                                    <td>
+                                        <a href="{{ route('users.show', $user->id) }}">{{ $user->name }}</a>
+                                    </td>
+                                    <td>{{ $user->email }}</td>
+                                    <td>{{ $user->phone }}</td>
+                                    <td>{{ $user->address }}</td>
+                                    <td>{{ $user->birthdate }}</td>
+                                    <td>{{ $user->pivot->result }}</td>
+                                    <td>
+                                        @empty($user->image)
+                                            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                                                alt="Image" width="50" height="50">
+                                        @else
+                                            <img src="{{ asset('storage/profiles/' . $user->image) }}" alt="Image"
+                                                width="50" height="50">
+                                        @endempty
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
+        <a href="{{ route('exams.edit', $exam->id) }}" class="btn btn-primary">Edit</a> 
     </div>
 
 @endsection
