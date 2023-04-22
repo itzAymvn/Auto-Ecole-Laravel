@@ -23,9 +23,11 @@ window.addEventListener("scroll", function () {
 // Back to top button
 window.addEventListener("scroll", function () {
     if (window.pageYOffset > 300) {
-        backToTop.style.display = "block";
+        backToTop.classList.remove("d-none");
+        backToTop.classList.add("d-flex");
     } else {
-        backToTop.style.display = "none";
+        backToTop.classList.remove("d-flex");
+        backToTop.classList.add("d-none");
     }
 });
 

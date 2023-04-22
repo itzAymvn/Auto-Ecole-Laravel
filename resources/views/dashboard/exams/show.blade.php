@@ -5,24 +5,27 @@
 @section('content')
 
     <div class="container mt-3 mb-5">
-        {{-- 2 section, exam data & exam users --}}
-        <div class="row">
+        <div class="row mb-3">
             <div class="col-md-12">
-                <h1>
-                    <span>
-                        Viewing Exam: <span class="text-primary">{{ $exam->name }}</span>
-                    </span>
-
-                    <a href="{{ route('exams.index') }}" class="btn btn-primary float-end">Retour</a>
-                </h1>
-                <table class="table">
+                <div class="d-flex justify-content-between mb-3">
+                    <h5>
+                        <i class="fas fa-clipboard-list"></i>
+                        Vous êtes sur l'examen <span class="text-primary">{{ $exam->exam_title }}</span>
+                    </h5>
+                    <a href="{{ route('exams.index') }}" class="btn btn-primary float-end">
+                        <i class="fas fa-arrow-left"></i>
+                        Retour
+                    </a>
+                </div>
+                <table class="table table-responsive table-bordered">
                     <tbody>
                         <tr>
-                            <td><strong>ID:</strong></td>
-                            <td>{{ $exam->id }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Instructor:</strong></td>
+                            <td>
+                                <strong>
+                                    <i class="fas fa-user"></i>
+                                    L'instructeur:
+                                </strong>
+                            </td>
                             <td>
                                 <a href="{{ route('users.show', $exam->instructor_id) }}">
                                     {{ $instructor->name }}
@@ -30,84 +33,142 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><strong>Vehicule:</strong></td>
+                            <td>
+                                <strong>
+                                    <i class="fas fa-car"></i>
+                                    Le véhicule:
+                                </strong>
+                            </td>
                             <td>
                                 <a>
                                     {{ $vehicle->model }}
                                 </a>
                             </td>
                         <tr>
-                            <td><strong>Title:</strong></td>
+                            <td>
+                                <strong>
+                                    <i class="fas fa-clipboard-list"></i>
+                                    Titre de l'examen:
+                                </strong>
+                            </td>
                             <td>{{ $exam->exam_title }}</td>
                         </tr>
                         <tr>
-                            <td><strong>Type:</strong></td>
-                            <td>{{ $exam->exam_type }}</td>
+                            <td title="Conduite ou Code">
+                                <strong>
+                                    <i class="fas fa-clipboard-list"></i>
+                                    Type d'examen:
+                                </strong>
+                            </td>
+                            <td>
+                                @if ($exam->exam_type === 'drive')
+                                    <span class="badge bg-primary">Conduite</span>
+                                @else
+                                    <span class="badge bg-primary">Code</span>
+                                @endif
+                            </td>
                         </tr>
                         <tr>
-                            <td><strong>Location:</strong></td>
+                            <td>
+                                <strong>
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    Lieu de l'examen:
+                                </strong>
+                            </td>
                             <td>{{ $exam->exam_location }}</td>
                         </tr>
                         <tr>
-                            <td><strong>Date & Time:</strong></td>
                             <td>
-                                {{ $exam->exam_date }} at {{ $exam->exam_time }}
+                                <strong>
+                                    <i class="fas fa-calendar-alt"></i>
+                                    Date de l'examen:
+                                </strong>
                             </td>
+                            <td>
+                                {{ \Carbon\Carbon::parse($exam->exam_date)->format('d/m/Y') }}
+                                à
+                                {{ \Carbon\Carbon::parse($exam->exam_time)->format('H:i') }}
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
-                <h1>
-                    <span>
-                        Exam Users
+                <div class="d-flex justify-content-between mb-3">
+                    <h5>
+                        <i class="fas fa-users"></i>
+                        Les étudiants inscrits à l'examen
                         <span class="text-primary">{{ $students->count() }}/5</span>
-                    </span>
-                </h1>
-                <div class="table-responsive table-responsive-md">
-                    <table class="table table-responsive">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Phone</th>
-                                <th>Address</th>
-                                <th>Birthdate</th>
-                                <th>Resultat</th>
-                                <th>Image</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                    </h5>
+                </div>
+                @if ($students->count() === 5)
+                    <div class="alert alert-warning">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        Vous avez atteint le nombre maximum d'étudiants pour cet examen.
+                    </div>
+                @endif
+
+                @if ($students->count() > 0)
+                    <div class="card mt-3">
+                        <div class="card-body">
                             @foreach ($students as $user)
-                                <tr>
-                                    <td>{{ $user->id }}</td>
-                                    <td>
-                                        <a href="{{ route('users.show', $user->id) }}">{{ $user->name }}</a>
-                                    </td>
-                                    <td>{{ $user->email }}</td>
-                                    <td>{{ $user->phone }}</td>
-                                    <td>{{ $user->address }}</td>
-                                    <td>{{ $user->birthdate }}</td>
-                                    <td>{{ $user->pivot->result }}</td>
-                                    <td>
+                                <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
+                                    <div class="d-flex align-items-center">
                                         @empty($user->image)
                                             <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-                                                alt="Image" width="50" height="50">
+                                                alt="Image" width="50" height="50" class="me-2 rounded-circle">
                                         @else
                                             <img src="{{ asset('storage/profiles/' . $user->image) }}" alt="Image"
-                                                width="50" height="50">
+                                                width="50" height="50" class="me-2 rounded-circle">
                                         @endempty
-                                    </td>
-                                </tr>
+                                        <div>
+                                            <a href="{{ route('users.show', $user->id) }}">{{ $user->name }}</a>
+                                            <p class="text-muted mb-0">{{ $user->email }}</p>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        @isset($user->pivot->result)
+                                            <h3 class="badge bg-success">
+                                                <i class="fas fa-check"></i>
+                                                {{ $user->pivot->result }}
+                                            </h3>
+                                        @else
+                                            <h3 class="badge bg-warning">
+                                                <i class="fas fa-times"></i>
+                                                Pas encore noté
+                                            </h3>
+                                        @endisset
+                                    </div>
+                                </div>
                             @endforeach
-                        </tbody>
-                    </table>
-                </div>
+                        </div>
+                    </div>
+                @else
+                    <div class="alert alert-warning">
+                        <span class="text-danger">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            Aucun étudiant n'est inscrit à cet examen.
+                        </span>
+                        <br>
+                        <span class="text-danger">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            Vous pouvez ajouter des étudiants à cet examen en cliquant sur le bouton
+                            <span class="badge bg-primary">
+                                <i class="fas fa-edit"></i>
+                                Modifier
+                            </span>
+                            ci-dessous.
+                        </span>
+                    </div>
+                @endif
             </div>
         </div>
-        <a href="{{ route('exams.edit', $exam->id) }}" class="btn btn-primary">Edit</a> 
+        <a href="{{ route('exams.edit', $exam->id) }}" class="btn btn-primary mt-3">
+            <i class="fas fa-edit"></i>
+            Modifier
+        </a>
     </div>
 
 @endsection

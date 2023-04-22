@@ -110,7 +110,7 @@ class ExamController extends Controller
         $exam = Exam::find($request->exam_id);
         $exam->user()->detach($request->student_id);
 
-        return redirect()->route('exams.show', $exam->id)->with('success', 'Student removed from exam successfully');
+        return redirect()->back()->with('success', "L'étudiant a été supprimé avec succès");
     }
 
     /**
@@ -119,12 +119,13 @@ class ExamController extends Controller
     public function edit(Exam $exam)
     {
         $exam = Exam::with('user')->find($exam->id);
+        $students = User::where('type', 'student')->whereNotIn('id', $exam->user->pluck('id'))->get();
         $instructors = User::where('type', 'instructor')->get();
         $exam_students = $exam->user;
         $vehicles = Vehicle::all();
 
         // Redirect to the exams show page
-        return view('dashboard.exams.edit', compact('exam', 'instructors', 'vehicles', 'exam_students'));
+        return view('dashboard.exams.edit', compact('exam', 'instructors', 'vehicles', 'exam_students', 'students'));
     }
 
     /**
@@ -140,7 +141,10 @@ class ExamController extends Controller
      */
     public function destroy(Exam $exam)
     {
-        //
+        $exam = Exam::findOrfail($exam->id);
+        $exam->delete();
+
+        return redirect()->route('exams.index')->with('success', "L'examen a été supprimé avec succès");
     }
 
     public function addStudent(Request $request)
@@ -148,7 +152,7 @@ class ExamController extends Controller
         $exam = Exam::find($request->exam_id);
         $exam->user()->attach($request->student_id);
 
-        return redirect()->route('exams.show', $exam->id)->with('success', 'Student added to exam successfully');
+        return redirect()->route('exams.show', $exam->id)->with('success', "L'étudiant a été ajouté avec succès");
     }
 
     public function updateResult(Request $request)
@@ -161,6 +165,6 @@ class ExamController extends Controller
         $exam = Exam::findOrFail($request->exam_id);
         $exam->user()->updateExistingPivot($request->student_id, ['result' => $request->result]);
 
-        return redirect()->back()->with('success', 'Result updated successfully');          
+        return redirect()->back()->with('success', 'Result updated successfully');
     }
 }

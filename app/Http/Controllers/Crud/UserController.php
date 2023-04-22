@@ -16,9 +16,9 @@ class UserController extends Controller
     public function index()
     {
         if (request('search')) {
-            $users = User::where('name', 'like', '%' . request('search') . '%')->where('id', '!=', Auth::user()->id)->paginate(10);
+            $users = User::where('name', 'like', '%' . request('search') . '%')->where('id', '!=', Auth::user()->id)->orderBy('created_at', 'desc')->paginate(10);
         } else {
-            $users = User::where('id', '!=', Auth::user()->id)->paginate(10);
+            $users = User::where('id', '!=', Auth::user()->id)->orderBy('created_at', 'desc')->paginate(10);            
         }
         return view('dashboard.users.index', compact('users'));
     }

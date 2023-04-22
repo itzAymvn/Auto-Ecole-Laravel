@@ -33,5 +33,7 @@ Route::prefix('dashboard')->middleware(['auth', 'admin'])->group(function () {
     Route::view('/', 'dashboard.index')->name('dashboard');
     Route::resource('users', UserController::class);
     Route::resource('exams', ExamController::class);
-    Route::post('/exams/updateResult', [ExamController::class, 'updateResult'])->name('exams.updateResult');        
+    Route::post('/exams/addStudent', [ExamController::class, 'addStudent'])->name('exams.addStudent');
+    Route::post('/exams/updateResult', [ExamController::class, 'updateResult'])->name('exams.updateResult');
+    Route::post('/exams/removeStudent', [ExamController::class, 'removeStudent'])->name('exams.removeStudent');
 });

@@ -21,7 +21,7 @@
             @endif
 
             @if (count($exams) > 0)
-                <div class="mb-3 bg-light p-3 rounded-3 border border-1 border-primary shadow-sm">
+                <div class="mb-3 bg-light p-3 rounded-3">
                     <div class="d-flex justify-content-between align-items-center">
                         <h2>Gérer les examens
                             <span class="badge bg-primary">{{ count($exams) }}</span>
@@ -37,14 +37,12 @@
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                {{-- <th scope="col">Instructor ID</th>
-                                <th scope="col">Vehicle ID</th> --}}
+                                <th scope="col">Titre</th>
                                 <th scope="col">Type</th>
-                                <th scope="col">Title</th>
                                 <th scope="col">Instructor</th>
-                                <th scope="col">Student</th>
+                                <th scope="col">Nb. étudiants</th>
                                 <th scope="col">Date</th>
-                                <th scope="col">Time</th>
+                                <th scope="col">Heure</th>
                                 <th scope="col">Location</th>
                                 <th scope="col">Créé à</th>
                                 <th scope="col">Modifié à</th>
@@ -55,13 +53,19 @@
                             @foreach ($exams as $exam)
                                 <tr>
                                     <th scope="row">{{ $exam->id }}</th>
-                                    <td>{{ $exam->exam_type }}</td>
-                                    <td>
+                                    <td title="Cliquez pour voir les détails">
                                         <a href="{{ route('exams.show', $exam->id) }}">
                                             {{ $exam->exam_title }}
                                         </a>
                                     </td>
                                     <td>
+                                        @if ($exam->exam_type === 'drive')
+                                            <span class="badge bg-primary">Conduite</span>
+                                        @else
+                                            <span class="badge bg-primary">Code</span>
+                                        @endif
+                                    </td>
+                                    <td title="Cliquez pour voir les détails">
                                         <a href="{{ route('users.show', $exam->instructor_id) }}">
                                             {{ $exam->instructor_name }}
                                         </a>
@@ -89,9 +93,9 @@
                                             <form action="{{ route('exams.destroy', $exam->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <a type="submit" class="d-flex align-items-center shadow-sm">
-                                                    <i class="fas fa-trash"></i>
-                                                </a>
+                                                <button type="submit" class="btn btn-link p-0">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </button>
                                             </form>
                                         </div>
                                     </td>
