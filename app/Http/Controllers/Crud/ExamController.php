@@ -101,17 +101,6 @@ class ExamController extends Controller
         return view('dashboard.exams.show', compact('exam', 'instructor', 'vehicle', 'students'));
     }
 
-    /**
-     * Remove a student from an exam
-     */
-
-    public function removeStudent(Request $request)
-    {
-        $exam = Exam::find($request->exam_id);
-        $exam->user()->detach($request->student_id);
-
-        return redirect()->back()->with('success', "L'étudiant a été supprimé avec succès");
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -147,17 +136,34 @@ class ExamController extends Controller
         return redirect()->route('exams.index')->with('success', "L'examen a été supprimé avec succès");
     }
 
+    /**
+     * Add a student to an exam
+     */
     public function addStudent(Request $request)
     {
         $exam = Exam::find($request->exam_id);
         $exam->user()->attach($request->student_id);
 
-        return redirect()->route('exams.show', $exam->id)->with('success', "L'étudiant a été ajouté avec succès");
+        return redirect()->back()->with('success', "L'étudiant a été ajouté avec succès");
     }
 
+    /**
+     * 
+     * Remove a student from an exam
+     */
+    public function removeStudent(Request $request)
+    {
+        $exam = Exam::find($request->exam_id);
+        $exam->user()->detach($request->student_id);
+
+        return redirect()->back()->with('success', "L'étudiant a été supprimé avec succès");
+    }
+
+    /**
+     * Update the result of a student
+     */
     public function updateResult(Request $request)
     {
-        // Validate the request
         $request->validate([
             'result' => 'required|numeric|min:0|max:100',
         ]);

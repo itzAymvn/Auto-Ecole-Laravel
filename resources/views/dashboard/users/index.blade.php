@@ -25,18 +25,26 @@
                 <input type="text" class="form-control" placeholder="Rechercher un utilisateur" name="search"
                     value="{{ request()->query('search') }}">
                 <div class="input-group-append">
-                    <button class="btn btn-primary" id="search-btn" type="submit">Rechercher</button>
-                    <a href="{{ route('users.index') }}" class="btn btn-primary">Reset</a>
+                    <button class="btn btn-primary" id="search-btn" type="submit">
+                        <i class="fas fa-search"></i>
+                        Rechercher
+                    </button>
+                    <a href="{{ route('users.index') }}" class="btn btn-primary">
+                        <i class="fas fa-sync-alt"></i>
+                        Actualiser
+                    </a>
                 </div>
             </form>
 
             @if (count($users) > 0)
-                <div class="mb-3 bg-light p-3 rounded-3 border border-1 border-primary shadow-sm">
+                <div class="mb-3 bg-light p-3 rounded-3">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h2>Gérer les utilisateurs
-                            <span class="badge bg-primary">{{ count($users) }}</span>
-                        </h2>
+                        <h5>
+                            <i class="fas fa-users me-2"></i>
+                            Gérer les utilisateurs ({{ $users->total() }})
+                        </h5>
                         <a href="{{ route('users.create') }}" class="btn btn-primary d-flex align-items-center shadow-sm">
+                            <i class="fa-solid fa-circle-plus me-2"></i>
                             Ajouter un utilisateur
                         </a>
                     </div>

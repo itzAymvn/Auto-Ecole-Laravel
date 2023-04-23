@@ -32,7 +32,7 @@ class ProfileController extends Controller
             'phone' => ['required', 'string', 'max:10'],
             'address' => ['required', 'string', 'max:255'],
             'birthdate' => ['required', 'date'],
-            'image' => ['nullable', 'image', 'max:1024', 'mimes:jpg,jpeg,png'],
+            'image' => ['nullable', 'image', 'max:5000', 'mimes:jpg,jpeg,png'],
         ]);
 
         if ($request->hasFile('image')) {

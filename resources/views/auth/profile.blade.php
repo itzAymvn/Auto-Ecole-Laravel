@@ -22,7 +22,7 @@
             @endif
 
             <div>
-                <h1 class="text-center">Bienvenue <span class="text-primary">{{ Auth::user()->name }}</span>!</h1>
+                <h5 class="text-center">Bienvenue <span class="text-primary">{{ Auth::user()->name }}</span></h5>
             </div>
             <div class="row mt-5">
                 <div class="col-md-4">
@@ -56,14 +56,22 @@
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label for="image" class="form-label">
-                                                @if (Auth::user()->image)
-                                                    <img src="{{ asset('storage/profiles/' . Auth::user()->image) }}"
-                                                        alt="profile" class="rounded-circle" width="100" height="100">
-                                                @else
-                                                    <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-                                                        alt="profile" class="rounded-circle" width="60" height="60">
-                                                @endif
+                                                <div class="position-relative">
+                                                    @if (Auth::user()->image)
+                                                        <img src="{{ asset('storage/profiles/' . Auth::user()->image) }}"
+                                                            alt="profile" class="rounded-circle" width="100"
+                                                            height="100">
+                                                    @else
+                                                        <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                                                            alt="profile" class="rounded-circle" width="60"
+                                                            height="60">
+                                                    @endif
+                                                    <i class="fas fa-camera text-primary position-absolute top-50 start-50 translate-middle p-2 rounded-circle bg-white"
+                                                        style="opacity: 0.75;"></i>
+
+                                                </div>
                                             </label>
+
                                             <input type="file" name="image" id="image" class="form-control d-none">
                                             @error('image')
                                                 <div class="text-danger">{{ $message }}</div>
@@ -119,7 +127,7 @@
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
-                                        <div class="col-md-12">
+                                        <div class="col-md-6">
                                             <div class="mb-3">
                                                 <button type="submit" class="btn btn-primary">Mettre à jour</button>
                                             </div>

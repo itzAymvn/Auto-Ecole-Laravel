@@ -38,7 +38,7 @@
                     <span>
                         <i class="fas fa-edit"></i>
                         Modifier les données de l'examen
-                        <span class="text-primary">{{ $exam->exam_title }} ({{ $exam->exam_type }})</span>
+                        <span class="text-primary">{{ $exam->exam_title }}</span>
                     </span>
                 </h5>
                 <form action="{{ route('exams.update', $exam->id) }}" method="POST" id="examData">
@@ -108,6 +108,9 @@
                 </form>
             </div>
         </div>
+
+        <hr>
+
         <div class="row g-3 mt-3">
             <div class="col-md-12">
                 <div data-bs-toggle="collapse" data-bs-target="#examStudents" role="button" aria-expanded="false"
@@ -172,6 +175,9 @@
                 @endif
             </div>
         </div>
+
+        <hr>
+
         @if ($exam_students->count() < 5)
             <div class="row g-3 mt-3">
                 <h5 class="mb-4 d-flex justify-content-between" data-bs-toggle="collapse"
@@ -198,6 +204,21 @@
                 </form>
             </div>
         @endif
+
+        <div class="d-flex justify-content-center mt-3 gap-3">
+            <a href="{{ route('exams.index') }}" class="btn btn-secondary mt-3">
+                <i class="fas fa-home"></i>
+                <span>
+                    Page d'accueil
+                </span>
+            </a>
+            <a href="{{ route('exams.show', $exam->id) }}" class="btn btn-secondary mt-3">
+                <i class="fas fa-eye"></i>
+                <span>
+                    Voir l'examen
+                </span>
+            </a>
+        </div>
     </div>
 
 @endsection

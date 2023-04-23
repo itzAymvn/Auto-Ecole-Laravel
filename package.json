@@ -2,6 +2,7 @@
     "private": true,
     "scripts": {
         "dev": "vite",
+        "start": "php artisan serve",
         "build": "vite build"
     },
     "devDependencies": {

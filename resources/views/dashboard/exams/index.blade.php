@@ -23,10 +23,13 @@
             @if (count($exams) > 0)
                 <div class="mb-3 bg-light p-3 rounded-3">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h2>Gérer les examens
-                            <span class="badge bg-primary">{{ count($exams) }}</span>
-                        </h2>
+                        <h5>
+                            <i class="fa-solid fa-car-side"></i>
+                            Gérer les examens
+                            ({{ count($exams) }})
+                        </h5>
                         <a href="{{ route('exams.create') }}" class="btn btn-primary d-flex align-items-center shadow-sm">
+                            <i class="fa-solid fa-circle-plus me-2"></i>
                             Ajouter un examen
                         </a>
                     </div>

@@ -41,6 +41,7 @@
 
     <!-- Custom Javascript File -->
     <script src="{{ asset('js/script.js') }}"></script>
-</body>
+
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
 
 </html>

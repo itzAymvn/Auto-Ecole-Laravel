@@ -1,5 +1,5 @@
 <!-- Navbar -->
-<nav class="w-100 navbar navbar-expand-lg bg-white navbar-light sticky-top p-0 shadow-sm">
+<nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top shadow-sm py-0 px-3 px-lg-5">
     <a href="{{ route('main') }}" class="navbar-brand d-flex align-items-center border-end px-4 px-lg-5">
         <h2 class="m-0">
             <i class="fas fa-car text-primary me-2"></i>Auto-Ecole
@@ -39,10 +39,16 @@
                                 </a>
                             </li>
                             <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li>
                                 <a class="dropdown-item" href="{{ route('exams.index') }}">
                                     <i class="fas fa-clipboard-list"></i>
                                     <span>Examens</span>
                                 </a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
                             </li>
                             <li>
                                 <a class="dropdown-item">

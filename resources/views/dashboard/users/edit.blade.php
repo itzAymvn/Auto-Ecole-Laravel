@@ -6,7 +6,7 @@
 
     <main class="d-flex justify-content-between container flex-column">
 
-        <h3 class="text-center my-3 bg-light p-3 rounded-3">
+        <h5 class="text-center my-3 bg-light p-3 rounded-3">
             <i class="fas fa-user"></i>
             <span>
                 Vous êtes en train de modifier l'utilisateur
@@ -14,7 +14,7 @@
                     {{ $user->name }}
                 </a>
             </span>
-        </h3>
+        </h5>
 
 
         @if (session('success'))
@@ -31,7 +31,7 @@
             </div>
         @endif
 
-        <h3 class="text-center my-3">
+        <h5 class="text-center my-3">
             <hr class="my-0 my-3 bg-dark">
             <div>
                 <i class="fas fa-user-cog"></i>
@@ -40,7 +40,7 @@
                 </span>
             </div>
             <hr class="my-0 my-3 bg-dark">
-        </h3>
+        </h5>
 
         {{-- Update user section --}}
 
@@ -118,10 +118,10 @@
                     <label for="image" class="form-label">
                         @if ($user->image)
                             <img src="{{ asset('storage/profiles/' . $user->image) }}" alt="Profile Image" width="100"
-                                class="mb-3 rounded-circle">
+                                height="100" class="mb-3 rounded-circle">
                         @else
                             <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-                                alt="Profile Image" width="100" class="mb-3 rounded-circle">
+                                alt="Profile Image" width="100" height="100" class="mb-3 rounded-circle">
                         @endif
                     </label>
                     <input class="form-control d-none" type="file" id="image" name="image">
@@ -139,6 +139,7 @@
             </form>
         </section>
 
+        <hr>
         {{-- Delete user section --}}
 
         <section class="delete-user-section container py-2">
@@ -171,6 +172,7 @@
                 </div>
         </section>
 
+        <hr>
         {{-- More data section --}}
 
         <section class="container py-2">
