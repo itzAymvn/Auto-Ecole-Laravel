@@ -6,19 +6,8 @@
     <main class="d-flex justify-content-between flex-row">
 
         <section class="manage-users-section container py-5">
-            @if (session('success'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    {{ session('success') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @endif
 
-            @if (session('error'))
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    {{ session('error') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @endif
+            <x-alerts></x-alerts>
 
             @if (count($exams) > 0)
                 <div class="mb-3 bg-light p-3 rounded-3">
@@ -35,82 +24,50 @@
                     </div>
                 </div>
 
-                <div class="table-responsive table-responsive-md">
-                    <table class="table table-bordered table-responsive">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Titre</th>
-                                <th scope="col">Type</th>
-                                <th scope="col">Instructor</th>
-                                <th scope="col">Nb. étudiants</th>
-                                <th scope="col">Date</th>
-                                <th scope="col">Heure</th>
-                                <th scope="col">Location</th>
-                                <th scope="col">Créé à</th>
-                                <th scope="col">Modifié à</th>
-                                <th scope="col">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($exams as $exam)
-                                <tr>
-                                    <th scope="row">{{ $exam->id }}</th>
-                                    <td title="Cliquez pour voir les détails">
-                                        <a href="{{ route('exams.show', $exam->id) }}">
-                                            {{ $exam->exam_title }}
-                                        </a>
-                                    </td>
-                                    <td>
-                                        @if ($exam->exam_type === 'drive')
-                                            <span class="badge bg-primary">Conduite</span>
-                                        @else
-                                            <span class="badge bg-primary">Code</span>
-                                        @endif
-                                    </td>
-                                    <td title="Cliquez pour voir les détails">
-                                        <a href="{{ route('users.show', $exam->instructor_id) }}">
-                                            {{ $exam->instructor_name }}
-                                        </a>
-                                    </td>
-                                    <td>
-                                        {{ $exam->students_count }}/5
-                                    </td>
-                                    <td>{{ $exam->exam_date }}</td>
-                                    <td>{{ $exam->exam_time }}</td>
-                                    <td>{{ $exam->exam_location }}</td>
-                                    <td>{{ $exam->created_at }}</td>
-                                    <td>{{ $exam->updated_at }}</td>
-                                    <td>
-                                        <div class="d-flex justify-content-around">
-                                            <a href="{{ route('exams.show', $exam->id) }}"
-                                                class="d-flex align-items-center shadow-sm">
-                                                <i class="fas fa-eye"></i>
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                    @foreach ($exams as $exam)
+                        <div class="col">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
+                                        <h5 class="card-title">{{ $exam->exam_title }}</h5>
+                                        <h6 class="card-subtitle mb-2 text-muted align-self-end">
+                                            {{ $exam->exam_date }} -
+                                            {{ $exam->exam_time }}
+                                        </h6>
+                                    </div>
+                                    <p class="card-text">{{ $exam->exam_location }}</p>
+                                    <p class="card-text">
+                                        <small class="text-muted">Instructeur:
+                                            <a href="{{ route('users.show', $exam->instructor_id) }}">
+                                                {{ $exam->instructor_name }}
                                             </a>
-
-
+                                        </small>
+                                        <br>
+                                        <small class="text-muted">Nb. étudiants: {{ $exam->students_count }}/5</small>
+                                    </p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <a href="{{ route('exams.show', $exam->id) }}" class="btn btn-primary">Détails</a>
+                                        <div>
                                             <a href="{{ route('exams.edit', $exam->id) }}"
-                                                class="d-flex align-items-center shadow-sm">
+                                                class="btn btn-outline-secondary me-2">
                                                 <i class="fas fa-edit"></i>
                                             </a>
-                                            <form action="{{ route('exams.destroy', $exam->id) }}" method="POST">
+                                            <form action="{{ route('exams.destroy', $exam->id) }}" method="POST"
+                                                class="d-inline">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-link p-0">
+                                                <button type="submit" class="btn btn-outline-danger">
                                                     <i class="fas fa-trash-alt"></i>
                                                 </button>
                                             </form>
                                         </div>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
-
-                {{-- <div class="d-flex justify-content-center">
-                    {{ $users->links() }}
-                </div> --}}
             @else
                 <div class="alert alert-info">
                     <h2 class="text-center">Aucun examen n'a été trouvé</h2>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,8 +25,8 @@ class ProfileController extends Controller
 
     public function update(Request $request)
     {
-        $user = Auth::user();
 
+        $user = User::find(Auth::id());
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:100'],
             'email' => ['required', 'email', 'unique:users,email,' . $user->id],
@@ -49,8 +50,10 @@ class ProfileController extends Controller
         $user->phone = $validated['phone'];
         $user->address = $validated['address'];
         $user->birthdate = $validated['birthdate'];
-        $user->save();
-
-        return redirect()->route('profile')->with('success', 'Profile updated successfully!');
+        if ($user->save()) {
+            return redirect()->route('profile')->with('success', 'Votre profil a été mis à jour avec succès.');
+        } else {
+            return redirect()->route('profile')->with('error', 'Une erreur est survenue lors de la mise à jour de votre profil.');
+        }
     }
 }

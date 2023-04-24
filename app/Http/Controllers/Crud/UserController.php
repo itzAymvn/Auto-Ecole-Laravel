@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Crud;
+
 use App\Models\User;
 
 use Illuminate\Http\Request;
@@ -18,7 +19,7 @@ class UserController extends Controller
         if (request('search')) {
             $users = User::where('name', 'like', '%' . request('search') . '%')->where('id', '!=', Auth::user()->id)->orderBy('created_at', 'desc')->paginate(10);
         } else {
-            $users = User::where('id', '!=', Auth::user()->id)->orderBy('created_at', 'desc')->paginate(10);            
+            $users = User::where('id', '!=', Auth::user()->id)->orderBy('created_at', 'desc')->paginate(10);
         }
         return view('dashboard.users.index', compact('users'));
     }
@@ -112,7 +113,7 @@ class UserController extends Controller
         // Validate the request
         $request->validate([
             'name' => 'required',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users,email,' . $user->id,
             'phone' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
             'address' => 'required',
             'birthdate' => 'required',
@@ -144,7 +145,7 @@ class UserController extends Controller
         // Save the user object with an error/success message
         if ($user->save()) {
             // update the session
-            return redirect()->back()->with('success', 'User updated successfully');
+            return redirect()->back()->with('success', 'L\'utilisateur a été modifié avec succès');
         } else {
             dd($user->errors);
         }
@@ -157,9 +158,9 @@ class UserController extends Controller
     {
         // Delete the user object with an error/success message
         if ($user->delete()) {
-            return redirect()->route('users.index')->with('success', 'User deleted successfully');
+            return redirect()->route('users.index')->with('success', 'L\'utilisateur a été supprimé avec succès');
         } else {
-            return redirect()->route('users.index')->with('error', 'Something went wrong');
+            return redirect()->route('users.index')->with('error', 'Quelque chose s\'est mal passé');
         }
     }
 }

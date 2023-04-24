@@ -7,19 +7,7 @@
     <main class="d-flex justify-content-between flex-column">
         <section class="manage-users-section container py-5">
 
-            @if (session('success'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    {{ session('success') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @endif
-
-            @if (session('error'))
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    {{ session('error') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @endif
+            <x-alerts></x-alerts>
 
             <div class="d-flex justify-content-between mb-3">
                 <h2>Créer un examen</h2>
@@ -165,8 +153,7 @@
                 {{-- Date --}}
                 <div class="mb-3">
                     <label for="date" class="form-label">Date</label>
-                    <input type="date" class="form-control" id="date" name="date"
-                        value="{{ old('date') }}">
+                    <input type="date" class="form-control" id="date" name="date" value="{{ old('date') }}">
 
                     @error('date')
                         <div class="alert alert-danger">{{ $message }}</div>
@@ -176,8 +163,7 @@
                 {{-- Time --}}
                 <div class="mb-3">
                     <label for="time" class="form-label">Heure</label>
-                    <input type="time" class="form-control" id="time" name="time"
-                        value="{{ old('time') }}">
+                    <input type="time" class="form-control" id="time" name="time" value="{{ old('time') }}">
 
                     @error('time')
                         <div class="alert alert-danger">{{ $message }}</div>

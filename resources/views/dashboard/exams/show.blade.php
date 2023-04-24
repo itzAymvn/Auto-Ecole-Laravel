@@ -5,6 +5,9 @@
 @section('content')
 
     <div class="container mt-3 mb-5">
+
+        <x-alerts></x-alerts>
+
         <div class="row mb-3">
             <div class="col-md-12">
                 <div class="d-flex justify-content-between mb-3">

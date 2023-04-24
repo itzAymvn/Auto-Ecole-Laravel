@@ -83,7 +83,7 @@ class ExamController extends Controller
         $exam->user()->attach($students);
 
         // Redirect to the exams index page
-        return redirect()->route('exams.index')->with('success', 'Exam created successfully');
+        return redirect()->route('exams.index')->with('success', 'L\'examen a été créé avec succès.');
     }
 
     /**
@@ -122,7 +122,35 @@ class ExamController extends Controller
      */
     public function update(Request $request, Exam $exam)
     {
-        //
+
+        // valdiating the request
+        $request->validate([
+            'exam_title' => 'required',
+            'exam_date' => 'required',
+            'exam_time' => 'required',
+            'exam_type' => 'required|in:drive,code',
+            'exam_location' => 'required',
+            'instructor_id' => 'required|exists:users,id',
+            'vehicle_id' => 'required|exists:vehicles,id',
+        ]);
+
+        // updating the exam
+        $exam->exam_title = $request->exam_title;
+        $exam->exam_date = $request->exam_date;
+        $exam->exam_time = $request->exam_time;
+        $exam->exam_type = $request->exam_type;
+        $exam->exam_location = $request->exam_location;
+        $exam->instructor_id = $request->instructor_id;
+        $exam->vehicle_id = $request->vehicle_id;
+
+        // saving the exam
+        if ($exam->save()) {
+            // redirecting to the exams show page
+            return redirect()->route('exams.show', $exam->id)->with('success', 'L\'examen a été mis à jour avec succès');
+        } else {
+            // redirecting to the exams show page
+            return redirect()->route('exams.show', $exam->id)->with('error', 'Une erreur est survenue lors de la mise à jour de l\'examen');
+        }
     }
 
     /**
@@ -171,6 +199,6 @@ class ExamController extends Controller
         $exam = Exam::findOrFail($request->exam_id);
         $exam->user()->updateExistingPivot($request->student_id, ['result' => $request->result]);
 
-        return redirect()->back()->with('success', 'Result updated successfully');
+        return redirect()->back()->with('success', 'La note a été mise à jour avec succès');
     }
 }

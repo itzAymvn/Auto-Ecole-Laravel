@@ -1,5 +1,5 @@
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top shadow-sm py-0 px-3 px-lg-5">
+<nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top shadow-sm py-0">
     <a href="{{ route('main') }}" class="navbar-brand d-flex align-items-center border-end px-4 px-lg-5">
         <h2 class="m-0">
             <i class="fas fa-car text-primary me-2"></i>Auto-Ecole
@@ -61,7 +61,7 @@
                 @endif
             @endif
             @if (Auth::check())
-                <div class="nav-item dropdown">
+                <div class="nav-item dropdown me-lg-2">
                     <a class="nav-link dropdown-toggle d-flex align-items-center gap-2" id="userDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         @if (Auth::user()->image)
