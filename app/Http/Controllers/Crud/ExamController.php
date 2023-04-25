@@ -16,12 +16,16 @@ class ExamController extends Controller
      */
     public function index()
     {
+        // Get all the exams
         $exams = Exam::all();
+
         // for each exam, get the instructor name and number of students
         foreach ($exams as $exam) {
             $exam->students_count = $exam->user->count();
             $exam->instructor_name = User::find($exam->instructor_id)->name;
         }
+
+        // Redirect to the exams index page
         return view('dashboard.exams.index', compact('exams'));
     }
 
@@ -30,10 +34,16 @@ class ExamController extends Controller
      */
     public function create()
     {
-        // redirect to the exams index page with a list of users and vehicles
+        // Get the students
         $students = User::where('type', 'student')->get();
+
+        // Get the instructors
         $instructors = User::where('type', 'instructor')->get();
+
+        // Get the vehicles
         $vehicles = Vehicle::all();
+
+        // Redirect to the exams create page
         return view('dashboard.exams.create', compact('students', 'instructors', 'vehicles'));
     }
 
@@ -91,11 +101,17 @@ class ExamController extends Controller
      */
     public function show(Exam $exam)
     {
-        // Get the exam, instructor and vehicle and the students (using the pivot table)
+        // Get the exam details and the students in one query
         $exam = Exam::with('user')->find($exam->id);
-        $instructor = User::find($exam->instructor_id);
-        $vehicle = Vehicle::find($exam->vehicle_id);
+
+        // Get the students (splitting the query we did above)
         $students = $exam->user;
+
+        // Get the instructor
+        $instructor = User::find($exam->instructor_id);
+
+        // Get the vehicle
+        $vehicle = Vehicle::find($exam->vehicle_id);
 
         // Redirect to the exams show page
         return view('dashboard.exams.show', compact('exam', 'instructor', 'vehicle', 'students'));
@@ -107,10 +123,19 @@ class ExamController extends Controller
      */
     public function edit(Exam $exam)
     {
+        // Get the exam details and the students in one query
         $exam = Exam::with('user')->find($exam->id);
-        $students = User::where('type', 'student')->whereNotIn('id', $exam->user->pluck('id'))->get();
-        $instructors = User::where('type', 'instructor')->get();
+
+        // Get the students of the exam
         $exam_students = $exam->user;
+
+        // Get the students that are not in the exam
+        $students = User::where('type', 'student')->whereNotIn('id', $exam->user->pluck('id'))->get();
+
+        // Get the instructors
+        $instructors = User::where('type', 'instructor')->get();
+
+        // Get the vehicles
         $vehicles = Vehicle::all();
 
         // Redirect to the exams show page
@@ -158,9 +183,13 @@ class ExamController extends Controller
      */
     public function destroy(Exam $exam)
     {
+        // Find the exam 
         $exam = Exam::findOrfail($exam->id);
+
+        // Delete the exam
         $exam->delete();
 
+        // Redirect to the exams index page
         return redirect()->route('exams.index')->with('success', "L'examen a été supprimé avec succès");
     }
 
@@ -169,9 +198,13 @@ class ExamController extends Controller
      */
     public function addStudent(Request $request)
     {
+        // Find the exam
         $exam = Exam::find($request->exam_id);
+
+        // Attach the student to the exam
         $exam->user()->attach($request->student_id);
 
+        // Redirect to the exams show page
         return redirect()->back()->with('success', "L'étudiant a été ajouté avec succès");
     }
 
@@ -181,9 +214,13 @@ class ExamController extends Controller
      */
     public function removeStudent(Request $request)
     {
+        // Find the exam
         $exam = Exam::find($request->exam_id);
+
+        // Detach the student from the exam
         $exam->user()->detach($request->student_id);
 
+        // Redirect to the exams show page
         return redirect()->back()->with('success', "L'étudiant a été supprimé avec succès");
     }
 
@@ -192,13 +229,18 @@ class ExamController extends Controller
      */
     public function updateResult(Request $request)
     {
+        // Validate the request
         $request->validate([
             'result' => 'required|numeric|min:0|max:100',
         ]);
 
+        // Find the exam
         $exam = Exam::findOrFail($request->exam_id);
+
+        // Update the result updateExistingPivot($id, array $attributes)
         $exam->user()->updateExistingPivot($request->student_id, ['result' => $request->result]);
 
+        // Redirect to the exams show page
         return redirect()->back()->with('success', 'La note a été mise à jour avec succès');
     }
 }

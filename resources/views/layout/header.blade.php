@@ -61,7 +61,7 @@
                 @endif
             @endif
             @if (Auth::check())
-                <div class="nav-item dropdown me-lg-2">
+                <div class="nav-item dropdown me-lg-3 me-xl-4">
                     <a class="nav-link dropdown-toggle d-flex align-items-center gap-2" id="userDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         @if (Auth::user()->image)

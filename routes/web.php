@@ -36,4 +36,5 @@ Route::prefix('dashboard')->middleware(['auth', 'admin'])->group(function () {
     Route::post('/exams/addStudent', [ExamController::class, 'addStudent'])->name('exams.addStudent');
     Route::post('/exams/updateResult', [ExamController::class, 'updateResult'])->name('exams.updateResult');
     Route::post('/exams/removeStudent', [ExamController::class, 'removeStudent'])->name('exams.removeStudent');
+    Route::resource('vehicles', VehicleController::class);
 });
