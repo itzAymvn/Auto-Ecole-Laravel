@@ -42,6 +42,15 @@
                                 <hr class="dropdown-divider">
                             </li>
                             <li>
+                                <a class="dropdown-item" href="{{ route('vehicles.index') }}">
+                                    <i class="fas fa-car"></i>
+                                    <span>Vehicules</span>
+                                </a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li>
                                 <a class="dropdown-item" href="{{ route('exams.index') }}">
                                     <i class="fas fa-clipboard-list"></i>
                                     <span>Examens</span>

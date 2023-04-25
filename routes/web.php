@@ -2,11 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Auth\ProfileController;
 
-use App\Http\Controllers\Crud\ExamController;
 use App\Http\Controllers\Crud\UserController;
+use App\Http\Controllers\Crud\VehicleController;
+use App\Http\Controllers\Crud\ExamController;
 
 /*
 |--------------------------------------------------------------------------

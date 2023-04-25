@@ -7,7 +7,7 @@
         {{-- @include('dashboard.panel') --}}
 
         <section class="manage-users-section container py-5">
-            
+
             <x-alerts></x-alerts>
 
             <form class="input-group mb-3" method="GET" action="{{ route('users.index') }}">
@@ -60,8 +60,8 @@
                                 <tr>
                                     <th scope="row">{{ $user->id }}</th>
                                     @empty($user->image)
-                                        <td><img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-                                                alt="Image" width="50" height="50">
+                                        <td><img src="{{ asset('storage/profiles/default.jpg') }}" alt="Image" width="50"
+                                                height="50">
                                         </td>
                                     @else
                                         <td><img src="{{ asset('storage/profiles/' . $user->image) }}" alt="Image"
