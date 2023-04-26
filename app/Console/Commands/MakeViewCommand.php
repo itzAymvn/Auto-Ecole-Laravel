@@ -39,10 +39,14 @@ class MakeViewCommand extends Command
             return;
         }
 
-        File::put($path, $path);
+        // Default content
+        $defaultContent = "@extends('layout.layout')\n\n@section('title', 'title here')\n\n@section('content')\n\n{{-- Content here --}}\n\n@endsection";
+
+        File::put($path, $defaultContent);
 
         $this->info("File {$path} created.");
     }
+
 
     /**
      * Get the view full path.
