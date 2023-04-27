@@ -44,6 +44,14 @@
                                             </a>
                                         </small>
                                         <br>
+                                        @if ($exam->vehicle_id)
+                                            <small class="text-muted">Vehicle:
+                                                <a href="{{ route('vehicles.show', $exam->vehicle_id) }}">
+                                                    {{ $exam->vehicle->model }}
+                                                </a>
+                                            </small>
+                                        @endif
+                                        <br class="mb-2">
                                         <small class="text-muted">Nb. étudiants: {{ $exam->students_count }}/5</small>
                                     </p>
                                     <div class="d-flex justify-content-between align-items-center">

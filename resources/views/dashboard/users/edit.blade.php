@@ -102,7 +102,7 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label for="image" class="form-label">
+                    <label for="image" class="form-label" id="image-label">
                         @if ($user->image)
                             <img src="{{ asset('storage/profiles/' . $user->image) }}" alt="Profile Image" width="100"
                                 height="100" class="mb-3 rounded-circle">
@@ -218,3 +218,22 @@
     </main>
 
 @endsection
+
+@push('scripts')
+    <script>
+        const image = document.querySelector('#image');
+        const imageLabel = document.querySelector('#image-label');
+
+        image.addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.addEventListener('load', function() {
+                    imageLabel.innerHTML =
+                        `<img src="${this.result}" alt="Profile Image" width="100" height="100" class="mb-3 rounded-circle">`;
+                });
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+@endpush

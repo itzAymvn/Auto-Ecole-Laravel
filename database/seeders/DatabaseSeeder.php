@@ -85,7 +85,6 @@ class DatabaseSeeder extends Seeder
             'exam_time' => '10:00:00',
             'exam_location' => 'Rue de la Paix, 1000 Bruxelles',
             'instructor_id' => 2,
-            'vehicle_id' => 2,
         ]);
 
         $exam2->user()->attach([9, 10, 11, 12, 13]);

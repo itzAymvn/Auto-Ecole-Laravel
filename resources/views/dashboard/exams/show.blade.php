@@ -35,18 +35,21 @@
                                 </a>
                             </td>
                         </tr>
-                        <tr>
-                            <td>
-                                <strong>
-                                    <i class="fas fa-car"></i>
-                                    Le véhicule:
-                                </strong>
-                            </td>
-                            <td>
-                                <a>
-                                    {{ $vehicle->model }}
-                                </a>
-                            </td>
+                        @if ($exam->exam_type === 'drive')
+                            <tr>
+                                <td>
+                                    <strong>
+                                        <i class="fas fa-car"></i>
+                                        Le véhicule:
+                                    </strong>
+                                </td>
+                                <td>
+                                    <a>
+                                        {{ $vehicle->model }}
+                                    </a>
+                                </td>
+                            </tr>
+                        @endif
                         <tr>
                             <td>
                                 <strong>

@@ -25,13 +25,14 @@
                 </div>
 
                 <div class="table-responsive table-responsive-md">
-                    <table class="table table-bordered table-responsive">
+                    <table class="table table-bordered table-responsive align-middle">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Matricule</th>
                                 <th scope="col">Modèle</th>
                                 <th scope="col">Image</th>
+                                <th scope="col">Les actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -42,13 +43,11 @@
                                     <td>{{ $vehicle->model }}</td>
                                     <td>
                                         @if ($vehicle->image)
-                                            <img src="{{ asset('storage/vehicles' . $vehicle->image) }}"
+                                            <img src="{{ asset('storage/vehicles/' . $vehicle->image) }}"
                                                 alt="Image du véhicule" class="img-fluid" width="100">
                                         @else
-                                            <span class="badge bg-danger">
-                                                <i class="fas fa-times me-2"></i>
-                                                Pas d'image
-                                            </span>
+                                            <img src="{{ asset('storage/vehicles/default.jpg') }}" alt="Image du véhicule"
+                                                class="img-fluid" width="100">
                                         @endif
                                     </td>
                                     <td>

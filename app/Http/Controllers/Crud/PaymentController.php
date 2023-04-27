@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Http\Controllers\Crud;
-use App\Http\Controllers\Controller;
+
+use App\Models\User;
 
 use App\Models\Payment;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class PaymentController extends Controller
 {
@@ -13,15 +15,16 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        //
+        $payments = Payment::all()->groupBy('user_id');
+        return view('crud.payments.index', compact('payments'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(User $user)
     {
-        //
+        return view('crud.payments.create', compact('user'));
     }
 
     /**
@@ -29,7 +32,19 @@ class PaymentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $validated = $request->validate([
+            'goal_amount' => 'required|numeric',
+            'user_id' => 'required|exists:users,id',
+            'amount_paid' => 'required|numeric',
+        ]);
+
+        $payment = new Payment();
+        $payment->user_id = $validated['user_id'];
+        $payment->goal_amount = $validated['goal_amount'];
+        $payment->amount_paid = $validated['amount_paid'];
+
+        $payment->save();
     }
 
     /**
@@ -37,7 +52,9 @@ class PaymentController extends Controller
      */
     public function show(Payment $payment)
     {
-        //
+        $user = $payment->user;
+        $payments = $user->payments;
+        return view('crud.payments.show', compact('user', 'payments'));
     }
 
     /**

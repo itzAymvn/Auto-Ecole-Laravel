@@ -14,10 +14,9 @@ return new class extends Migration
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('student_id')->constrained('users')->onDelete('cascade');
-            $table->decimal('amount_paid', 10, 2);
-            $table->decimal('goal_amount', 10, 2);
-            $table->decimal('remaining_amount', 10, 2);
-            $table->date('payment_date');
+            $table->decimal('amount_paid');
+            $table->decimal('goal_amount');
+            $table->string('remaining_amount');
             $table->timestamps();
         });
     }

@@ -40,7 +40,7 @@ class VehicleController extends Controller
         $request->validate([
             'matricule' => 'required|unique:vehicles',
             'model' => 'required',
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
         ]);
 
         // Create a new vehicle
@@ -74,7 +74,14 @@ class VehicleController extends Controller
      */
     public function show(Vehicle $vehicle)
     {
-        return view('dashboard.vehicles.show', compact('vehicle'));
+        // Get sessions of the vehicle
+        $sessions = $vehicle->sessions;
+
+        // Get exams of the vehicle
+        $exams = $vehicle->exams;
+
+        // Redirect to the vehicles show page
+        return view('dashboard.vehicles.show', compact('vehicle', 'sessions', 'exams'));
     }
 
     /**
@@ -94,7 +101,7 @@ class VehicleController extends Controller
         $request->validate([
             'matricule' => 'required|unique:vehicles,matricule,' . $vehicle->id,
             'model' => 'required',
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
         ]);
 
         // Start filling the vehicle

@@ -30,7 +30,9 @@
 
     @include('layout.header')
 
-    @yield('content')
+    <main class="flex-grow-1">
+        @yield('content')
+    </main>
 
     @include('layout.footer')
 

@@ -3,7 +3,6 @@
 @section('title', 'Profile')
 
 @section('content')
-
     <section class="profile-section py-3">
 
         <div class="container">
@@ -52,8 +51,7 @@
                                                     <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
                                                         alt="profile" class="rounded-circle" width="60" height="60">
                                                 @endif
-                                                <i class="fas fa-camera text-primary position-absolute top-50 start-50 translate-middle p-2 rounded-circle bg-white"
-                                                    style="opacity: 0.75;"></i>
+                                                <span class="ms-2">Changer l'image</span>
 
                                             </label>
 
@@ -126,5 +124,25 @@
             </div>
         </div>
     </section>
-
 @endsection
+
+{{-- USE JS TO PREVIEW IMAGE WHEN CHANGING no jquery --}}
+
+@push('scripts')
+    <script>
+        const image = document.getElementById('image');
+        const label = document.querySelector('.form-label');
+
+        image.addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.addEventListener('load', function() {
+                    label.innerHTML = `<img src="${this.result}" alt="profile" class="rounded-circle" width="100" height="100">
+                                                <span class="ms-2">Changer l'image</span>`;
+                });
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+@endpush

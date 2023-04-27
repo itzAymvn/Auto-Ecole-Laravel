@@ -42,11 +42,55 @@
                     @enderror
                 </div>
 
+                {{-- Type (drive, code) --}}
+                <div class="mb-3">
+                    <label for="type" class="form-label">Type</label>
+                    <select class="form-select" aria-label="Default select example" name="type">
+                        <option value="drive">Conduite</option>
+                        <option value="code">Code</option>
+                    </select>
+
+                    @error('type')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                {{-- Date --}}
+                <div class="mb-3">
+                    <label for="date" class="form-label">Date</label>
+                    <input type="date" class="form-control" id="date" name="date" value="{{ old('date') }}">
+
+                    @error('date')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                {{-- Time --}}
+                <div class="mb-3">
+                    <label for="time" class="form-label">Heure</label>
+                    <input type="time" class="form-control" id="time" name="time" value="{{ old('time') }}">
+
+                    @error('time')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                {{-- Location --}}
+                <div class="mb-3">
+                    <label for="location" class="form-label">Lieu</label>
+                    <input type="text" class="form-control" id="location" name="location"
+                        value="{{ old('location') }}">
+
+                    @error('location')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+
                 {{-- La vehicule --}}
                 <div class="mb-3">
                     <label for="vehicle" class="form-label">Véhicule</label>
                     <select class="form-select" aria-label="Default select example" name="vehicle_id">
-                        <option selected>Choisir un véhicule</option>
+                        <option disabled selected value> -- select an option -- </option>
                         @foreach ($vehicles as $vehicle)
                             <option value="{{ $vehicle->id }}">{{ $vehicle->model }}</option>
                         @endforeach
@@ -134,51 +178,6 @@
                             <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                     </div>
-                </div>
-
-                {{-- Type (drive, code) --}}
-                <div class="mb-3">
-                    <label for="type" class="form-label">Type</label>
-                    <select class="form-select" aria-label="Default select example" name="type">
-                        <option selected>Choisir un type</option>
-                        <option value="drive">Conduite</option>
-                        <option value="code">Code</option>
-                    </select>
-
-                    @error('type')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                {{-- Date --}}
-                <div class="mb-3">
-                    <label for="date" class="form-label">Date</label>
-                    <input type="date" class="form-control" id="date" name="date" value="{{ old('date') }}">
-
-                    @error('date')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                {{-- Time --}}
-                <div class="mb-3">
-                    <label for="time" class="form-label">Heure</label>
-                    <input type="time" class="form-control" id="time" name="time" value="{{ old('time') }}">
-
-                    @error('time')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                {{-- Location --}}
-                <div class="mb-3">
-                    <label for="location" class="form-label">Lieu</label>
-                    <input type="text" class="form-control" id="location" name="location"
-                        value="{{ old('location') }}">
-
-                    @error('location')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
                 </div>
 
                 {{-- Submit --}}

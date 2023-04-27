@@ -7,7 +7,7 @@
     <div class="container mt-3 mb-5">
 
         <x-alerts></x-alerts>
-        
+
         {{-- Exam data section --}}
         <div class="row g-3 mb-2 mt-3">
             <div class="col-md-12">
@@ -47,7 +47,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="exam_type">Le type</label>
-                                <select class="form-control" id="exam_type" name="exam_type" required>
+                                <select class="form-control" id="exam_type" required disabled>
                                     <option value="drive" {{ $exam->exam_type === 'drive' ? 'selected' : '' }}>
                                         Conduite
                                     </option>
@@ -76,18 +76,20 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="vehicle_id">Véhicule</label>
-                                <select class="form-control" id="vehicle_id" name="vehicle_id" required>
-                                    @foreach ($vehicles as $vehicle)
-                                        <option value="{{ $vehicle->id }}"
-                                            {{ $exam->vehicle_id === $vehicle->id ? 'selected' : '' }}>
-                                            {{ $vehicle->matricule }} ({{ $vehicle->model }})</option>
-                                    @endforeach
-                                </select>
+                        @if ($exam->exam_type === 'drive')
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="vehicle_id">Véhicule</label>
+                                    <select class="form-control" id="vehicle_id" name="vehicle_id" required>
+                                        @foreach ($vehicles as $vehicle)
+                                            <option value="{{ $vehicle->id }}"
+                                                {{ $exam->vehicle_id === $vehicle->id ? 'selected' : '' }}>
+                                                {{ $vehicle->matricule }} ({{ $vehicle->model }})</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
-                        </div>
+                        @endif
                     </div>
                     <button type="submit" class="btn btn-primary">
                         <i class="fa-solid fa-pen"></i>

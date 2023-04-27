@@ -23,6 +23,11 @@ class ExamController extends Controller
         foreach ($exams as $exam) {
             $exam->students_count = $exam->user->count();
             $exam->instructor_name = User::find($exam->instructor_id)->name;
+
+            // if the exam has a vhicle id (so it' a drive exam) get the vehicle
+            if ($exam->vehicle_id) {
+                $exam->vehicle = Vehicle::find($exam->vehicle_id);
+            }
         }
 
         // Redirect to the exams index page
@@ -52,13 +57,12 @@ class ExamController extends Controller
      */
     public function store(Request $request)
     {
-
         // Validate the request
         $request->validate([
             'title' => 'required',
-            'instructor_id' => 'required',
-            'vehicle_id' => 'required',
-            'type' => 'required',
+            'instructor_id' => 'exists:users,id',
+            'type' => 'required|in:drive,code',
+            'vehicle_id' => 'required_if:type,==,drive|exists:vehicles,id',
             'date' => 'required',
             'time' => 'required',
             'location' => 'required',
@@ -70,7 +74,12 @@ class ExamController extends Controller
         // Assign the values to the exam object
         $exam->exam_title = $request->title;
         $exam->instructor_id = $request->instructor_id;
-        $exam->vehicle_id = $request->vehicle_id;
+
+        // Check if the request has a vehicle id
+        if ($request->has('vehicle_id')) {
+            $exam->vehicle_id = $request->vehicle_id;
+        }
+
         $exam->exam_type = $request->type;
         $exam->exam_date = $request->date;
         $exam->exam_time = $request->time;
@@ -110,8 +119,12 @@ class ExamController extends Controller
         // Get the instructor
         $instructor = User::find($exam->instructor_id);
 
-        // Get the vehicle
-        $vehicle = Vehicle::find($exam->vehicle_id);
+        // Get the vehicle if the type is drive
+        if ($exam->exam_type == 'drive') {
+            $vehicle = Vehicle::find($exam->vehicle_id);
+        } else {
+            $vehicle = false;
+        }
 
         // Redirect to the exams show page
         return view('dashboard.exams.show', compact('exam', 'instructor', 'vehicle', 'students'));
@@ -135,8 +148,12 @@ class ExamController extends Controller
         // Get the instructors
         $instructors = User::where('type', 'instructor')->get();
 
-        // Get the vehicles
-        $vehicles = Vehicle::all();
+        // Get the vehicles if the type is drive
+        if ($exam->exam_type == 'drive') {
+            $vehicles = Vehicle::all();
+        } else {
+            $vehicles = false;
+        }
 
         // Redirect to the exams show page
         return view('dashboard.exams.edit', compact('exam', 'instructors', 'vehicles', 'exam_students', 'students'));
@@ -153,10 +170,9 @@ class ExamController extends Controller
             'exam_title' => 'required',
             'exam_date' => 'required',
             'exam_time' => 'required',
-            'exam_type' => 'required|in:drive,code',
             'exam_location' => 'required',
             'instructor_id' => 'required|exists:users,id',
-            'vehicle_id' => 'required|exists:vehicles,id',
+            'vehicle_id' => 'required_if:exam_type,==,drive|exists:vehicles,id',
         ]);
 
         // updating the exam
@@ -166,7 +182,12 @@ class ExamController extends Controller
         $exam->exam_type = $request->exam_type;
         $exam->exam_location = $request->exam_location;
         $exam->instructor_id = $request->instructor_id;
-        $exam->vehicle_id = $request->vehicle_id;
+
+        // checking if the request has a vehicle id
+        if ($request->has('vehicle_id')) {
+            $exam->vehicle_id = $request->vehicle_id;
+        }
+
 
         // saving the exam
         if ($exam->save()) {
