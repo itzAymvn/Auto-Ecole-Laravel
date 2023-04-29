@@ -119,6 +119,14 @@
                     <i class="fas fa-edit"></i>
                     Modifier l'utilisateur
                 </a>
+                <a href="{{ route('users.destroy', $user->id) }}" class="btn btn-danger">
+                    <i class="fas fa-trash"></i>
+                    Supprimer l'utilisateur
+                </a>
+                <a href="{{ route('payments.create', $user->id) }}" class="btn btn-success">
+                    <i class="fas fa-money-bill"></i>
+                    Ajouter un paiement
+                </a>
             </div>
         </div>
     </div>

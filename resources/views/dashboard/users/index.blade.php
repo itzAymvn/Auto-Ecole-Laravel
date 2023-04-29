@@ -4,7 +4,6 @@
 
 @section('content')
     <main class="d-flex justify-content-between flex-row">
-        {{-- @include('dashboard.panel') --}}
 
         <section class="manage-users-section container py-5">
 
@@ -76,7 +75,7 @@
                                     <td class="align-middle text-capitalize">{{ $user->type }}</td>
                                     <td class="align-middle">{{ $user->created_at }}</td>
                                     <td class="align-middle">{{ $user->updated_at }}</td>
-                                    <td class="d-flex justify-content-around align-items-center">
+                                    <td class="d-flex justify-content-around align-items-center flex-wrap">
                                         <a href="{{ route('users.show', $user->id) }}">
                                             <i class="fas fa-eye"></i>
                                         </a>
@@ -90,6 +89,9 @@
                                                 <i class="fas fa-trash-alt"></i>
                                             </button>
                                         </form>
+                                        <a href="{{ route('payments.create', $user->id) }}">
+                                            <i class="fas fa-money-bill-wave"></i>
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach

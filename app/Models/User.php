@@ -45,6 +45,6 @@ class User extends Model implements Authenticatable
 
     public function payments()
     {
-        return $this->hasMany(Payment::class);
+        return $this->hasMany(Payment::class, 'student_id');
     }
 }

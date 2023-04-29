@@ -20,6 +20,7 @@
                         <a href="{{ route('users.index') }}" class="btn btn-primary py-2">Gérer les utilisateurs</a>
                         <a href="{{ route('vehicles.index') }}" class="btn btn-primary py-2">Gérer les vehicules</a>
                         <a href="{{ route('exams.index') }}" class="btn btn-primary py-2">Gérer les examens</a>
+                        <a href="{{ route('payments.index') }}" class="btn btn-primary py-2">Gérer les paiements</a>
                         <a href="" class="btn btn-primary py-2">Gérer les sessions</a>
                     </div>
                 </div>

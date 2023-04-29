@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('student_id')->constrained('users')->onDelete('cascade');
             $table->decimal('amount_paid');
             $table->decimal('goal_amount');
-            $table->string('remaining_amount');
+            $table->decimal('remaining_amount');
             $table->timestamps();
         });
     }

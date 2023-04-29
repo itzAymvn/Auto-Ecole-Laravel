@@ -60,7 +60,7 @@
                                 <hr class="dropdown-divider">
                             </li>
                             <li>
-                                <a class="dropdown-item">
+                                <a class="dropdown-item" href="{{ route('payments.index') }}">
                                     <i class="fas fa-money-bill-wave"></i>
                                     <span>Paiements</span>
                                 </a>

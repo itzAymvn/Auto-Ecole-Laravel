@@ -5,9 +5,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\ProfileController;
 
-use App\Http\Controllers\Crud\UserController;
-use App\Http\Controllers\Crud\VehicleController;
 use App\Http\Controllers\Crud\ExamController;
+use App\Http\Controllers\Crud\UserController;
+use App\Http\Controllers\Crud\PaymentController;
+use App\Http\Controllers\Crud\VehicleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,4 +39,7 @@ Route::prefix('dashboard')->middleware(['auth', 'admin'])->group(function () {
     Route::post('/exams/updateResult', [ExamController::class, 'updateResult'])->name('exams.updateResult');
     Route::post('/exams/removeStudent', [ExamController::class, 'removeStudent'])->name('exams.removeStudent');
     Route::resource('vehicles', VehicleController::class);
+    Route::resource('payments', PaymentController::class);
+    Route::get('/payments/create/{user}', [PaymentController::class, 'create'])->name('payments.create');
+    Route::post('/payments/store', [PaymentController::class, 'store'])->name('payments.store');
 });
