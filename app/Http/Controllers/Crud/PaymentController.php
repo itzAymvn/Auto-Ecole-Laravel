@@ -14,22 +14,26 @@ class PaymentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        /* 
-            SELECT u.name AS user_name, p.goal_amount, SUM(p.amount_paid) AS total_paid, goal_amount - SUM(p.amount_paid) as remaining_amount
-            FROM users u
-            inner JOIN payments p 
-            ON u.id = p.student_id
-            GROUP BY u.id
-        */
+        $query = $request->query('search');
 
         $payments = Payment::select(
             'users.id as user_id',
             'users.name AS user_name',
-            'payments.goal_amount',
+            DB::raw(
+                '(SELECT goal_amount 
+                        FROM payments p2 
+                        WHERE p2.student_id = payments.student_id 
+                        ORDER BY created_at DESC LIMIT 1) AS goal_amount'
+            ),
             DB::raw('SUM(payments.amount_paid) AS total_paid'),
-            DB::raw('payments.goal_amount - SUM(payments.amount_paid) as remaining_amount')
+            DB::raw(
+                '(SELECT goal_amount 
+                        FROM payments p2 
+                        WHERE p2.student_id = payments.student_id 
+                        ORDER BY created_at DESC LIMIT 1) - SUM(payments.amount_paid) as remaining_amount'
+            )
         )
             ->join(
                 'users',
@@ -38,7 +42,9 @@ class PaymentController extends Controller
                 'payments.student_id'
             )
             ->groupBy('users.id')
+            ->where('users.name', 'LIKE', "%{$query}%")
             ->get();
+
 
         return view('dashboard.payments.index', compact('payments'));
     }
@@ -48,6 +54,10 @@ class PaymentController extends Controller
      */
     public function create(User $user)
     {
+        if (!$user->id) {
+            return redirect()->route('payments.index')->with('error', 'Vous devez sélectionner un étudiant');
+        }
+
         $total_paid = $user->payments->sum('amount_paid') ?? null;
         $goal_amount = $user->payments->last()->goal_amount ?? null;
         $remaining_amount = $user->payments->last()->remaining_amount ?? null;
@@ -67,14 +77,15 @@ class PaymentController extends Controller
         ]);
 
         $payment = new Payment();
+        
         $payment->student_id = $validated['student_id'];
         $payment->goal_amount = $validated['goal_amount'];
         $payment->amount_paid = $validated['amount_paid'];
 
         if ($payment->save()) {
-            return redirect()->route('payments.show', $validated['student_id'])->with('success', 'Payment added successfully');
+            return redirect()->route('payments.show', $validated['student_id'])->with('success', 'Le paiement a été ajouté avec succès');
         }
-        return redirect()->back()->with('error', 'Something went wrong');
+        return redirect()->back()->with('error', 'Quelque chose s\'est mal passé');
     }
 
     /**
@@ -110,8 +121,8 @@ class PaymentController extends Controller
     public function destroy(Payment $payment)
     {
         if ($payment->delete()) {
-            return redirect()->back()->with('success', 'Payment deleted successfully');
+            return redirect()->back()->with('success', 'Le paiement a été supprimé avec succès');
         }
-        return redirect()->back()->with('error', 'Something went wrong');
+        return redirect()->back()->with('error', 'Quelque chose s\'est mal passé');
     }
 }

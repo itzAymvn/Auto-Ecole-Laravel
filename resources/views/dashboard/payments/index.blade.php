@@ -28,6 +28,21 @@
 
             <x-alerts></x-alerts>
 
+            <form class="input-group mb-3" method="GET" action="{{ route('payments.index') }}">
+                <input type="text" class="form-control" placeholder="Rechercher un paiement par nom d'utilisateur"
+                    value="{{ request()->query('search') }}" name="search">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" id="search-btn" type="submit">
+                        <i class="fas fa-search"></i>
+                        Rechercher
+                    </button>
+                    <a href="{{ route('payments.index') }}" class="btn btn-primary">
+                        <i class="fas fa-sync-alt"></i>
+                        Actualiser
+                    </a>
+                </div>
+            </form>
+
             @if (count($payments) > 0)
 
                 <div class="table-responsive">
@@ -65,7 +80,6 @@
                 </div>
             @else
                 <p>Aucun paiement trouvé.</p>
-
             @endif
 
         </section>
