@@ -22,16 +22,16 @@ class PaymentController extends Controller
             'users.id as user_id',
             'users.name AS user_name',
             DB::raw(
-                '(SELECT goal_amount 
-                        FROM payments p2 
-                        WHERE p2.student_id = payments.student_id 
+                '(SELECT goal_amount
+                        FROM payments p2
+                        WHERE p2.student_id = payments.student_id
                         ORDER BY created_at DESC LIMIT 1) AS goal_amount'
             ),
             DB::raw('SUM(payments.amount_paid) AS total_paid'),
             DB::raw(
-                '(SELECT goal_amount 
-                        FROM payments p2 
-                        WHERE p2.student_id = payments.student_id 
+                '(SELECT goal_amount
+                        FROM payments p2
+                        WHERE p2.student_id = payments.student_id
                         ORDER BY created_at DESC LIMIT 1) - SUM(payments.amount_paid) as remaining_amount'
             )
         )
@@ -77,7 +77,7 @@ class PaymentController extends Controller
         ]);
 
         $payment = new Payment();
-        
+
         $payment->student_id = $validated['student_id'];
         $payment->goal_amount = $validated['goal_amount'];
         $payment->amount_paid = $validated['amount_paid'];

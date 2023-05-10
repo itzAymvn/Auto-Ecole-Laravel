@@ -174,7 +174,7 @@
             </div>
             <div class="collapse multi-collapse" id="moredata">
                 <ul class="list-group">
-                    <li class="list-group-item">
+                    {{-- <li class="list-group-item">
                         <a href="/aaa">
                             <i class="fas fa-chalkboard-teacher"></i>
                             <span>
@@ -189,9 +189,9 @@
                                 Les examens
                             </span>
                         </a>
-                    </li>
+                    </li> --}}
                     <li class="list-group-item">
-                        <a href="/aaa">
+                        <a href="{{ route('payments.show', $user->id) }}">
                             <i class="fa-regular fa-credit-card"></i>
                             <span>
                                 Les paiements

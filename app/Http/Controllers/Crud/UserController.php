@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Crud;
 
-use App\Models\User;
+use Carbon\Carbon;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -14,15 +15,59 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
+
     public function index()
     {
-        if (request('search')) {
-            $users = User::where('name', 'like', '%' . request('search') . '%')->where('id', '!=', Auth::user()->id)->orderBy('created_at', 'desc')->paginate(10);
-        } else {
-            $users = User::where('id', '!=', Auth::user()->id)->orderBy('created_at', 'desc')->paginate(10);
+        $query = User::query();
+
+        if (request()->has('search') && request()->input('search') != '') {
+            $search = request()->input('search');
+            $query->where('name', 'like', '%' . $search . '%');
         }
+
+        if (request()->has('type') && request()->input('type') != '') {
+            $type = request()->input('type');
+            $query->where('type', $type);
+        }
+
+        if (request()->has('created_at') && request()->input('created_at') != '') {
+            $created_at = request()->input('created_at');
+            $query->whereDate('created_at', $created_at);
+        }
+
+        if (request()->has('period') && request()->input('period') != '') {
+            $period = request()->input('period');
+            $now = Carbon::now();
+
+            if ($period == 'today') {
+                // Get the users created today
+                $query->whereDate('created_at', $now->toDateString());
+            } elseif ($period == 'week') {
+                // Get the current week, starting on Monday and ending on Sunday
+                $startOfWeek = $now->startOfWeek()->toDateString();
+                $endOfWeek = $now->endOfWeek()->toDateString();
+
+                // Get the users created between the start and end of the week
+                $query->whereBetween('created_at', [$startOfWeek, $endOfWeek]);
+            } elseif ($period == 'month') {
+                // Get the users created this month
+                $query->whereMonth('created_at', $now->month);
+            } elseif ($period == 'year') {
+                // Get the users created this year
+                $query->whereYear('created_at', $now->year);
+            }
+        }
+
+        if (request()->has('birthdate') && request()->input('birthdate') != '') {
+            $birthdate = request()->input('birthdate');
+            $query->whereDate('birthdate', $birthdate);
+        }
+
+        $users = $query->paginate(10);
         return view('dashboard.users.index', compact('users'));
     }
+
+
 
     /**
      * Show the form for creating a new resource.
