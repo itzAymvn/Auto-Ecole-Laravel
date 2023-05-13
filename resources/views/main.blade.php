@@ -213,12 +213,15 @@
                 <h6 class="text-primary text-uppercase mb-2">
                     Contactez nous
                 </h6>
+
+                <x-alerts/>
+                
                 <h1 class="display-6 mb-4">
                     Nous sommes à votre écoute, n'hésitez pas à nous
                     contacter
                 </h1>
 
-                <form action="" method="post">
+                <form action="{{ route('contact.send') }}" method="POST">
                     @csrf
                     <div class="row g-3">
                         <div class="col-md-6">
@@ -227,6 +230,9 @@
                                     placeholder="Your Name" name="name" />
                                 <label for="name">Votre Nom</label>
                             </div>
+                            @error('name')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="col-md-6">
                             <div class="form-floating">
@@ -234,6 +240,9 @@
                                     placeholder="Your Email" name="email" />
                                 <label for="email">Votre Email</label>
                             </div>
+                            @error('email')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="col-12">
                             <div class="form-floating">
@@ -241,6 +250,9 @@
                                     placeholder="Subject" name="subject" />
                                 <label for="subject">Le sujet</label>
                             </div>
+                            @error('subject')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="col-12">
                             <div class="form-floating">
@@ -248,6 +260,9 @@
                                     style="height: 150px" name="message"></textarea>
                                 <label for="message">Votre message</label>
                             </div>
+                            @error('message')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="col-12">
                             <button class="btn btn-primary py-3 px-5" type="submit">

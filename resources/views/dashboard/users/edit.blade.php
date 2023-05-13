@@ -18,30 +18,18 @@
 
         <x-alerts></x-alerts>
 
-        <h5 class="text-center my-3">
-            <hr class="my-0 my-3 bg-dark">
-            <div>
-                <i class="fas fa-user-cog"></i>
-                <span>
-                    Qu'est ce que vous voulez faire ?
-                </span>
-            </div>
-            <hr class="my-0 my-3 bg-dark">
-        </h5>
-
         {{-- Update user section --}}
 
-        <section class="manage-users-section container py-2">
+        <section class="manage-users-section container py-5">
             <div class="d-flex justify-content-between mb-3">
-                <h5 data-bs-target="#updateuserform" data-bs-toggle="collapse" role="button" aria-expanded="false"
-                    aria-controls="updateuserform">
+                <h4>
                     <i class="fas fa-user-edit"></i>
                     <span>
                         Modifier l'utilisateur
                     </span>
-                </h5>
+                </h4>
             </div>
-            <form class="collapse multi-collapse" id="updateuserform" action="{{ route('users.update', $user->id) }}"
+            <form id="updateuserform" class="container" action="{{ route('users.update', $user->id) }}"
                 method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
@@ -126,20 +114,18 @@
             </form>
         </section>
 
-        <hr>
         {{-- Delete user section --}}
 
-        <section class="delete-user-section container py-2">
+        <section class="delete-user-section container py-5">
             <div class="d-flex justify-content-between mb-3">
-                <h5 data-bs-target="#deleteuserform" data-bs-toggle="collapse" role="button" aria-expanded="false"
-                    aria-controls="deleteuserform">
+                <h4>
                     <i class="fas fa-trash"></i>
                     <span>
                         Supprimer l'utilisateur
                     </span>
-                </h5>
+                </h4>
             </div>
-            <form class="collapse multi-collapse" id="deleteuserform" action="{{ route('users.destroy', $user->id) }}"
+            <form class="container" id="deleteuserform" action="{{ route('users.destroy', $user->id) }}"
                 method="POST">
                 @csrf
                 @method('DELETE')
@@ -162,17 +148,16 @@
         <hr>
         {{-- More data section --}}
 
-        <section class="container py-2">
+        <section class="container py-5">
             <div class="d-flex justify-content-between mb-3">
-                <h5 data-bs-target="#moredata" data-bs-toggle="collapse" role="button" aria-expanded="false"
-                    aria-controls="moredata">
+                <h4>
                     <i class="fas fa-trash"></i>
                     <span>
                         Voir plus d'informations
                     </span>
-                </h5>
+                </h4>
             </div>
-            <div class="collapse multi-collapse" id="moredata">
+            <div class="container" id="moredata">
                 <ul class="list-group">
                     {{-- <li class="list-group-item">
                         <a href="/aaa">

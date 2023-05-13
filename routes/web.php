@@ -2,11 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\Auth\ProfileController;
 
 use App\Http\Controllers\Crud\ExamController;
 use App\Http\Controllers\Crud\UserController;
+use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\Crud\PaymentController;
 use App\Http\Controllers\Crud\VehicleController;
 
@@ -33,13 +34,19 @@ Route::post('/profile', [ProfileController::class, 'update'])->name('update-prof
 // Dashboard
 Route::prefix('dashboard')->middleware(['auth', 'admin'])->group(function () {
     Route::view('/', 'dashboard.index')->name('dashboard');
+    
     Route::resource('users', UserController::class);
+
     Route::resource('exams', ExamController::class);
-    Route::post('/exams/addStudent', [ExamController::class, 'addStudent'])->name('exams.addStudent');
-    Route::post('/exams/updateResult', [ExamController::class, 'updateResult'])->name('exams.updateResult');
-    Route::post('/exams/removeStudent', [ExamController::class, 'removeStudent'])->name('exams.removeStudent');
+    Route::post('/exams/add-student', [ExamController::class, 'addStudent'])->name('exams.addStudent');
+    Route::post('/exams/update-result', [ExamController::class, 'updateResult'])->name('exams.updateResult');
+    Route::post('/exams/remove-student', [ExamController::class, 'removeStudent'])->name('exams.removeStudent');
+
     Route::resource('vehicles', VehicleController::class);
+
     Route::resource('payments', PaymentController::class);
     Route::get('/payments/create/{user}', [PaymentController::class, 'create'])->name('payments.create');
     Route::post('/payments/store', [PaymentController::class, 'store'])->name('payments.store');
 });
+
+Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
