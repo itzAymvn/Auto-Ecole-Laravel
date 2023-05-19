@@ -5,12 +5,12 @@
 @section('content')
 
     <div class="container mt-3 mb-5">
-
         {{-- User --}}
 
         <div class="row">
             <div class="col-md-12">
-                <h5>
+                <h5
+                    class="text-center my-3 bg-light p-3 rounded-3 d-flex justify-content-between align-items-center flex-wrap gap-3">
                     <span>
                         <i class="fas fa-user"></i>
                         Vous visualisez l'utilisateur:
@@ -33,15 +33,30 @@
                             </td>
                             <td>{{ $user->id }}</td>
                         </tr>
-                        <tr>
-                            <td>
-                                <strong>
-                                    <i class="fas fa-user"></i>
-                                    Nom:
-                                </strong>
-                            </td>
-                            <td>{{ $user->name }}</td>
-                        </tr>
+                        <div class="d-flex justify-content-start align-items-center my-3">
+                            <div>
+                                @empty($user->image)
+                                    <img src="{{ asset('storage/profiles/default.jpg') }}" alt="{{ $user->name }}"
+                                        height="80" class="rounded-circle">
+                                @else
+                                    <img src="{{ asset('storage/profiles/' . $user->image) }}" alt="{{ $user->name }}"
+                                        height="80" class="rounded-circle">
+                                @endempty
+                            </div>
+                            <div class="ms-3">
+                                <h5 class="text-capitalize">{{ $user->name }}</h5>
+                                <p class="text-capitalize">
+                                    @if ($user->type == 'admin')
+                                        <span class="badge bg-danger">Administrateur</span>
+                                    @elseif($user->type == 'student')
+                                        <span class="badge bg-primary">Étudiant</span>
+                                    @elseif($user->type == 'instructor')
+                                        <span class="badge bg-success">Instructeur</span>
+                                    @endif
+                                </p>
+                            </div>
+
+                        </div>
                         <tr>
                             <td>
                                 <strong>
@@ -78,41 +93,6 @@
                             </td>
                             <td>{{ $user->birthdate }}</td>
                         </tr>
-                        <tr>
-                            <td>
-                                <strong>
-                                    <i class="fas fa-user-tag"></i>
-                                    Type:
-                                </strong>
-                            </td>
-                            <td>
-                                @if ($user->type == 'admin')
-                                    <span class="badge bg-danger">Administrateur</span>
-                                @elseif($user->type == 'student')
-                                    <span class="badge bg-primary">Étudiant</span>
-                                @elseif($user->type == 'instructor')
-                                    <span class="badge bg-success">Instructeur</span>
-                                @endif
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <strong>
-                                    <i class="fas fa-image"></i>
-                                    Image:
-
-                                </strong>
-                            </td>
-                            <td>
-                                @empty($user->image)
-                                    <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-                                        alt="Image" width="50" height="50">
-                                @else
-                                    <img src="{{ asset('storage/profiles/' . $user->image) }}" alt="Image" width="50"
-                                        height="50">
-                                @endempty
-                            </td>
-                        </tr>
                     </tbody>
                 </table>
                 <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary">
@@ -128,6 +108,48 @@
                     Ajouter un paiement
                 </a>
             </div>
+            {{-- More data section --}}
+
+            <section class="container py-5">
+                <div class="d-flex justify-content-between mb-3">
+                    <h5>
+                        <i class="fas fa-trash"></i>
+                        <span>
+                            Voir plus d'informations
+                        </span>
+                    </h5>
+                </div>
+                <div class="container" id="moredata">
+                    <ul class="list-group">
+                        {{-- <li class="list-group-item">
+                        <a href="/aaa">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                            <span>
+                                Les seances
+                            </span>
+                        </a>
+                    </li> --}}
+                        <li class="list-group-item">
+                            <a href="{{ route('exams.index', ['student_id' => $user->id]) }}"
+                                class="d-flex align-items-center">
+                                <i class="fa-solid fa-car"></i>
+                                <span>
+                                    Les examens
+                                </span>
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="{{ route('payments.show', $user->id) }}">
+                                <i class="fa-regular fa-credit-card"></i>
+                                <span>
+                                    Les paiements
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
         </div>
     </div>
 

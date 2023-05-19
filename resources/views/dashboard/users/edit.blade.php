@@ -29,8 +29,8 @@
                     </span>
                 </h4>
             </div>
-            <form id="updateuserform" class="container" action="{{ route('users.update', $user->id) }}"
-                method="POST" enctype="multipart/form-data">
+            <form id="updateuserform" class="container" action="{{ route('users.update', $user->id) }}" method="POST"
+                enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="mb-3">
@@ -125,8 +125,7 @@
                     </span>
                 </h4>
             </div>
-            <form class="container" id="deleteuserform" action="{{ route('users.destroy', $user->id) }}"
-                method="POST">
+            <form class="container" id="deleteuserform" action="{{ route('users.destroy', $user->id) }}" method="POST">
                 @csrf
                 @method('DELETE')
 
@@ -146,47 +145,7 @@
         </section>
 
         <hr>
-        {{-- More data section --}}
-
-        <section class="container py-5">
-            <div class="d-flex justify-content-between mb-3">
-                <h4>
-                    <i class="fas fa-trash"></i>
-                    <span>
-                        Voir plus d'informations
-                    </span>
-                </h4>
-            </div>
-            <div class="container" id="moredata">
-                <ul class="list-group">
-                    {{-- <li class="list-group-item">
-                        <a href="/aaa">
-                            <i class="fas fa-chalkboard-teacher"></i>
-                            <span>
-                                Les seances
-                            </span>
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="/aaa">
-                            <i class="fa-solid fa-car"></i>
-                            <span>
-                                Les examens
-                            </span>
-                        </a>
-                    </li> --}}
-                    <li class="list-group-item">
-                        <a href="{{ route('payments.show', $user->id) }}">
-                            <i class="fa-regular fa-credit-card"></i>
-                            <span>
-                                Les paiements
-                            </span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </section>
-
+        
         {{-- Back button --}}
 
         <section class="container py-2">

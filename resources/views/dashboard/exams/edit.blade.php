@@ -105,8 +105,7 @@
 
         <div class="row g-3 mt-3">
             <div class="col-md-12">
-                <div data-bs-toggle="collapse" data-bs-target="#examStudents" role="button" aria-expanded="false"
-                    aria-controls="examStudents">
+                <div>
                     <h5>
                         <i class="fas fa-users"></i>
                         Modifier les étudiants inscrits à l'examen
@@ -114,7 +113,7 @@
                     </h5>
                 </div>
                 @if ($exam_students->count() > 0)
-                    <div class="collapse mb-3" id="examStudents">
+                    <div class="mb-3" id="examStudents">
                         <div class="card-body">
                             @foreach ($exam_students as $exam_student)
                                 <div class="d-flex justify-content-between align-items-between mb-3 flex-wrap">

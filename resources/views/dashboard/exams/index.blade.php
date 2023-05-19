@@ -14,8 +14,17 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <h5>
                             <i class="fa-solid fa-car-side"></i>
-                            Gérer les examens
-                            ({{ count($exams) }})
+                            {{-- If the route has a query param --}}
+                            @if (request()->has('student_id'))
+                                Examens de l'étudiant
+                                <a href="{{ route('users.show', request()->student_id) }}">
+                                    {{ $exams->student_name }}
+                                </a>
+                                ({{ count($exams) }})
+                            @else
+                                Gérer les examens
+                                ({{ count($exams) }})
+                            @endif
                         </h5>
                         <a href="{{ route('exams.create') }}" class="btn btn-primary d-flex align-items-center shadow-sm">
                             <i class="fa-solid fa-circle-plus me-2"></i>

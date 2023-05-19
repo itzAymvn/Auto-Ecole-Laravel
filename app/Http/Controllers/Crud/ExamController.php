@@ -19,14 +19,27 @@ class ExamController extends Controller
         // Get all the exams
         $exams = Exam::all();
 
+        // check if there is a ?student query parameter
+        if (request()->has('student_id')) {
+            // Get the student id
+            $student_id = request()->query('student_id');
+
+            // Get the student
+            $student = User::findOrFail($student_id);
+
+            // Get the exams of the student
+            $exams = $student->exams;
+            $exams->student_name = $student->name;
+        }
+
         // for each exam, get the instructor name and number of students
         foreach ($exams as $exam) {
             $exam->students_count = $exam->user->count();
-            $exam->instructor_name = User::find($exam->instructor_id)->name;
+            $exam->instructor_name = User::findOrFail($exam->instructor_id)->name;
 
             // if the exam has a vhicle id (so it' a drive exam) get the vehicle
             if ($exam->vehicle_id) {
-                $exam->vehicle = Vehicle::find($exam->vehicle_id);
+                $exam->vehicle = Vehicle::findOrFail($exam->vehicle_id);
             }
         }
 
@@ -111,17 +124,17 @@ class ExamController extends Controller
     public function show(Exam $exam)
     {
         // Get the exam details and the students in one query
-        $exam = Exam::with('user')->find($exam->id);
+        $exam = Exam::with('user')->findOrFail($exam->id);
 
         // Get the students (splitting the query we did above)
         $students = $exam->user;
 
         // Get the instructor
-        $instructor = User::find($exam->instructor_id);
+        $instructor = User::findOrFail($exam->instructor_id);
 
         // Get the vehicle if the type is drive
         if ($exam->exam_type == 'drive') {
-            $vehicle = Vehicle::find($exam->vehicle_id);
+            $vehicle = Vehicle::findOrFail($exam->vehicle_id);
         } else {
             $vehicle = false;
         }
@@ -137,7 +150,7 @@ class ExamController extends Controller
     public function edit(Exam $exam)
     {
         // Get the exam details and the students in one query
-        $exam = Exam::with('user')->find($exam->id);
+        $exam = Exam::with('user')->findOrFail($exam->id);
 
         // Get the students of the exam
         $exam_students = $exam->user;
@@ -204,7 +217,7 @@ class ExamController extends Controller
      */
     public function destroy(Exam $exam)
     {
-        // Find the exam 
+        // findOrFail the exam 
         $exam = Exam::findOrfail($exam->id);
 
         // Delete the exam
@@ -220,7 +233,7 @@ class ExamController extends Controller
     public function addStudent(Request $request)
     {
         // Find the exam
-        $exam = Exam::find($request->exam_id);
+        $exam = Exam::findOrFail($request->exam_id);
 
         // Attach the student to the exam
         $exam->user()->attach($request->student_id);
@@ -236,7 +249,7 @@ class ExamController extends Controller
     public function removeStudent(Request $request)
     {
         // Find the exam
-        $exam = Exam::find($request->exam_id);
+        $exam = Exam::findOrFail($request->exam_id);
 
         // Detach the student from the exam
         $exam->user()->detach($request->student_id);
