@@ -30,11 +30,12 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
 Route::post('/profile', [ProfileController::class, 'update'])->name('update-profile');
+Route::post('/profile/password', [ProfileController::class, 'updatePassword'])->name('update-password');
 
 // Dashboard
 Route::prefix('dashboard')->middleware(['auth', 'admin'])->group(function () {
     Route::view('/', 'dashboard.index')->name('dashboard');
-    
+
     Route::resource('users', UserController::class);
 
     Route::resource('exams', ExamController::class);

@@ -119,8 +119,8 @@
                                 <div class="d-flex justify-content-between align-items-between mb-3 flex-wrap">
                                     <div class="d-flex align-items-center col-12 col-md-6">
                                         @empty($exam_student->image)
-                                            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-                                                alt="Image" width="50" height="50" class="me-2 rounded-circle">
+                                            <img src="{{ asset('images/default-user.jpg') }}" alt="Image" width="50"
+                                                height="50" class="me-2 rounded-circle">
                                         @else
                                             <img src="{{ asset('storage/profiles/' . $exam_student->image) }}" alt="Image"
                                                 width="50" height="50" class="me-2 rounded-circle">
@@ -171,15 +171,13 @@
 
         @if ($exam_students->count() < 5)
             <div class="row g-3 mt-3">
-                <h5 class="mb-4 d-flex justify-content-between" data-bs-toggle="collapse"
-                    data-bs-target="#addStudentForm" role="button" aria-expanded="false"
-                    aria-controls="addStudentForm">
+                <h5 class="mb-4 d-flex justify-content-between">
                     <span>
                         <i class="fas fa-edit"></i>
                         Ajouter un étudiant à l'examen:
                     </span>
                 </h5>
-                <form action="{{ route('exams.addStudent') }}" method="POST" class="collapse" id="addStudentForm">
+                <form action="{{ route('exams.addStudent') }}" method="POST" id="addStudentForm">
                     @csrf
                     <input type="hidden" name="exam_id" value="{{ $exam->id }}">
                     <label for="student_id">Sélectionner un étudiant à ajouter</label>

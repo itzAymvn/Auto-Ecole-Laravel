@@ -36,8 +36,8 @@
                         <div class="d-flex justify-content-start align-items-center my-3">
                             <div>
                                 @empty($user->image)
-                                    <img src="{{ asset('storage/profiles/default.jpg') }}" alt="{{ $user->name }}"
-                                        height="80" class="rounded-circle">
+                                    <img src="{{ asset('images/default-user.jpg') }}" alt="{{ $user->name }}" height="80"
+                                        class="rounded-circle">
                                 @else
                                     <img src="{{ asset('storage/profiles/' . $user->image) }}" alt="{{ $user->name }}"
                                         height="80" class="rounded-circle">

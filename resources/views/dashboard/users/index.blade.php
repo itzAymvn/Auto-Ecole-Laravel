@@ -1,4 +1,4 @@
-@extends('layout.layout')
+@extends('layout.admin')
 
 @section('title', 'Gérer les utilisateurs')
 
@@ -140,8 +140,8 @@
                                 <tr>
                                     <th scope="row">{{ $user->id }}</th>
                                     @empty($user->image)
-                                        <td><img src="{{ asset('storage/profiles/default.jpg') }}" alt="Image"
-                                                width="50" height="50">
+                                        <td><img src="{{ asset('images/default-user.jpg') }}" alt="Image" width="50"
+                                                height="50">
                                         </td>
                                     @else
                                         <td><img src="{{ asset('storage/profiles/' . $user->image) }}" alt="Image"

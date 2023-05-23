@@ -123,8 +123,8 @@
                                 <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
                                     <div class="d-flex align-items-center">
                                         @empty($user->image)
-                                            <img src="{{ asset('storage/profiles/default.jpg') }}" alt="Image"
-                                                width="50" height="50" class="me-2 rounded-circle">
+                                            <img src="{{ asset('images/default-user.jpg') }}" alt="Image" width="50"
+                                                height="50" class="me-2 rounded-circle">
                                         @else
                                             <img src="{{ asset('storage/profiles/' . $user->image) }}" alt="Image"
                                                 width="50" height="50" class="me-2 rounded-circle">

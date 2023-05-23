@@ -1,10 +1,14 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top shadow-sm py-0">
-    <a href="{{ route('main') }}" class="navbar-brand d-flex align-items-center border-end px-4 px-lg-5">
-        <h2 class="m-0">
-            <i class="fas fa-car text-primary me-2"></i>Auto-Ecole
-        </h2>
-    </a>
+
+    <div class="d-flex align-items-center">
+
+        <a href="{{ route('main') }}" class="navbar-brand d-flex align-items-center border-end px-4 px-lg-5">
+            <h2 class="m-0">
+                <i class="fas fa-car text-primary mx-2"></i>Auto-Ecole
+            </h2>
+        </a>
+    </div>
     <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -77,8 +81,8 @@
                             <img src="{{ asset('storage/profiles/' . Auth::user()->image) }}" alt="user image"
                                 class="rounded-circle" width="30" height="30">
                         @else
-                            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-                                alt="user image" class="rounded-circle" width="30" height="30">
+                            <img src="{{ asset('images/default-user.jpg') }}" alt="user image" class="rounded-circle"
+                                width="30" height="30">
                         @endif
 
                         <div>

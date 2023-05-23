@@ -5,15 +5,16 @@
 @section('content')
     <section class="profile-section py-3">
 
-        <div class="container">
+        <div class="container py-3">
 
             <x-alerts></x-alerts>
 
-            <div>
-                <h5 class="text-center">Bienvenue <span class="text-primary">{{ Auth::user()->name }}</span></h5>
+            <div class="mb-3">
+                <h3 class="text-center">Bienvenue <span class="text-primary">{{ Auth::user()->name }}</span></h3>
             </div>
-            <div class="row mt-5">
-                <div class="col-md-4">
+
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-4">
+                <div class="col-12">
                     <div class="card shadow-sm">
                         <div class="card-body">
                             <div class="d-flex align-items-center gap-3">
@@ -34,7 +35,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-8">
+
+                {{-- Update Profile --}}
+
+                <div class="col-12">
                     <div class="card shadow-sm">
                         <div class="card-body">
                             <h5 class="mb-3">Mes informations</h5>
@@ -121,8 +125,60 @@
                         </div>
                     </div>
                 </div>
+
+                {{-- Change password --}}
+
+                <div class="col-12">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h5 class="mb-3">Changer le mot de passe</h5>
+                            <form action="{{ route('update-password') }}" method="POST">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="password" class="form-label">Mot de passe</label>
+                                            <input type="password" name="password" id="password" class="form-control">
+                                            @error('password')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="password_confirmation" class="form-label">Confirmer le mot de
+                                                passe</label>
+                                            <input type="password" name="password_confirmation"
+                                                id="password_confirmation" class="form-control">
+                                            @error('password_confirmation')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <button type="submit" class="btn btn-primary">Mettre à jour</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Delete account --}}
+
+                <div class="col-12">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h5 class="mb-3">Supprimer le compte</h5>
+                            <div class="alert alert-danger">
+                                Pour supprimer votre compte, veuillez contacter l'administrateur.
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
     </section>
 @endsection
 

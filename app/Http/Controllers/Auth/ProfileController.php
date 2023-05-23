@@ -56,4 +56,19 @@ class ProfileController extends Controller
             return redirect()->route('profile')->with('error', 'Une erreur est survenue lors de la mise à jour de votre profil.');
         }
     }
+
+    public function updatePassword(Request $request)
+    {
+        $user = User::find(Auth::id());
+        $validated = $request->validate([
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+
+        $user->password = bcrypt($validated['password']);
+        if ($user->save()) {
+            return redirect()->route('profile')->with('success', 'Votre mot de passe a été mis à jour avec succès.');
+        } else {
+            return redirect()->route('profile')->with('error', 'Une erreur est survenue lors de la mise à jour de votre mot de passe.');
+        }
+    }
 }
