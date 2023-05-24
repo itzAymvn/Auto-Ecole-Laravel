@@ -30,9 +30,33 @@
 
     @include('layout.header')
 
-    <main class="flex-grow-1">
-        @yield('content')
-    </main>
+    <!-- Offcanvas sidebar -->
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebar" aria-labelledby="sidebarLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="sidebarLabel">Sidebar</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div class="sidebar py-3 d-flex flex-column">
+                @include('layout.sidebar')
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid flex-grow-1">
+        <div class="row h-100">
+            <div class="col-md-3 bg-light d-none d-md-block">
+                <div class="sidebar py-3 d-flex flex-column">
+                    @include('layout.sidebar')
+                </div>
+            </div>
+            <div class="col-12 col-md-9">
+                <main class="p-1 px-md-3">
+                    @yield('content')
+                </main>
+            </div>
+        </div>
+    </div>
 
     @include('layout.footer')
 

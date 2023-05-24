@@ -1,4 +1,4 @@
-@extends('layout.layout')
+@extends('layout.admin')
 
 @section('title', 'Voir un véhicule')
 

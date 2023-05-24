@@ -37,7 +37,7 @@ Route::post('/profile/password', [ProfileController::class, 'updatePassword'])->
 
 // Dashboard
 Route::prefix('dashboard')->middleware(['auth', 'admin'])->group(function () {
-    Route::view('/', 'dashboard.index')->name('dashboard');
+    Route::redirect('/', '/dashboard/users', 301)->name('dashboard');
 
     Route::resource('users', UserController::class);
 

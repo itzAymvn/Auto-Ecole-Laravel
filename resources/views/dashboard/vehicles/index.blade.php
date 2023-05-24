@@ -1,4 +1,4 @@
-@extends('layout.layout')
+@extends('layout.admin')
 
 @section('title', 'Gérer les véhicules')
 
@@ -46,7 +46,7 @@
                                             <img src="{{ asset('storage/vehicles/' . $vehicle->image) }}"
                                                 alt="Image du véhicule" class="img-fluid" width="100">
                                         @else
-                                            <img src="{{ asset('storage/vehicles/default.jpg') }}" alt="Image du véhicule"
+                                            <img src="{{ asset('images/default-vehicle.jpg') }}" alt="Image du véhicule"
                                                 class="img-fluid" width="100">
                                         @endif
                                     </td>

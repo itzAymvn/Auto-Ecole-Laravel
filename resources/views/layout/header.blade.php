@@ -3,7 +3,14 @@
 
     <div class="d-flex align-items-center">
 
-        <a href="{{ route('main') }}" class="navbar-brand d-flex align-items-center border-end px-4 px-lg-5">
+        @if (request()->is('dashboard*'))
+            <button class="d-md-none mx-2 btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar"
+                aria-controls="sidebar">
+                <i class="fas fa-bars"></i>
+            </button>
+        @endif
+
+        <a href="{{ route('main') }}" class="navbar-brand d-flex align-items-center border-end px-2 px-lg-5">
             <h2 class="m-0">
                 <i class="fas fa-car text-primary mx-2"></i>Auto-Ecole
             </h2>
@@ -73,6 +80,8 @@
                     </div>
                 @endif
             @endif
+
+            {{-- If the user is connected --}}
             @if (Auth::check())
                 <div class="nav-item dropdown me-lg-3 me-xl-4">
                     <a class="nav-link dropdown-toggle d-flex align-items-center gap-2" id="userDropdown" role="button"
@@ -119,8 +128,11 @@
                     </ul>
                 </div>
             @else
-                <a href="{{ route('login-show') }}" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Se
-                    connecter</a>
+                <a href="{{ route('login-show') }}" class="btn btn-primary py-4 px-lg-5 d-lg-block">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Se
+                    connecter
+                </a>
             @endif
 
         </div>
