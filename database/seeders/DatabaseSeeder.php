@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Carbon\Carbon;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -64,7 +65,15 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // some users
-        User::factory(30)->create();
+        $startCreationDate = Carbon::now()->subDays(30); // Set the starting creation date
+
+        for ($i = 0; $i < 30; $i++) {
+            User::factory()->create([
+                'created_at' => $startCreationDate->addDays($i),
+                // Additional attributes for the User model
+            ]);
+        }
+
 
         $exam1 = Exam::create([
             'exam_type' => 'drive',

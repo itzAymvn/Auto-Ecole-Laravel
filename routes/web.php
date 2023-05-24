@@ -3,13 +3,16 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\ContactController;
-use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\StatisticsController;
 
-use App\Http\Controllers\Crud\ExamController;
-use App\Http\Controllers\Crud\UserController;
+use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\ProfileController;
-use App\Http\Controllers\Crud\PaymentController;
+
+use App\Http\Controllers\Crud\UserController;
 use App\Http\Controllers\Crud\VehicleController;
+use App\Http\Controllers\Crud\PaymentController;
+use App\Http\Controllers\Crud\SpendingController;
+use App\Http\Controllers\Crud\ExamController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,6 +51,10 @@ Route::prefix('dashboard')->middleware(['auth', 'admin'])->group(function () {
     Route::resource('payments', PaymentController::class);
     Route::get('/payments/create/{user}', [PaymentController::class, 'create'])->name('payments.create');
     Route::post('/payments/store', [PaymentController::class, 'store'])->name('payments.store');
+
+    Route::get("statistics", [StatisticsController::class, 'usersCreatedOverTime'])->name('statistics.usersCreatedOverTime');
+
+    Route::resource('spendings', SpendingController::class);
 });
 
 Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');

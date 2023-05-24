@@ -7,6 +7,8 @@
     <div class="container mt-3 mb-5">
         {{-- User --}}
 
+        <x-alerts />
+
         <div class="row">
             <div class="col-md-12">
                 <h5
@@ -107,6 +109,12 @@
                     <i class="fas fa-money-bill"></i>
                     Ajouter un paiement
                 </a>
+                @if ($user->type != 'student')
+                    <a href="{{ route('spendings.create', ['user_id' => $user->id]) }}" class="btn btn-warning">
+                        <i class="fas fa-money-bill"></i>
+                        Ajouter une dépense
+                    </a>
+                @endif
             </div>
             {{-- More data section --}}
 

@@ -69,7 +69,7 @@
                                         <div class="mb-3">
                                             <label for="name" class="form-label">Nom</label>
                                             <input type="text" name="name" id="name" class="form-control"
-                                                value="{{ Auth::user()->name }}">
+                                                value="{{ old('name') ? old('name') : Auth::user()->name }}">
                                             @error('name')
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
@@ -79,7 +79,7 @@
                                         <div class="mb-3">
                                             <label for="email" class="form-label">Email</label>
                                             <input type="email" name="email" id="email" class="form-control"
-                                                value="{{ Auth::user()->email }}">
+                                                value="{{ old('email') ? old('email') : Auth::user()->email }}">
                                             @error('email')
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
@@ -89,7 +89,7 @@
                                         <div class="mb-3">
                                             <label for="phone" class="form-label">Téléphone</label>
                                             <input type="text" name="phone" id="phone" class="form-control"
-                                                value="{{ Auth::user()->phone }}">
+                                                value="{{ old('phone') ? old('phone') : Auth::user()->phone }}">
                                             @error('phone')
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
@@ -99,7 +99,7 @@
                                         <div class="mb-3">
                                             <label for="address" class="form-label">Adresse</label>
                                             <input type="text" name="address" id="address" class="form-control"
-                                                value="{{ Auth::user()->address }}">
+                                                value="{{ old('address') ? old('address') : Auth::user()->address }}">
                                             @error('address')
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
@@ -109,7 +109,7 @@
                                         <div class="mb-3">
                                             <label for="birthdate" class="form-label">Date de naissance</label>
                                             <input type="date" name="birthdate" id="birthdate" class="form-control"
-                                                value="{{ Auth::user()->birthdate }}">
+                                                value="{{ old('birthdate') ? old('birthdate') : Auth::user()->birthdate }}">
                                             @error('birthdate')
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
