@@ -52,7 +52,7 @@ Route::prefix('dashboard')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/payments/create/{user}', [PaymentController::class, 'create'])->name('payments.create');
     Route::post('/payments/store', [PaymentController::class, 'store'])->name('payments.store');
 
-    Route::get("statistics", [StatisticsController::class, 'usersCreatedOverTime'])->name('statistics.usersCreatedOverTime');
+    Route::get("statistics", [StatisticsController::class, 'index'])->name('statistics.index');
 
     Route::resource('spendings', SpendingController::class);
 });
