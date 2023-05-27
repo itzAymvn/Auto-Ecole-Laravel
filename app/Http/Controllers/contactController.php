@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
-class ContactController extends Controller
+class contactController extends Controller
 {
     public function send(Request $request)
     {

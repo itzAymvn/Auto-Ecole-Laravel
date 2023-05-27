@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\ContactController;
+use App\Http\Controllers\contactController;
 use App\Http\Controllers\StatisticsController;
 
 use App\Http\Controllers\Auth\AuthController;
@@ -57,4 +57,4 @@ Route::prefix('dashboard')->middleware(['auth', 'admin'])->group(function () {
     Route::resource('spendings', SpendingController::class);
 });
 
-Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
+Route::post('/contact', [contactController::class, 'send'])->name('contact.send');
