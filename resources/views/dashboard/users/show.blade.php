@@ -105,11 +105,12 @@
                     <i class="fas fa-trash"></i>
                     Supprimer l'utilisateur
                 </a>
-                <a href="{{ route('payments.create', $user->id) }}" class="btn btn-success">
-                    <i class="fas fa-money-bill"></i>
-                    Ajouter un paiement
-                </a>
-                @if ($user->type != 'student')
+                @if ($user->type == 'student')
+                    <a href="{{ route('payments.create', ['user_id' => $user->id]) }}" class="btn btn-success">
+                        <i class="fas fa-money-bill"></i>
+                        Ajouter un paiement
+                    </a>
+                @elseif ($user->type == 'instructor' || $user->type == 'admin')
                     <a href="{{ route('spendings.create', ['user_id' => $user->id]) }}" class="btn btn-warning">
                         <i class="fas fa-money-bill"></i>
                         Ajouter une dépense

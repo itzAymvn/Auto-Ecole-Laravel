@@ -53,6 +53,7 @@
                                 <th>Montant de l'objectif</th>
                                 <th>Montant total reçu</th>
                                 <th>Montant restant à payer</th>
+                                <th>Status</th>
                                 <th>Voir les détails</th>
                             </tr>
                         </thead>
@@ -67,6 +68,13 @@
                                     <td>{{ $payment->goal_amount }}</td>
                                     <td>{{ $payment->total_paid }}</td>
                                     <td>{{ $payment->remaining_amount }}</td>
+                                    <td>
+                                        {{-- If the rest is 0, bacground green and done --}}
+                                        @if ($payment->remaining_amount == 0)
+                                            <span class="badge bg-success rounded-pill">Terminé</span>
+                                        @else
+                                            <span class="badge bg-danger rounded-pill">En cours</span>
+                                        @endif
                                     <td>
                                         <a href="{{ route('payments.show', $payment->user_id) }}">
                                             <i class="fas fa-eye"></i>

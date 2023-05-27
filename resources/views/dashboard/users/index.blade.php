@@ -170,9 +170,19 @@
                                                 <i class="fas fa-trash-alt"></i>
                                             </button>
                                         </form>
-                                        <a href="{{ route('payments.create', $user->id) }}">
-                                            <i class="fas fa-money-bill-wave"></i>
-                                        </a>
+                                        @if ($user->type == 'student')
+                                            <a href="{{ route('payments.create', ['user_id' => $user->id]) }}">
+                                                <i
+                                                    class="fas
+                                            fa-money-bill-wave"></i>
+                                            </a>
+                                        @elseif ($user->type == 'instructor' || $user->type == 'admin')
+                                            <a href="{{ route('spendings.create', ['user_id' => $user->id]) }}">
+                                                <i
+                                                    class="fas
+                                            fa-money-bill-wave"></i>
+                                            </a>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach

@@ -52,10 +52,16 @@ class PaymentController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(User $user)
+    public function create()
     {
-        if (!$user->id) {
-            return redirect()->route('payments.index')->with('error', 'Vous devez sélectionner un étudiant');
+        if (request()->query('user_id')) {
+            $user = User::findOrFail(request()->query('user_id'));
+
+            if ($user->type != 'student') {
+                return redirect()->route('payments.index')->with('error', 'Vous ne pouvez pas ajouter un paiement à un utilisateur qui n\'est pas un étudiant');
+            }
+        } else {
+            return redirect()->route('payments.index')->with('error', 'Vous devez sélectionner un étudiant. Depuis la liste des étudiant, cliquez sur le bouton "Ajouter un paiement"');
         }
 
         $total_paid = $user->payments->sum('amount_paid') ?? null;
