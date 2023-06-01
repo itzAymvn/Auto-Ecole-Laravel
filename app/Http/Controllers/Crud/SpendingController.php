@@ -6,6 +6,7 @@ use App\Models\User;
 
 use App\Models\Spending;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
 class SpendingController extends Controller
@@ -15,9 +16,44 @@ class SpendingController extends Controller
      */
     public function index()
     {
-        $spendings = Spending::all();
+        $query = Spending::query();
+
+        if (request()->has('payment_type') && request()->input('payment_type') != '') {
+            $paymentType = request()->input('payment_type');
+            $query->where('type', $paymentType);
+        }
+
+        if (request()->has('user_name') && request()->input('user_name') != '') {
+            $userName = request()->input('user_name');
+            $query->whereHas('user', function ($q) use ($userName) {
+                $q->where('name', 'like', '%' . $userName . '%');
+            });
+        }
+
+        if (request()->has('sort_by_date') && request()->input('sort_by_date') != '') {
+            $sortByDate = request()->input('sort_by_date');
+            if ($sortByDate == 'desc') {
+                $query->orderByDesc('created_at');
+            } elseif ($sortByDate == 'asc') {
+                $query->orderBy('created_at');
+            }
+        }
+
+        if (request()->has('date') && request()->input('date') != '') {
+            $date = request()->input('date');
+            $query->whereDate('created_at', $date);
+        }
+
+
+        $spendings = $query->get();
+
         return view('dashboard.spendings.index', compact('spendings'));
     }
+
+
+
+
+
 
     /**
      * Show the form for creating a new resource.

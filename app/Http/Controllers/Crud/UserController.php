@@ -87,6 +87,7 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users',
             'phone' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
+            'type' => 'required|in:admin,instructor,student',
             'address' => 'required',
             'birthdate' => 'required',
             'password' => 'required|confirmed',
@@ -105,6 +106,7 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->phone = $request->phone;
+        $user->type = $request->type;
         $user->address = $request->address;
         $user->birthdate = $request->birthdate;
         $user->password = bcrypt($request->password);
@@ -120,9 +122,9 @@ class UserController extends Controller
 
         // Save the user object with an error/success message
         if ($user->save()) {
-            return redirect()->back()->with('success', 'User created successfully');
+            return redirect()->back()->with('success', 'L\'utilisateur a été ajouté avec succès');
         } else {
-            return redirect()->back()->with('error', 'Something went wrong');
+            return redirect()->back()->with('error', 'Quelque chose s\'est mal passé, veuillez réessayer');
         }
     }
 

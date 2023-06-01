@@ -101,24 +101,25 @@
                 </div>
             </div>
 
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#filters_modal">
-                Ouvrir le menu de filtrage
-            </button>
+            <div class="my-3 bg-light p-3 rounded-3">
+                <div class="d-flex justify-content-between align-items-center flex-wrap">
+                    <h5>
+                        <i class="fas fa-users me-2"></i>
+                        Gérer les utilisateurs ({{ $users->total() }})
+                    </h5>
+                    <div class="d-flex justify-content-between align-items-center flex-wrap gap-1">
 
-            @if (count($users) > 0)
-                <div class="my-3 bg-light p-3 rounded-3">
-                    <div class="d-flex justify-content-between align-items-center flex-wrap">
-                        <h5>
-                            <i class="fas fa-users me-2"></i>
-                            Gérer les utilisateurs ({{ $users->total() }})
-                        </h5>
+                        <button type="button" class="btn btn-primary d-flex align-items-center shadow-sm"
+                            data-toggle="modal" data-target="#filters_modal">
+                            <i class="fas fa-filter me-2"></i>
+                        </button>
                         <a href="{{ route('users.create') }}" class="btn btn-primary d-flex align-items-center shadow-sm">
                             <i class="fa-solid fa-circle-plus me-2"></i>
-                            Ajouter un utilisateur
                         </a>
                     </div>
                 </div>
-
+            </div>
+            @if (count($users) > 0)
                 <div class="table-responsive table-responsive-md">
                     <table class="table table-bordered table-responsive">
                         <thead>

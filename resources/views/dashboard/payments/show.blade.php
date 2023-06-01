@@ -53,7 +53,7 @@
                 <p>Aucun paiement trouvé.</p>
             @endif
 
-            <a href="{{ route('payments.create', $user->id) }}" class="btn btn-primary">
+            <a href="{{ route('payments.create', ['user_id' => $user->id]) }}" class="btn btn-primary">
                 <i class="fas fa-plus-circle me-2"></i>
                 Ajouter un paiement
             </a>

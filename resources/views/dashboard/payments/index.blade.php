@@ -8,40 +8,23 @@
 
         <section class="manage-payments-section container py-5">
 
-            <h5 class="mb-3">
-                <div class="title">
-                    <div>
-                        <i class="fas fa-money-check-alt me-2"></i>
-                        Liste des paiements
-                        <span class="badge bg-primary rounded-pill">{{ count($payments) }}</span>
-                    </div>
-
-                    <small class="text-muted">
-                        Ce sont tous les paiements effectués par tous les utilisateurs. Vous pouvez cliquer sur le nom de
-                        l'utilisateur pour voir le profil de l'utilisateur ou sur le bouton détails pour voir les détails
-                        des paiements effectués par
-                        l'utilisateur.
-                    </small>
-                </div>
-            </h5>
-
-
             <x-alerts></x-alerts>
 
-            <form class="input-group mb-3" method="GET" action="{{ route('payments.index') }}">
-                <input type="text" class="form-control" placeholder="Rechercher un paiement par nom d'utilisateur"
-                    value="{{ request()->query('search') }}" name="search">
-                <div class="input-group-append">
-                    <button class="btn btn-primary" id="search-btn" type="submit">
-                        <i class="fas fa-search"></i>
-                        Rechercher
-                    </button>
-                    <a href="{{ route('payments.index') }}" class="btn btn-primary">
-                        <i class="fas fa-sync-alt"></i>
-                        Actualiser
-                    </a>
+            <div class="my-3 bg-light p-3 rounded-3">
+                <div class="d-flex justify-content-between align-items-center flex-wrap">
+                    <h5>
+                        <i class="fas fa-money-check-alt me-2"></i>
+                        Liste des paiements
+                    </h5>
+                    <div class="d-flex justify-content-between align-items-center flex-wrap gap-1">
+                        <button type="button" class="btn btn-primary d-flex align-items-center shadow-sm" data-toggle="modal"
+                            data-target="#filters_modal" title="Filter">
+                            <i class="fas fa-filter me-2"></i>
+                            <span class="d-none d-md-inline">Filtrer</span>
+                        </button>
+                    </div>
                 </div>
-            </form>
+            </div>
 
             @if (count($payments) > 0)
 
@@ -69,12 +52,12 @@
                                     <td>{{ $payment->total_paid }}</td>
                                     <td>{{ $payment->remaining_amount }}</td>
                                     <td>
-                                        {{-- If the rest is 0, bacground green and done --}}
                                         @if ($payment->remaining_amount == 0)
                                             <span class="badge bg-success rounded-pill">Terminé</span>
                                         @else
                                             <span class="badge bg-danger rounded-pill">En cours</span>
                                         @endif
+                                    </td>
                                     <td>
                                         <a href="{{ route('payments.show', $payment->user_id) }}">
                                             <i class="fas fa-eye"></i>
@@ -87,11 +70,66 @@
                     </table>
                 </div>
             @else
-                <p>Aucun paiement trouvé.</p>
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle me-2"></i>
+                    Aucun paiement trouvé.
+                </div>
             @endif
 
         </section>
 
     </main>
+
+    <!-- Modal (Filtering) -->
+    <div class="modal fade" id="filters_modal" tabindex="-1" role="dialog" aria-labelledby="filters_modal"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-filter me-2"></i>
+                        <span class="fw-bold">Filtrer les paiements</span>
+                    </h5>
+                    <button type="button" class="close btn-close" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="filters_form" action="{{ route('payments.index') }}" method="GET">
+                        <div class="mb-3">
+                            <label for="search">Rechercher un utilisateur par nom :</label>
+                            <input type="text" class="form-control" id="search" name="search"
+                                value="{{ request()->query('search') }}" placeholder="Nom de l'utilisateur">
+                        </div>
+                        <div class="mb-3">
+                            <label for="status">Statut :</label>
+                            <select class="form-control" id="status" name="status">
+                                <option value="">Tous</option>
+                                <option value="finished" {{ request()->query('status') == 'finished' ? 'selected' : '' }}>
+                                    Terminé
+                                </option>
+                                <option value="in_progress"
+                                    {{ request()->query('status') == 'in_progress' ? 'selected' : '' }}>
+                                    En cours
+                                </option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        <i class="fas fa-times me-2"></i>
+                        <span class="fw-bold">Fermer</span>
+                    </button>
+                    <button type="submit" class="btn btn-primary" form="filters_form">
+                        <i class="fas fa-filter me-2"></i>
+                        <span class="fw-bold">Filtrer</span>
+                    </button>
+                    <a href="{{ route('payments.index') }}" class="btn btn-danger">
+                        <i class="fas fa-sync me-2"></i>
+                        <span class="fw-bold">Réinitialiser</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 
 @endsection

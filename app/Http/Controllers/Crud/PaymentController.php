@@ -16,23 +16,23 @@ class PaymentController extends Controller
      */
     public function index(Request $request)
     {
-        $query = $request->query('search');
+        $query = Payment::query();
 
         $payments = Payment::select(
             'users.id as user_id',
             'users.name AS user_name',
             DB::raw(
                 '(SELECT goal_amount
-                        FROM payments p2
-                        WHERE p2.student_id = payments.student_id
-                        ORDER BY created_at DESC LIMIT 1) AS goal_amount'
+                FROM payments p2
+                WHERE p2.student_id = payments.student_id
+                ORDER BY created_at DESC LIMIT 1) AS goal_amount'
             ),
             DB::raw('SUM(payments.amount_paid) AS total_paid'),
             DB::raw(
                 '(SELECT goal_amount
-                        FROM payments p2
-                        WHERE p2.student_id = payments.student_id
-                        ORDER BY created_at DESC LIMIT 1) - SUM(payments.amount_paid) as remaining_amount'
+                FROM payments p2
+                WHERE p2.student_id = payments.student_id
+                ORDER BY created_at DESC LIMIT 1) - SUM(payments.amount_paid) as remaining_amount'
             )
         )
             ->join(
@@ -42,12 +42,33 @@ class PaymentController extends Controller
                 'payments.student_id'
             )
             ->groupBy('users.id')
-            ->where('users.name', 'LIKE', "%{$query}%")
             ->get();
 
+        if ($request->query('search')) {
+            $search = $request->query('search');
+            $payments = $payments->filter(function ($payment) use ($search) {
+                return stripos($payment->user_name, $search) !== false;
+            });
+        }
+
+        if ($request->query('status')) {
+            $status = $request->query('status');
+            if ($status == 'finished') {
+                $payments = $payments->filter(function ($payment) {
+                    return $payment->remaining_amount == 0;
+                });
+            } elseif ($status == 'in_progress') {
+                $payments = $payments->filter(function ($payment) {
+                    return $payment->remaining_amount > 0;
+                });
+            }
+        }
 
         return view('dashboard.payments.index', compact('payments'));
     }
+
+
+
 
     /**
      * Show the form for creating a new resource.

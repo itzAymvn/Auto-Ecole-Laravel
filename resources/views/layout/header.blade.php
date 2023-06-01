@@ -33,53 +33,6 @@
                 <i class="fas fa-phone"></i>
                 <span>Contact</span>
             </a>
-            @if (request()->is('dashboard*'))
-                @if ((Auth::user() && Auth::user()->type == 'admin') || Auth::user()->type == 'superadmin')
-                    <div class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle d-flex align-items-center gap-2" id="dashboardDropdown"
-                            role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fa-solid fa-gear"></i>
-                            <span>Gestion</span>
-                        </a>
-
-                        <ul class="dropdown-menu dropdown-menu w-100 border-0 shadow" aria-labelledby="userDropdown">
-                            <li>
-                                <a class="dropdown-item" href="{{ route('users.index') }}">
-                                    <i class="fas fa-users"></i>
-                                    <span>Utilisateurs</span>
-                                </a>
-                            </li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="{{ route('vehicles.index') }}">
-                                    <i class="fas fa-car"></i>
-                                    <span>Vehicules</span>
-                                </a>
-                            </li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="{{ route('exams.index') }}">
-                                    <i class="fas fa-clipboard-list"></i>
-                                    <span>Examens</span>
-                                </a>
-                            </li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="{{ route('payments.index') }}">
-                                    <i class="fas fa-money-bill-wave"></i>
-                                    <span>Paiements</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                @endif
-            @endif
 
             {{-- If the user is connected --}}
             @if (Auth::check())
