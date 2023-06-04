@@ -6,14 +6,18 @@
 
     <main class="d-flex justify-content-between container flex-column">
 
-        <h5 class="text-center my-3 bg-light p-3 rounded-3">
-            <i class="fas fa-car"></i>
+        <h5
+            class="text-center my-3 bg-light p-3 rounded-3 d-flex justify-content-between align-items-center flex-wrap gap-3">
             <span>
-                Vous êtes en train de modifier le véhicule
-                <a href="{{ route('vehicles.show', $vehicle->id) }}">
-                    {{ $vehicle->matricule }}
-                </a>
+                <i class="fas fa-car"></i>
+                Vous êtes en train de modifier le véhicule:
+                <span class="text-primary">{{ $vehicle->matricule }}</span>
             </span>
+
+            <a href="{{ route('vehicles.show', $vehicle->id) }}" class="btn btn-primary float-end">
+                <i class="fas fa-arrow-left"></i>
+                Retour
+            </a>
         </h5>
 
         <x-alerts></x-alerts>
@@ -60,6 +64,7 @@
                         class="mb-3 rounded-circle">
                 @endif
 
+
                 <div class="mb-3">
                     <label for="image" class="form-label">
                         <i class="fas fa-image"></i>
@@ -82,9 +87,9 @@
                 </button>
 
                 <a href="{{ route('vehicles.index') }}" class="btn btn-secondary">
-                    <i class="fas fa-arrow-left"></i>
+                    <i class="fas fa-window-close"></i>
                     <span>
-                        Retour
+                        Annuler
                     </span>
                 </a>
             </form>

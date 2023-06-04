@@ -4,22 +4,25 @@
 
 @section('content')
 
-    <div class="container mt-3 mb-5">
+    <div class="container py-3">
 
         <x-alerts></x-alerts>
 
-        <div class="row mb-3">
+        <div class="row">
             <div class="col-md-12">
-                <div class="d-flex justify-content-between mb-3">
-                    <h5>
+                <h5
+                    class="text-center bg-light p-3 rounded-3 d-flex justify-content-between align-items-center flex-wrap gap-3">
+                    <span>
                         <i class="fas fa-clipboard-list"></i>
-                        Vous êtes sur l'examen <span class="text-primary">{{ $exam->exam_title }}</span>
-                    </h5>
+                        Vous êtes sur l'examen:
+                        <span class="text-primary">{{ $exam->exam_title }} </span>
+                    </span>
+
                     <a href="{{ route('exams.index') }}" class="btn btn-primary float-end">
                         <i class="fas fa-arrow-left"></i>
                         Retour
                     </a>
-                </div>
+                </h5>
                 <table class="table table-responsive table-bordered">
                     <tbody>
                         <tr>
@@ -102,13 +105,15 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <div class="d-flex justify-content-between mb-3">
-                    <h5>
-                        <i class="fas fa-users"></i>
-                        Les étudiants inscrits à l'examen
+                <h5
+                    class="text-center bg-light p-3 rounded-3 d-flex justify-content-between align-items-center flex-wrap gap-3">
+                    <span>
+                        <i class="fas fa-user"></i>
+                        Les étudiants inscrits à l'examen:
                         <span class="text-primary">{{ $students->count() }}/5</span>
-                    </h5>
-                </div>
+                    </span>
+                </h5>
+
                 @if ($students->count() === 5)
                     <div class="alert alert-warning">
                         <i class="fas fa-exclamation-triangle"></i>
@@ -117,10 +122,10 @@
                 @endif
 
                 @if ($students->count() > 0)
-                    <div class="card mt-3">
+                    <div class="card">
                         <div class="card-body">
                             @foreach ($students as $user)
-                                <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
+                                <div class="d-flex justify-content-between align-items-center mb-1 flex-wrap">
                                     <div class="d-flex align-items-center">
                                         @empty($user->image)
                                             <img src="{{ asset('images/default-user.jpg') }}" alt="Image" width="50"
@@ -173,7 +178,7 @@
         </div>
         <a href="{{ route('exams.edit', $exam->id) }}" class="btn btn-primary mt-3">
             <i class="fas fa-edit"></i>
-            Modifier
+            Modifier les informations de l'examen
         </a>
     </div>
 

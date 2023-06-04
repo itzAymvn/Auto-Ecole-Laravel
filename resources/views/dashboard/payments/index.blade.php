@@ -6,7 +6,7 @@
 
     <main class="d-flex justify-content-between flex-row">
 
-        <section class="manage-payments-section container py-5">
+        <section class="manage-payments-section container">
 
             <x-alerts></x-alerts>
 

@@ -5,7 +5,12 @@
 @section('content')
 
     <div class="container mt-3 mb-5">
-        <h1> Créer une dépense</h1>
+        <h5 class="text-center bg-light p-3 rounded-3 d-flex justify-content-between align-items-center flex-wrap gap-3">
+            <span>
+                <i class="fas fa-money-bill-wave"></i>
+                Créer une dépense
+            </span>
+        </h5>
 
         <form action="{{ route('spendings.store') }}" method="POST">
             @csrf

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -35,10 +36,17 @@ class AuthController extends Controller
             return redirect()->route('main');
         }
 
-        return back()->withErrors([
-            'email' => 'Les informations de connexion sont incorrectes.',
-        ]);
+        // Determine whether the email or password is incorrect
+        $errors = [];
+        if (!User::where('email', $request->email)->first()) {
+            $errors['email'] = 'The provided email is incorrect.';
+        } else {
+            $errors['password'] = 'The provided password is incorrect.';
+        }
+
+        return back()->withErrors($errors)->withInput();
     }
+
 
     // Logout
     public function logout(Request $request)

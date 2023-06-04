@@ -6,11 +6,20 @@
 
     <main class="d-flex justify-content-between flex-row">
 
-        <section class="manage-payments-section container py-5">
+        <section class="manage-payments-section container">
 
-            <h5 class="mb-3">
-                <i class="fas fa-money-check-alt me-2"></i>
-                Liste des paiements de {{ $user->name }}
+            <h5
+                class="text-center my-3 bg-light p-3 rounded-3 d-flex justify-content-between align-items-center flex-wrap gap-3">
+                <span>
+                    <i class="fas fa-money-check-alt"></i>
+                    Historique des paiements de l'utilisateur:
+                    <span class="text-primary">{{ $user->name }}</span>
+                </span>
+
+                <a href="{{ route('payments.index') }}" class="btn btn-primary float-end">
+                    <i class="fas fa-arrow-left"></i>
+                    Retour
+                </a>
             </h5>
 
 
@@ -53,15 +62,13 @@
                 <p>Aucun paiement trouvé.</p>
             @endif
 
-            <a href="{{ route('payments.create', ['user_id' => $user->id]) }}" class="btn btn-primary">
-                <i class="fas fa-plus-circle me-2"></i>
-                Ajouter un paiement
-            </a>
-
-            <a href="{{ route('payments.index') }}" class="btn btn-secondary">
-                <i class="fas fa-arrow-left me-2"></i>
-                Retour à la liste des paiements
-            </a>
+            {{-- If the user still have remaining to pay --}}
+            @if ($payment->remaining_amount > 0)
+                <a href="{{ route('payments.create', ['user_id' => $user->id]) }}" class="btn btn-primary">
+                    <i class="fas fa-plus-circle me-2"></i>
+                    Ajouter un paiement
+                </a>
+            @endif
 
         </section>
 

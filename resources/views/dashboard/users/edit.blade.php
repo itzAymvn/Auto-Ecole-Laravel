@@ -6,14 +6,18 @@
 
     <main class="d-flex justify-content-between container flex-column">
 
-        <h5 class="text-center my-3 bg-light p-3 rounded-3">
-            <i class="fas fa-user"></i>
+        <h5
+            class="text-center my-3 bg-light p-3 rounded-3 d-flex justify-content-between align-items-center flex-wrap gap-3">
             <span>
-                Vous êtes en train de modifier l'utilisateur
-                <a href="{{ route('users.show', $user->id) }}">
-                    {{ $user->name }}
-                </a>
+                <i class="fas fa-user"></i>
+                Vous êtes en train de modifier l'utilisateur:
+                <span class="text-primary">{{ $user->name }}</span>
             </span>
+
+            <a href="{{ route('users.show', $user->id) }}" class="btn btn-primary float-end">
+                <i class="fas fa-arrow-left"></i>
+                Retour
+            </a>
         </h5>
 
         <x-alerts></x-alerts>
@@ -142,21 +146,7 @@
                         </button>
                     </p>
                 </div>
-        </section>
-
-        <hr>
-
-        {{-- Back button --}}
-
-        <section class="container py-2">
-            <div class="d-flex justify-content-between mb-3">
-                <a href="{{ route('users.index') }}" class="btn btn-primary">
-                    <i class="fas fa-arrow-left"></i>
-                    <span>
-                        Retour
-                    </span>
-                </a>
-            </div>
+            </form>
         </section>
 
     </main>

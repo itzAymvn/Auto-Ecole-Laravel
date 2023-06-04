@@ -4,15 +4,20 @@
 
 @section('content')
 
-    <main class="d-flex justify-content-between container flex-column">
+    <main class="d-flex justify-content-between container flex-column mb-5">
 
-        {{-- return view('dashboard.vehicles.show', compact('vehicle', 'sessions', 'exams')); --}}
-
-        <h5 class="text-center my-3 bg-light p-3 rounded-3">
-            <i class="fas fa-car"></i>
+        <h5
+            class="text-center my-3 bg-light p-3 rounded-3 d-flex justify-content-between align-items-center flex-wrap gap-3">
             <span>
-                Vous êtes en train de voir le véhicule {{ $vehicle->matricule }}
+                <i class="fas fa-car"></i>
+                Vous êtes en train de voir le véhicule:
+                <span class="text-primary">{{ $vehicle->matricule }}</span>
             </span>
+
+            <a href="{{ route('vehicles.index') }}" class="btn btn-primary float-end">
+                <i class="fas fa-arrow-left"></i>
+                Retour
+            </a>
         </h5>
 
         <x-alerts></x-alerts>
@@ -20,18 +25,6 @@
         {{-- Vehicle details section --}}
         <div class="row">
             <div class="col-md-12">
-                <h5>
-                    <span>
-                        <i class="fas fa-car"></i>
-                        Vous êtes en train de voir le véhicule:
-                        <span class="text-primary">{{ $vehicle->matricule }}</span>
-                    </span>
-
-                    <a href="{{ redirect()->back()->getTargetUrl() }}" class="btn btn-primary float-end">
-                        <i class="fas fa-arrow-left"></i>
-                        Retour
-                    </a>
-                </h5>
                 <table class="table">
                     <tbody>
                         <tr>
@@ -70,7 +63,7 @@
                             </td>
                             <td>
                                 @empty($vehicle->image)
-                                    <img src="{{ asset('storage/vehicles/default.jpg') }}" alt="Image" width="100">
+                                    <img src="{{ asset('images/default-vehicle.jpg') }}" alt="Image" width="100">
                                 @else
                                     <img src="{{ asset('storage/vehicles/' . $vehicle->image) }}" alt="Image" width="100">
                                 @endempty
@@ -84,10 +77,11 @@
         {{-- Exams section --}}
         <div class="row mt-5">
             <div class="col-md-12">
-                <h5>
+                <h5
+                    class="text-center my-3 bg-light p-3 rounded-3 d-flex justify-content-between align-items-center flex-wrap gap-3">
                     <span>
-                        <i class="fas fa-file-alt"></i>
-                        Examens liés au véhicule:
+                        <i class="fas fa-car"></i>
+                        Liste des examens du véhicule:
                         <span class="text-primary">{{ $vehicle->matricule }}</span>
                     </span>
                 </h5>

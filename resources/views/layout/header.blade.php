@@ -4,8 +4,14 @@
     <div class="d-flex align-items-center">
 
         @if (request()->is('dashboard*'))
+            {{-- Button for the small screens --}}
             <button class="d-md-none mx-2 btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar"
                 aria-controls="sidebar">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            {{-- Button for the large screens / THIS IS THE BUTTTON --}}
+            <button class="d-none d-md-block mx-2 btn" type="button" id="sidebar-toggle">
                 <i class="fas fa-bars"></i>
             </button>
         @endif
@@ -91,3 +97,19 @@
         </div>
     </div>
 </nav>
+
+
+@push('scripts')
+    <script>
+        const sideBarToggle = document.getElementById('sidebar-toggle');
+
+        // add event listener to the button
+        sideBarToggle.addEventListener("click", () => {
+            // hide the sidebar
+            document.getElementById('sidebar-container').classList.toggle('d-md-block');
+
+            // change the width of the main container to 100%
+            document.getElementById('main-container').classList.toggle('col-md-12');
+        })
+    </script>
+@endpush

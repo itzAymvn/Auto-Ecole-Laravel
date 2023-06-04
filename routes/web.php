@@ -37,22 +37,30 @@ Route::post('/profile/password', [ProfileController::class, 'updatePassword'])->
 
 // Dashboard
 Route::prefix('dashboard')->middleware(['auth', 'admin'])->group(function () {
+    // /Redirect to /dashboard/users
     Route::redirect('/', '/dashboard/users', 301)->name('dashboard');
 
+    // Users
     Route::resource('users', UserController::class);
 
+    // Exams
     Route::resource('exams', ExamController::class);
     Route::post('/exams/add-student', [ExamController::class, 'addStudent'])->name('exams.addStudent');
     Route::post('/exams/update-result', [ExamController::class, 'updateResult'])->name('exams.updateResult');
     Route::post('/exams/remove-student', [ExamController::class, 'removeStudent'])->name('exams.removeStudent');
 
+    // Vehicles
     Route::resource('vehicles', VehicleController::class);
 
+    // Payments
     Route::resource('payments', PaymentController::class);
 
-    Route::get("statistics", [StatisticsController::class, 'index'])->name('statistics.index');
-
+    // Spendings
     Route::resource('spendings', SpendingController::class);
+
+    // Statistics
+    Route::get("statistics", [StatisticsController::class, 'index'])->name('statistics.index');
 });
 
+// Contact
 Route::post('/contact', [contactController::class, 'send'])->name('contact.send');

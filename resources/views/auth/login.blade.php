@@ -14,9 +14,9 @@
                             <label for="email" class="form-label">Adresse email</label>
                             <input type="email" class="form-control" id="email" name="email" required autofocus
                                 autocomplete="email" value="{{ old('email') }}" placeholder="Adresse email">
-                            @error('email')
-                                <div class="alert alert-danger mt-2">{{ $message }}</div>
-                            @enderror
+                            @if ($errors->has('email'))
+                                <div class="alert alert-danger mt-2">{{ $errors->first('email') }}</div>
+                            @endif
                         </div>
                         <div class="mb-3">
                             <label for="password" class="form-label">Mot de passe</label>
@@ -32,10 +32,9 @@
                                         type="button"><i class="bi bi-eye"></i></button>
                                 </div>
                             </div>
-                            @error('password')
-                                <div class="alert alert-danger mt-2">{{ $message }}
-                                </div>
-                            @enderror
+                            @if ($errors->has('password'))
+                                <div class="alert alert-danger mt-2">{{ $errors->first('password') }}</div>
+                            @endif
                         </div>
                         <div class="d-grid">
                             <button type="submit" disabled id="login" class="btn btn-primary py-2">Login</button>

@@ -45,12 +45,13 @@
 
     <div class="container-fluid flex-grow-1">
         <div class="row h-100">
-            <div class="col-md-3 bg-light d-none d-md-block">
+            {{-- This is the container --}}
+            <div class="col-md-3 bg-light d-none d-md-block" id="sidebar-container">
                 <div class="sidebar py-3 d-flex flex-column">
                     @include('layout.sidebar')
                 </div>
             </div>
-            <div class="col-12 col-md-9">
+            <div class="col-12 col-md-9" id="main-container">
                 <main class="p-1 px-md-3">
                     @yield('content')
                 </main>

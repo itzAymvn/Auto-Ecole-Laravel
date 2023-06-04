@@ -6,7 +6,7 @@
     <main class="d-flex justify-content-between flex-row">
         {{-- @include('dashboard.panel') --}}
 
-        <section class="manage-vehicle-section container py-5">
+        <section class="manage-vehicle-section container py-3">
 
             <x-alerts></x-alerts>
 
@@ -39,7 +39,11 @@
                             @foreach ($vehicles as $vehicle)
                                 <tr>
                                     <th scope="row">{{ $vehicle->id }}</th>
-                                    <td>{{ $vehicle->matricule }}</td>
+                                    <td>
+                                        <a href="{{ route('vehicles.show', $vehicle->id) }}">
+                                            {{ $vehicle->matricule }}
+                                        </a>
+                                    </td>
                                     <td>{{ $vehicle->model }}</td>
                                     <td>
                                         @if ($vehicle->image)

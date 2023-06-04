@@ -4,11 +4,8 @@
 
 @section('content')
 
-    <div class="container mt-3 mb-5">
-        {{-- User --}}
-
+    <div class="container mb-5">
         <x-alerts />
-
         <div class="row">
             <div class="col-md-12">
                 <h5
@@ -19,7 +16,7 @@
                         <span class="text-primary">{{ $user->name }}</span>
                     </span>
 
-                    <a href="{{ redirect()->back()->getTargetUrl() }}" class="btn btn-primary float-end">
+                    <a href="{{ route('users.index') }}" class="btn btn-primary float-end">
                         <i class="fas fa-arrow-left"></i>
                         Retour
                     </a>
@@ -101,10 +98,14 @@
                     <i class="fas fa-edit"></i>
                     Modifier l'utilisateur
                 </a>
-                <a href="{{ route('users.destroy', $user->id) }}" class="btn btn-danger">
-                    <i class="fas fa-trash"></i>
-                    Supprimer l'utilisateur
-                </a>
+                <form action="{{ route('users.destroy', $user->id) }}" method="POST" class="d-inline">
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn btn-danger">
+                        <i class="fas fa-trash"></i>
+                        Supprimer l'utilisateur
+                    </button>
+                </form>
                 @if ($user->type == 'student')
                     <a href="{{ route('payments.create', ['user_id' => $user->id]) }}" class="btn btn-success">
                         <i class="fas fa-money-bill"></i>
@@ -122,7 +123,7 @@
             <section class="container py-5">
                 <div class="d-flex justify-content-between mb-3">
                     <h5>
-                        <i class="fas fa-trash"></i>
+                        <i class="fas fa-info-circle"></i>
                         <span>
                             Voir plus d'informations
                         </span>
@@ -142,7 +143,7 @@
                             <a href="{{ route('exams.index', ['student_id' => $user->id]) }}"
                                 class="d-flex align-items-center">
                                 <i class="fa-solid fa-car"></i>
-                                <span>
+                                <span class="ms-2">
                                     Les examens
                                 </span>
                             </a>
@@ -150,7 +151,7 @@
                         <li class="list-group-item">
                             <a href="{{ route('payments.show', $user->id) }}">
                                 <i class="fa-regular fa-credit-card"></i>
-                                <span>
+                                <span class="ms-2">
                                     Les paiements
                                 </span>
                             </a>

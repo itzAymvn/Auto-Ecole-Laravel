@@ -5,7 +5,7 @@
 @section('content')
     <main class="d-flex justify-content-between flex-row">
 
-        <section class="manage-users-section container py-3">
+        <section class="manage-users-section container">
 
             <x-alerts></x-alerts>
 
