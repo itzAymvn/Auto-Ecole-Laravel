@@ -40,7 +40,9 @@ class ProfileController extends Controller
             $image = $request->file('image');
             $image->store('public/profiles');
             if ($user->image) {
-                unlink(storage_path('app/public/profiles/' . $user->image));
+                if (file_exists(storage_path('app/public/profiles/' . $user->image))) {
+                    unlink(storage_path('app/public/profiles/' . $user->image));
+                }
             }
             $user->image = $image->hashName();
         }
