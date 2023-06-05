@@ -179,7 +179,9 @@ class UserController extends Controller
 
             // Delete the old image
             if ($user->image) {
-                unlink(storage_path('app/public/profiles/' . $user->image));
+                if (file_exists(storage_path('app/public/profiles/' . $user->image))) {
+                    unlink(storage_path('app/public/profiles/' . $user->image));
+                }
             }
 
             // Hash the image name and store it in the folder & update the user object
@@ -203,6 +205,12 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        // If the user has an image, delete it
+        if ($user->image) {
+            if (file_exists(storage_path('app/public/profiles/' . $user->image))) {
+                unlink(storage_path('app/public/profiles/' . $user->image));
+            }
+        }
         // Delete the user object with an error/success message
         if ($user->delete()) {
             return redirect()->route('users.index')->with('success', 'L\'utilisateur a été supprimé avec succès');

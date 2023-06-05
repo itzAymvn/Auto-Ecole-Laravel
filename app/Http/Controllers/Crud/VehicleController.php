@@ -113,7 +113,10 @@ class VehicleController extends Controller
 
             // Delete the old image if it exists
             if ($vehicle->image) {
-                unlink(storage_path('app/public/vehicles/' . $vehicle->image));
+
+                if (file_exists(storage_path('app/public/vehicles/' . $vehicle->image))) {
+                    unlink(storage_path('app/public/vehicles/' . $vehicle->image));
+                }
             }
 
             // Hash the image name and store it in the folder & update the vehicle image
@@ -137,6 +140,14 @@ class VehicleController extends Controller
      */
     public function destroy(Vehicle $vehicle)
     {
+        // Delete the vehicle image if it exists
+        if ($vehicle->image) {
+
+            if (file_exists(storage_path('app/public/vehicles/' . $vehicle->image))) {
+                unlink(storage_path('app/public/vehicles/' . $vehicle->image));
+            }
+        }
+
         // Delete the vehicle
         if ($vehicle->delete()) {
             // Redirect to the vehicles index page
