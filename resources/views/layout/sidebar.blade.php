@@ -54,10 +54,12 @@
 </a>
 
 {{-- Sessions --}}
-<a class="btn btn-primary btn-block mb-3" title="Gestion des sessions, création, modification, suppression, ...">
-    <i class="bi bi-calendar"></i>
+<a href="{{ route('sessions.index') }}" title="Gestion des sessions, création, modification, suppression, ..."
+    class="btn btn-primary
+    @if (Str::startsWith(Request::url(), route('sessions.index'))) btn-dark @endif btn-block mb-3">
+    <i class="bi bi-clock"></i>
     <span>
-        Les seances
+        Les sessions
     </span>
 </a>
 

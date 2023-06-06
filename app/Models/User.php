@@ -23,26 +23,31 @@ class User extends Model implements Authenticatable
         'image',
     ];
 
+    // A user can have many vehicles (which means he can have many exams and sessions)
     public function vehicles()
     {
         return $this->hasMany(Vehicle::class);
     }
 
+    // A user can have many exams
     public function exams()
     {
         return $this->belongsToMany(Exam::class)->withTimestamps();
     }
 
+    // A user can have many sessions
     public function sessions()
     {
-        return $this->hasMany(Session::class);
+        return $this->belongsToMany(Session::class)->withTimestamps();
     }
 
+    // A user (who isn't a student) can have many spendings (getting paid by the school)
     public function spendings()
     {
         return $this->hasMany(Spending::class);
     }
 
+    // A user (who is a student) can have many payments (paying the school)
     public function payments()
     {
         return $this->hasMany(Payment::class, 'student_id');

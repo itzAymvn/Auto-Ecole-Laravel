@@ -3,16 +3,17 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\contactController;
-use App\Http\Controllers\StatisticsController;
-
 use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\Auth\ProfileController;
 
-use App\Http\Controllers\Crud\UserController;
-use App\Http\Controllers\Crud\VehicleController;
-use App\Http\Controllers\Crud\PaymentController;
-use App\Http\Controllers\Crud\SpendingController;
 use App\Http\Controllers\Crud\ExamController;
+use App\Http\Controllers\Crud\UserController;
+
+use App\Http\Controllers\StatisticsController;
+use App\Http\Controllers\Auth\ProfileController;
+use App\Http\Controllers\Crud\PaymentController;
+use App\Http\Controllers\Crud\SessionController;
+use App\Http\Controllers\Crud\VehicleController;
+use App\Http\Controllers\Crud\SpendingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,6 +49,12 @@ Route::prefix('dashboard')->middleware(['auth', 'admin'])->group(function () {
     Route::post('/exams/add-student', [ExamController::class, 'addStudent'])->name('exams.addStudent');
     Route::post('/exams/update-result', [ExamController::class, 'updateResult'])->name('exams.updateResult');
     Route::post('/exams/remove-student', [ExamController::class, 'removeStudent'])->name('exams.removeStudent');
+
+    // Sessions
+    Route::resource('sessions', SessionController::class);
+    Route::post('/sessions/add-student', [SessionController::class, 'addStudent'])->name('sessions.addStudent');
+    Route::post('/sessions/update-isattended', [SessionController::class, 'updateIsAttended'])->name('sessions.updateIsAttended');
+    Route::post('/sessions/remove-student', [SessionController::class, 'removeStudent'])->name('sessions.removeStudent');
 
     // Vehicles
     Route::resource('vehicles', VehicleController::class);
