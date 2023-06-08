@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Crud;
 
 use App\Models\User;
-
 use App\Models\Payment;
+use PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -151,5 +151,14 @@ class PaymentController extends Controller
             return redirect()->back()->with('success', 'Le paiement a été supprimé avec succès');
         }
         return redirect()->back()->with('error', 'Quelque chose s\'est mal passé');
+    }
+
+    public function paymentsPdf(Request $request)
+    {
+        $user = User::findOrFail($request->user_id);
+        $payments = $user->payments;
+        $pdf = PDF::loadView('dashboard.payments.paymentspdf', compact('user', 'payments'));
+        $filename = 'payments_' . $user->name . '.pdf';
+        return $pdf->download($filename);
     }
 }

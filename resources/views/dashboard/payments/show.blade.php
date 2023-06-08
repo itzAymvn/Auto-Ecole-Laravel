@@ -13,7 +13,9 @@
                 <span>
                     <i class="fas fa-money-check-alt"></i>
                     Historique des paiements de l'utilisateur:
-                    <span class="text-primary">{{ $user->name }}</span>
+                    <span class="text-primary">
+                        <a href="{{ route('users.show', $user->id) }}">{{ $user->name }}</a>
+                    </span>
                 </span>
 
                 <a href="{{ route('payments.index') }}" class="btn btn-primary float-end">
@@ -58,6 +60,14 @@
                         @endforeach
                     </tbody>
                 </table>
+                <form action="{{ route('payments.pdf') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="user_id" value="{{ $user->id }}">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-file-pdf"></i>
+                        Télécharger le PDF
+                    </button>
+                </form>
             @else
                 <p>Aucun paiement trouvé.</p>
             @endif

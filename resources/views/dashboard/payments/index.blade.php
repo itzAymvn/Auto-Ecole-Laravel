@@ -29,7 +29,7 @@
             @if (count($payments) > 0)
 
                 <div class="table-responsive">
-                    <table class="table table-striped table-hover table-bordered">
+                    <table class="table table-striped table-hover">
                         <thead>
                             <tr>
                                 <th>Nom de l'utilisateur</th>
@@ -37,12 +37,12 @@
                                 <th>Montant total reçu</th>
                                 <th>Montant restant à payer</th>
                                 <th>Status</th>
-                                <th>Voir les détails</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($payments as $payment)
-                                <tr>
+                                <tr class="align-middle">
                                     <td>
                                         <a href="{{ route('users.show', $payment->user_id) }}">
                                             {{ $payment->user_name }}
@@ -58,11 +58,19 @@
                                             <span class="badge bg-danger rounded-pill">En cours</span>
                                         @endif
                                     </td>
-                                    <td>
+                                    <td class="d-flex flex-column gap-1">
                                         <a href="{{ route('payments.show', $payment->user_id) }}">
                                             <i class="fas fa-eye"></i>
                                             Details
                                         </a>
+                                        <form action="{{ route('payments.pdf') }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="user_id" value="{{ $payment->user_id }}">
+                                            <button type="submit" class="btn btn-link p-0">
+                                                <i class="fas fa-file-pdf"></i>
+                                                Télécharger le PDF
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach

@@ -49,35 +49,72 @@
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="created_at" class="form-label">Filtrer par date de création</label>
-                                    <input type="date" class="form-control" name="created_at"
-                                        value="{{ request()->query('created_at') }}">
-                                </div>
-                                <div class="mb-3">
                                     <label for="period" class="form-label">Filtrer par période</label>
                                     <select class="form-select" name="period">
                                         <option value="" selected>Toutes les périodes</option>
                                         <option value="today"
-                                            {{ request()->query('period') == 'today' ? 'selected' : '' }}>
-                                            Aujourd'hui
+                                            {{ request()->query('period') == 'today' ? 'selected' : '' }}>Aujourd'hui
                                         </option>
                                         <option value="week" {{ request()->query('period') == 'week' ? 'selected' : '' }}>
-                                            Cette semaine
-                                        </option>
+                                            Cette semaine</option>
                                         <option value="month"
-                                            {{ request()->query('period') == 'month' ? 'selected' : '' }}>Ce
-                                            mois-ci
+                                            {{ request()->query('period') == 'month' ? 'selected' : '' }}>Ce mois-ci
                                         </option>
                                         <option value="year" {{ request()->query('period') == 'year' ? 'selected' : '' }}>
-                                            Cette année
+                                            Cette année</option>
+                                        <option value="per_month"
+                                            {{ request()->query('period') == 'per_month' ? 'selected' : '' }}>Par mois
+                                        </option>
+                                        <option value="per_year"
+                                            {{ request()->query('period') == 'per_year' ? 'selected' : '' }}>Par an
                                         </option>
                                     </select>
                                 </div>
+
                                 <div class="mb-3">
-                                    <label for="period" class="form-label">Filtrer par date de naissance</label>
-                                    <input type="date" class="form-control" name="birthdate"
-                                        value="{{ request()->query('birthdate') }}">
+                                    <label for="month" class="form-label">Filtrer par mois</label>
+                                    <select class="form-select" name="month">
+                                        <option value="" selected>Tous les mois</option>
+                                        <option value="1" {{ request()->query('month') == '1' ? 'selected' : '' }}>
+                                            Janvier</option>
+                                        <option value="2" {{ request()->query('month') == '2' ? 'selected' : '' }}>
+                                            Février</option>
+                                        <option value="3" {{ request()->query('month') == '3' ? 'selected' : '' }}>
+                                            Mars</option>
+                                        <option value="4" {{ request()->query('month') == '4' ? 'selected' : '' }}>
+                                            Avril</option>
+                                        <option value="5" {{ request()->query('month') == '5' ? 'selected' : '' }}>
+                                            Mai</option>
+                                        <option value="6" {{ request()->query('month') == '6' ? 'selected' : '' }}>
+                                            Juin</option>
+                                        <option value="7" {{ request()->query('month') == '7' ? 'selected' : '' }}>
+                                            Juillet</option>
+                                        <option value="8" {{ request()->query('month') == '8' ? 'selected' : '' }}>
+                                            Août</option>
+                                        <option value="9" {{ request()->query('month') == '9' ? 'selected' : '' }}>
+                                            Septembre</option>
+                                        <option value="10" {{ request()->query('month') == '10' ? 'selected' : '' }}>
+                                            Octobre</option>
+                                        <option value="11" {{ request()->query('month') == '11' ? 'selected' : '' }}>
+                                            Novembre</option>
+                                        <option value="12" {{ request()->query('month') == '12' ? 'selected' : '' }}>
+                                            Décembre</option>
+                                    </select>
                                 </div>
+
+                                <div class="mb-3">
+                                    <label for="year" class="form-label">Filtrer par année</label>
+                                    <select class="form-select" name="year">
+                                        <option value="" selected>Toutes les années</option>
+                                        @for ($i = 2018; $i <= date('Y'); $i++)
+                                            <option value="{{ $i }}"
+                                                {{ request()->query('year') == $i ? 'selected' : '' }}>{{ $i }}
+                                            </option>
+                                        @endfor
+                                    </select>
+                                </div>
+
+
                             </form>
 
                         </div>
@@ -113,7 +150,8 @@
                             data-toggle="modal" data-target="#filters_modal">
                             <i class="fas fa-filter me-2"></i>
                         </button>
-                        <a href="{{ route('users.create') }}" class="btn btn-primary d-flex align-items-center shadow-sm">
+                        <a href="{{ route('users.create') }}"
+                            class="btn btn-primary d-flex align-items-center shadow-sm">
                             <i class="fa-solid fa-circle-plus me-2"></i>
                         </a>
                     </div>

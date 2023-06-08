@@ -30,44 +30,36 @@ class UserController extends Controller
             $query->where('type', $type);
         }
 
-        if (request()->has('created_at') && request()->input('created_at') != '') {
-            $created_at = request()->input('created_at');
-            $query->whereDate('created_at', $created_at);
-        }
-
         if (request()->has('period') && request()->input('period') != '') {
             $period = request()->input('period');
             $now = Carbon::now();
 
             if ($period == 'today') {
-                // Get the users created today
                 $query->whereDate('created_at', $now->toDateString());
             } elseif ($period == 'week') {
-                // Get the current week, starting on Monday and ending on Sunday
                 $startOfWeek = $now->startOfWeek()->toDateString();
                 $endOfWeek = $now->endOfWeek()->toDateString();
-
-                // Get the users created between the start and end of the week
                 $query->whereBetween('created_at', [$startOfWeek, $endOfWeek]);
             } elseif ($period == 'month') {
-                // Get the users created this month
                 $query->whereMonth('created_at', $now->month);
             } elseif ($period == 'year') {
-                // Get the users created this year
                 $query->whereYear('created_at', $now->year);
             }
         }
 
-        if (request()->has('birthdate') && request()->input('birthdate') != '') {
-            $birthdate = request()->input('birthdate');
-            $query->whereDate('birthdate', $birthdate);
+        if (request()->has('month') && request()->input('month') != '') {
+            $month = request()->input('month');
+            $query->whereMonth('created_at', $month);
+        }
+
+        if (request()->has('year') && request()->input('year') != '') {
+            $year = request()->input('year');
+            $query->whereYear('created_at', $year);
         }
 
         $users = $query->paginate(10);
         return view('dashboard.users.index', compact('users'));
     }
-
-
 
     /**
      * Show the form for creating a new resource.

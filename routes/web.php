@@ -61,6 +61,7 @@ Route::prefix('dashboard')->middleware(['auth', 'admin'])->group(function () {
 
     // Payments
     Route::resource('payments', PaymentController::class);
+    Route::post('/payments/pdf', [PaymentController::class, 'paymentsPdf'])->name('payments.pdf');
 
     // Spendings
     Route::resource('spendings', SpendingController::class);
