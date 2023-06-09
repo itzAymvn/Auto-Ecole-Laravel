@@ -19,18 +19,25 @@ class ExamController extends Controller
         // Get all the exams
         $exams = Exam::all();
 
-        // check if there is a ?student query parameter
-        if (request()->has('student_id')) {
-            // Get the student id
-            $student_id = request()->query('student_id');
+        // Prepare the user object
+        $user = [];
+
+        // check if there is a user id in the request
+        if (request()->has('user_id')) {
+
+            // Get the user id from the request
+            $user_id = request()->query('user_id');
 
             // Get the student
-            $student = User::findOrFail($student_id);
+            $user = User::findOrFail($user_id);
 
-            // Get the exams of the student
-            $exams = $student->exams;
-            $exams->student_name = $student->name;
+            if ($user->type == "student") {
+                $exams = $user->exams;
+            } elseif ($user->type == "instructor") {
+                $exams = Exam::where('instructor_id', $user_id)->get();
+            }
         }
+
 
         // for each exam, get the instructor name and number of students
         foreach ($exams as $exam) {
@@ -44,7 +51,7 @@ class ExamController extends Controller
         }
 
         // Redirect to the exams index page
-        return view('dashboard.exams.index', compact('exams'));
+        return view('dashboard.exams.index', compact('exams', 'user'));
     }
 
     /**
@@ -80,6 +87,16 @@ class ExamController extends Controller
             'time' => 'required',
             'location' => 'required',
         ]);
+
+        // Before creating the exam, check if there is an exam at the same time and has the same instructor
+        $exams = Exam::where('exam_date', $request->date)
+            ->where('exam_date', $request->date)
+            ->where('exam_time', 'like', substr($request->time, 0, 2) . '%')
+            ->where('instructor_id', $request->instructor_id)
+            ->get();
+        if (count($exams) > 0) {
+            return redirect()->back()->with('error', 'Il y a déjà un examen à la même date et heure avec le même instructeur.')->withInput();
+        }
 
         // Create a new exam object
         $exam = new Exam();

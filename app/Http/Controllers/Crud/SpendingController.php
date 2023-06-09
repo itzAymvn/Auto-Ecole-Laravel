@@ -18,6 +18,11 @@ class SpendingController extends Controller
     {
         $query = Spending::query();
 
+        if (request()->has('user_id')) {
+            $userId = request()->input('user_id');
+            $query->where('user_id', $userId);
+        }
+
         if (request()->has('payment_type') && request()->input('payment_type') != '') {
             $paymentType = request()->input('payment_type');
             $query->where('type', $paymentType);

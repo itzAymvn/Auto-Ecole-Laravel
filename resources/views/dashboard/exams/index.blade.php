@@ -15,14 +15,14 @@
                         <h5>
                             <i class="fa-solid fa-car-side"></i>
                             {{-- If the route has a query param --}}
-                            @if (request()->has('student_id'))
-                                Examens de l'étudiant
-                                <a href="{{ route('users.show', request()->student_id) }}">
-                                    {{ $exams->student_name }}
-                                </a>
-                                ({{ count($exams) }})
+                            Gérer les examens
+                            @if (request()->has('user_id'))
+                                @if ($user->type == 'student')
+                                    de {{ $user->name }}
+                                @else
+                                    de {{ $user->name }}
+                                @endif
                             @else
-                                Gérer les examens
                                 ({{ count($exams) }})
                             @endif
                         </h5>
@@ -36,33 +36,45 @@
                 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
                     @foreach ($exams as $exam)
                         <div class="col">
-                            <div class="card">
+                            <div class="card" style="height: 100%;">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <h5 class="card-title">{{ $exam->exam_title }}</h5>
+                                    <h6 class="card-subtitle text-muted h6">
+                                        <span>
+                                            <i class="fa-solid fa-calendar-day me-2"></i>
+                                            {{ date('d/m/Y', strtotime($exam->exam_date)) }}
+                                        </span>
+                                        <span>
+                                            <i class="fa-solid fa-clock me-2"></i>
+                                            {{ date('H:i A', strtotime($exam->exam_time)) }}
+                                        </span>
+                                    </h6>
+                                </div>
                                 <div class="card-body">
-                                    <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
-                                        <h5 class="card-title">{{ $exam->exam_title }}</h5>
-                                        <h6 class="card-subtitle mb-2 text-muted align-self-end">
-                                            {{ $exam->exam_date }} -
-                                            {{ $exam->exam_time }}
-                                        </h6>
-                                    </div>
                                     <p class="card-text">{{ $exam->exam_location }}</p>
                                     <p class="card-text">
-                                        <small class="text-muted">Instructeur:
+                                        <small class="text-muted">
+                                            <i class="fa-solid fa-user"></i>
                                             <a href="{{ route('users.show', $exam->instructor_id) }}">
                                                 {{ $exam->instructor_name }}
                                             </a>
                                         </small>
-                                        <br>
                                         @if ($exam->vehicle_id)
-                                            <small class="text-muted">Vehicle:
+                                            <br>
+                                            <small class="text-muted">
+                                                <i class="fa-solid fa-car"></i>
                                                 <a href="{{ route('vehicles.show', $exam->vehicle_id) }}">
                                                     {{ $exam->vehicle->model }}
                                                 </a>
                                             </small>
                                         @endif
                                         <br class="mb-2">
-                                        <small class="text-muted">Nb. étudiants: {{ $exam->students_count }}/5</small>
+                                        <small class="text-muted">
+                                            <i class="fa-solid fa-user"></i>
+                                            {{ $exam->students_count }}/5</small>
                                     </p>
+                                </div>
+                                <div class="card-footer mt-auto">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <a href="{{ route('exams.show', $exam->id) }}" class="btn btn-primary">Détails</a>
                                         <div>

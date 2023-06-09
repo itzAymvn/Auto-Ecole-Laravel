@@ -7,11 +7,17 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-6 col-md-8 col-12 mx-4">
-                    <h2 class="text-center mb-5">Se connecter</h2>
+                    <h2 class="d-flex align-items-center mb-4 flex-column">
+                        <i class="bi bi-person-circle"></i>
+                        Se connecter
+                    </h2>
                     <form action="{{ route('login') }}" method="POST">
                         @csrf
                         <div class="mb-3">
-                            <label for="email" class="form-label">Adresse email</label>
+                            <label for="email" class="form-label">
+                                <i class="bi bi-envelope"></i>
+                                Adresse email
+                            </label>
                             <input type="email" class="form-control" id="email" name="email" required autofocus
                                 autocomplete="email" value="{{ old('email') }}" placeholder="Adresse email">
                             @if ($errors->has('email'))
@@ -19,7 +25,10 @@
                             @endif
                         </div>
                         <div class="mb-3">
-                            <label for="password" class="form-label">Mot de passe</label>
+                            <label for="password" class="form-label">
+                                <i class="bi bi-lock"></i>
+                                Mot de passe
+                            </label>
                             <div class="input-group mb-3">
                                 <input type="password" class="form-control" placeholder="Mot de passe" id="password"
                                     name="password" required autocomplete="current-password" aria-label="Mot de passe"
@@ -37,7 +46,10 @@
                             @endif
                         </div>
                         <div class="d-grid">
-                            <button type="submit" disabled id="login" class="btn btn-primary py-2">Login</button>
+                            <button type="submit" disabled id="login" class="btn btn-primary py-2">
+                                <i class="bi bi-box-arrow-in-right"></i>
+                                Se connecter
+                            </button>
                         </div>
                     </form>
                 </div>

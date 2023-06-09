@@ -81,10 +81,17 @@
                             data-toggle="modal" data-target="#filters_modal" title="Filter">
                             <i class="fas fa-filter me-2"></i>
                         </button>
-                        <a href="{{ route('spendings.create') }}"
-                            class="btn btn-primary d-flex align-items-center shadow-sm" title="Ajouter une dépense">
-                            <i class="fa-solid fa-circle-plus me-2"></i>
-                        </a>
+                        @if (request()->has('user_id'))
+                            <a href="{{ route('spendings.create', ['user_id' => request()->user_id]) }}"
+                                class="btn btn-primary d-flex align-items-center shadow-sm" title="Ajouter une dépense">
+                                <i class="fa-solid fa-circle-plus me-2"></i>
+                            </a>
+                        @else
+                            <a href="{{ route('spendings.create') }}"
+                                class="btn btn-primary d-flex align-items-center shadow-sm" title="Ajouter une dépense">
+                                <i class="fa-solid fa-circle-plus me-2"></i>
+                            </a>
+                        @endif
                     </div>
 
                 </div>

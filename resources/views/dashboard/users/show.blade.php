@@ -129,35 +129,42 @@
                         </span>
                     </h5>
                 </div>
-                <div class="container" id="moredata">
-                    <ul class="list-group">
-                        {{-- <li class="list-group-item">
-                        <a href="/aaa">
-                            <i class="fas fa-chalkboard-teacher"></i>
-                            <span>
-                                Les seances
-                            </span>
-                        </a>
-                    </li> --}}
-                        <li class="list-group-item">
-                            <a href="{{ route('exams.index', ['student_id' => $user->id]) }}"
-                                class="d-flex align-items-center">
-                                <i class="fa-solid fa-car"></i>
-                                <span class="ms-2">
-                                    Les examens
-                                </span>
-                            </a>
-                        </li>
-                        <li class="list-group-item">
-                            <a href="{{ route('payments.show', $user->id) }}">
-                                <i class="fa-regular fa-credit-card"></i>
-                                <span class="ms-2">
-                                    Les paiements
-                                </span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+                @if ($user->type != 'admin')
+                    <div class="container" id="moredata">
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <a href="{{ route('exams.index', ['user_id' => $user->id]) }}"
+                                    class="d-flex align-items-center">
+                                    <i class="fa-solid fa-car"></i>
+                                    <span class="ms-2">
+                                        Les examens
+                                    </span>
+                                </a>
+                            </li>
+                            @if ($user->type == 'student')
+                                <li class="list-group-item">
+                                    <a href="{{ route('payments.index', ['user_id' => $user->id]) }}"
+                                        class="d-flex align-items-center">
+                                        <i class="fa-solid fa-money-bill"></i>
+                                        <span class="ms-2">
+                                            Les paiements
+                                        </span>
+                                    </a>
+                                </li>
+                            @elseif($user->type == 'instructor')
+                                <li class="list-group-item">
+                                    <a href="{{ route('spendings.index', ['user_id' => $user->id]) }}"
+                                        class="d-flex align-items-center">
+                                        <i class="fa-solid fa-money-bill"></i>
+                                        <span class="ms-2">
+                                            Les dépenses
+                                        </span>
+                                    </a>
+                                </li>
+                            @endif
+                        </ul>
+                    </div>
+                @endif
             </section>
 
         </div>
