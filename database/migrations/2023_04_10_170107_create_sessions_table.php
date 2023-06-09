@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('sessions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('instructor_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('vehicle_id')->constrained('vehicles')->onDelete('cascade');
+            // $table->foreignId('vehicle_id')->constrained('vehicles')->onDelete('cascade');
             $table->string('title', 100);
             $table->date('session_date');
             $table->time('session_time');
