@@ -47,7 +47,7 @@
                         @foreach ($sessions as $session)
                             <tr class="align-middle @if ($session->session_date == date('Y-m-d')) table-warning @endif">
                                 <td class="fw-bold">{{ $session->title }}</td>
-                                <td data-date="{{ $sessionDate }}">{{ $session->session_date }}</td>
+                                <td>{{ $session->session_date }}</td>
                                 <td>{{ $session->session_time }}</td>
                                 <td>
                                     <a href="{{ route('users.show', $session->instructor_id) }}">
