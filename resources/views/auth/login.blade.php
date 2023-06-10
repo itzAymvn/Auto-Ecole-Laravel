@@ -45,6 +45,15 @@
                                 <div class="alert alert-danger mt-2">{{ $errors->first('password') }}</div>
                             @endif
                         </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="remember" name="remember"
+                                {{ old('remember') ? 'checked' : '' }}>
+                            <label class="form-check-label" for="remember">
+                                Se souvenir de moi
+                            </label>
+                        </div>
+
+
                         <div class="d-grid">
                             <button type="submit" disabled id="login" class="btn btn-primary py-2">
                                 <i class="bi bi-box-arrow-in-right"></i>
