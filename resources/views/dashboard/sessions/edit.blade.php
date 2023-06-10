@@ -31,24 +31,30 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="session_title">Title</label>
-                                <input type="text" class="form-control" id="session_title" name="session_title"
+                                <input type="text" class="form-control" id="session_title" name="title"
                                     value="{{ $session->title }}" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="session_date">Date</label>
-                                <input type="date" class="form-control" id="session_date" name="session_date"
-                                    value="{{ $session->session_date }}" required>
+                                <input type="date" class="form-control" id="session_date" name="date"
+                                    value="{{ $session->session_date }}" required min="{{ date('Y-m-d') }}">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="session_time">Time</label>
-                                <input type="time" class="form-control" id="session_time" name="session_time"
+                                <input type="time" class="form-control" id="session_time" name="time"
                                     value="{{ $session->session_time }}" required>
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <label for="session_location">Location</label>
+                            <input type="text" class="form-control" id="location" name="location"
+                                value="{{ $session->session_location }}" required>
+                        </div>
+
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="instructor_id">Instructor</label>

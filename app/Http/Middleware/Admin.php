@@ -16,7 +16,7 @@ class Admin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::user()->type != 'admin') {
+        if (!in_array(Auth::user()->type, ['admin', 'instructor'])) {
             abort(403, 'You are not allowed to access this page');
         }
         return $next($request);

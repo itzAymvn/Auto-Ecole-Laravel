@@ -28,24 +28,29 @@
                 </div>
 
                 {{-- L'instructor --}}
-                <div class="mb-3">
-                    <label for="instructor" class="form-label">Instructeur</label>
-                    <select class="form-select" aria-label="Default select example" name="instructor_id">
-                        <option selected>Choisir un instructeur</option>
-                        @foreach ($instructors as $instructor)
-                            <option value="{{ $instructor->id }}">{{ $instructor->name }}</option>
-                        @endforeach
-                    </select>
+                @if (Auth()->user()->type == 'instructor')
+                    <input type="hidden" name="instructor_id" value="{{ Auth()->user()->id }}">
+                @else
+                    <div class="mb-3">
+                        <label for="instructor" class="form-label">Instructeur</label>
+                        <select class="form-select" aria-label="Default select example" name="instructor_id">
+                            <option selected>Choisir un instructeur</option>
+                            @foreach ($instructors as $instructor)
+                                <option value="{{ $instructor->id }}">{{ $instructor->name }}</option>
+                            @endforeach
+                        </select>
 
-                    @error('instructor_id')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-                </div>
+                        @error('instructor_id')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+                @endif
 
                 {{-- Date --}}
                 <div class="mb-3">
                     <label for="date" class="form-label">Date</label>
-                    <input type="date" class="form-control" id="date" name="date" value="{{ old('date') }}">
+                    <input type="date" class="form-control" id="date" name="date" value="{{ old('date') }}"
+                        min="{{ date('Y-m-d') }}">
 
                     @error('date')
                         <div class="alert alert-danger">{{ $message }}</div>

@@ -77,15 +77,33 @@
                     </tbody>
                 </table>
             @else
-                <div class="alert alert-info">
-                    <h2 class="text-center">Aucune session n'a été trouvée</h2>
+                <div class="alert alert-success" role="alert">
+                    <h4 class="alert-heading">Aucune session</h4>
+                    <p>
+                        @if (request()->has('student_id'))
+                            Cet étudiant n'a pas encore de session. Vous pouvez en créer une en cliquant sur le bouton
+                            ci-dessous.
+                        @else
+                            Vous n'avez pas encore de session. Vous pouvez en créer une en cliquant sur le bouton
+                            ci-dessous.
+                        @endif
+                    </p>
+                    <hr>
+                    <p class="mb-0">
+                        @if (request()->has('student_id'))
+                            <button type="button" class="btn btn-primary">
+                                Créer une session
+                            </button>
+                        @else
+                            <a href="{{ route('sessions.create') }}" class="btn btn-primary">
+                                Créer une session
+                            </a>
+                        @endif
+
+                    </p>
                 </div>
-                <a href="{{ route('sessions.create') }}" class="btn btn-primary d-flex align-items-center">
-                    Créer une session
-                </a>
+
             @endif
         </section>
     </main>
 @endsection
-@push('scripts')
-]

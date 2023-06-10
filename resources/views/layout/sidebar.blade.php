@@ -6,69 +6,76 @@
     </h1>
 </div>
 
-{{-- Users --}}
-<a href="{{ route('users.index') }}" title="Gestion des utilisateurs, création, modification, suppression, ..."
-    class="btn btn-primary @if (Str::startsWith(Request::url(), route('users.index'))) btn-dark @endif btn-block mb-3">
-    <i class="bi bi-person"></i>
-    <span>
-        Les utilisateurs
-    </span>
-</a>
+@can('view-users')
+    <a href="{{ route('users.index') }}" title="Gestion des utilisateurs, création, modification, suppression, ..."
+        class="btn btn-primary @if (Str::startsWith(Request::url(), route('users.index'))) btn-dark @endif btn-block mb-3">
+        <i class="bi bi-person"></i>
+        <span>
+            Les utilisateurs
+        </span>
+    </a>
+@endcan
 
-{{-- Vehicles --}}
-<a href="{{ route('vehicles.index') }}" title="Gestion des véhicules, création, modification, suppression, ..."
-    class="btn btn-primary @if (Str::startsWith(Request::url(), route('vehicles.index'))) btn-dark @endif btn-block mb-3">
-    <i class="bi bi-truck"></i>
-    <span>
-        Les véhicules
-    </span>
-</a>
+@can('view-vehicles')
+    <a href="{{ route('vehicles.index') }}" title="Gestion des véhicules, création, modification, suppression, ..."
+        class="btn btn-primary @if (Str::startsWith(Request::url(), route('vehicles.index'))) btn-dark @endif btn-block mb-3">
+        <i class="bi bi-truck"></i>
+        <span>
+            Les véhicules
+        </span>
+    </a>
+@endcan
 
-{{-- Exams --}}
-<a href="{{ route('exams.index') }}" title="Gestion des examens, création, modification, suppression, ..."
-    class="btn btn-primary @if (Str::startsWith(Request::url(), route('exams.index'))) btn-dark @endif btn-block mb-3">
-    <i class="bi bi-clipboard-check"></i>
-    <span>
-        Les examens
-    </span>
-</a>
+@can('view-exams')
+    <a href="{{ route('exams.index') }}" title="Gestion des examens, création, modification, suppression, ..."
+        class="btn btn-primary @if (Str::startsWith(Request::url(), route('exams.index'))) btn-dark @endif btn-block mb-3">
+        <i class="bi bi-clipboard-check"></i>
+        <span>
+            Les examens
+        </span>
+    </a>
+@endcan
 
-{{-- Payments --}}
-<a href="{{ route('payments.index') }}" title="Gestion des paiements, création, modification, suppression, ..."
-    class="btn btn-primary
+@can('view-payments')
+    <a href="{{ route('payments.index') }}" title="Gestion des paiements, création, modification, suppression, ..."
+        class="btn btn-primary
     @if (Str::startsWith(Request::url(), route('payments.index'))) btn-dark @endif btn-block mb-3">
-    <i class="bi bi-cash"></i>
-    <span>
-        Les paiements
-    </span>
-</a>
+        <i class="bi bi-cash"></i>
+        <span>
+            Les paiements
+        </span>
+    </a>
+@endcan
 
-{{-- Spendings --}}
-<a href="{{ route('spendings.index') }}" title="Gestion des dépenses, création, modification, suppression, ..."
-    class="btn btn-primary
+@can('view-spendings')
+    <a href="{{ route('spendings.index') }}" title="Gestion des dépenses, création, modification, suppression, ..."
+        class="btn btn-primary
     @if (Str::startsWith(Request::url(), route('spendings.index'))) btn-dark @endif btn-block mb-3">
-    <i class="bi bi-cash"></i>
-    <span>
-        Les dépenses
-    </span>
-</a>
+        <i class="bi bi-cash"></i>
+        <span>
+            Les dépenses
+        </span>
+    </a>
+@endcan
 
-{{-- Sessions --}}
-<a href="{{ route('sessions.index') }}" title="Gestion des sessions, création, modification, suppression, ..."
-    class="btn btn-primary
+@can('view-sessions')
+    <a href="{{ route('sessions.index') }}" title="Gestion des sessions, création, modification, suppression, ..."
+        class="btn btn-primary
     @if (Str::startsWith(Request::url(), route('sessions.index'))) btn-dark @endif btn-block mb-3">
-    <i class="bi bi-clock"></i>
-    <span>
-        Les sessions
-    </span>
-</a>
+        <i class="bi bi-clock"></i>
+        <span>
+            Les sessions
+        </span>
+    </a>
+@endcan
 
-{{-- Statistics --}}
-<a href="{{ route('statistics.index') }}" title="Gestion des statistiques, création, modification, suppression, ..."
-    class="btn btn-primary
+@can('view-statistics')
+    <a href="{{ route('statistics.index') }}" title="Gestion des statistiques, création, modification, suppression, ..."
+        class="btn btn-primary
     @if (Str::startsWith(Request::url(), route('statistics.index'))) btn-dark @endif btn-block mb-3">
-    <i class="bi bi-graph-up"></i>
-    <span>
-        Les statistiques
-    </span>
-</a>
+        <i class="bi bi-graph-up"></i>
+        <span>
+            Les statistiques
+        </span>
+    </a>
+@endcan

@@ -210,4 +210,28 @@ class UserController extends Controller
             return redirect()->route('users.index')->with('error', 'Quelque chose s\'est mal passé');
         }
     }
+
+    /**
+     * Show the dashboard page
+     */
+
+    public function dashboard()
+    {
+        $user_type = Auth::user()->type;
+
+        switch ($user_type) {
+            case 'admin':
+                return redirect()->route('users.index');
+                break;
+            case 'instructor':
+                return redirect()->route('sessions.index');
+                break;
+            case 'student':
+                return abort(403);
+                break;
+            default:
+                return redirect()->route('login');
+                break;
+        }
+    }
 }

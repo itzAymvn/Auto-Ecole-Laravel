@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Session;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class SessionController extends Controller
 {
@@ -15,20 +16,16 @@ class SessionController extends Controller
      */
     public function index()
     {
-        // Get all the session and sort them by date & time, so the top ones are the closest
-        $sessions = Session::all()->sortBy('session_date');
+        // Get the logged-in user
+        $user = Auth::user();
 
-        // check if there is a ?student query parameter
-        if (request()->has('student_id')) {
-            // Get the student id
-            $student_id = request()->query('student_id');
-
-            // Get the student
-            $student = User::findOrFail($student_id);
-
-            // Get the session of the student
-            $sessions = $student->sessions;
-            $sessions->student_name = $student->name;
+        // Check if the logged-in user is an instructor
+        if ($user->type === 'instructor') {
+            // Get the sessions where the instructor id matches the logged-in user's id
+            $sessions = Session::where('instructor_id', $user->id)->get();
+        } else {
+            // Get all the sessions and sort them by date & time
+            $sessions = Session::all()->sortBy('session_date');
         }
 
         // for each session, get the instructor name and number of students
@@ -49,7 +46,13 @@ class SessionController extends Controller
         $students = User::where('type', 'student')->get();
 
         // Get the instructors
-        $instructors = User::where('type', 'instructor')->get();
+        $instructors = User::query();
+        if (Auth::user()->type === 'instructor') {
+            $instructors->where('id', Auth::user()->id);
+        } else {
+            $instructors->where('type', 'instructor');
+        }
+        $instructors = $instructors->get();
 
         // Redirect to the session create page
         return view('dashboard.sessions.create', compact('students', 'instructors'));
@@ -60,22 +63,6 @@ class SessionController extends Controller
      */
     public function store(Request $request)
     {
-        /*
-            dd($request->all());    
-
-            array:10 [▼ // app\Http\Controllers\Crud\SessionController.php:63
-                "_token" => "KxYrZyoOwkrxERtvtYYq9KrsRzoK4ir9FgMXC07m"
-                "title" => "Session example"
-                "instructor_id" => "2"
-                "date" => "2022-05-07"
-                "time" => "15:14"
-                "location" => "aaa"
-                "student_id_1" => "4"
-                "student_id_2" => "5"
-                "student_id_3" => "19"
-                "student_id_4" => "21"
-            ]
-        */
         // Validate the request
         $request->validate([
             'instructor_id' => 'required|integer|exists:users,id',
@@ -149,7 +136,13 @@ class SessionController extends Controller
         $students = User::where('type', 'student')->whereNotIn('id', $session->user->pluck('id'))->get();
 
         // Get the instructors
-        $instructors = User::where('type', 'instructor')->get();
+        $instructors = User::query();
+        if (Auth::user()->type === 'instructor') {
+            $instructors->where('id', Auth::user()->id);
+        } else {
+            $instructors->where('type', 'instructor');
+        }
+        $instructors = $instructors->get();
 
         // Redirect to the session show page
         return view('dashboard.sessions.edit', compact('session', 'students', 'session_students', 'instructors'));
@@ -168,7 +161,7 @@ class SessionController extends Controller
             'date' => 'required|string|max:100',
             'time' => 'required|string|max:100',
             'location' => 'required|string|max:100',
-            'is_completed' => 'required|boolean',
+            'is_completed' => 'boolean',
         ]);
 
         // updating the session

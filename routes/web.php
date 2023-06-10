@@ -1,13 +1,14 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Support\Facades\Route;
-
 use App\Http\Controllers\contactController;
+
 use App\Http\Controllers\Auth\AuthController;
-
 use App\Http\Controllers\Crud\ExamController;
-use App\Http\Controllers\Crud\UserController;
 
+use App\Http\Controllers\Crud\UserController;
 use App\Http\Controllers\StatisticsController;
 use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\Crud\PaymentController;
@@ -37,9 +38,8 @@ Route::post('/profile', [ProfileController::class, 'update'])->name('update-prof
 Route::post('/profile/password', [ProfileController::class, 'updatePassword'])->name('update-password');
 
 // Dashboard
-Route::prefix('dashboard')->middleware(['auth', 'admin'])->group(function () {
-    // /Redirect to /dashboard/users
-    Route::redirect('/', '/dashboard/users', 301)->name('dashboard');
+Route::prefix('dashboard')->group(function () {
+    Route::get('/', [UserController::class, 'dashboard'])->name('dashboard');
 
     // Users
     Route::resource('users', UserController::class);

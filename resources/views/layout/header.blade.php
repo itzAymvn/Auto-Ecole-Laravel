@@ -67,7 +67,7 @@
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        @if (Auth::user()->type === 'admin' || Auth::user()->type === 'superadmin')
+                        @if (Auth::user()->type === 'admin' || Auth::user()->type === 'instructor')
                             <li>
                                 <a class="dropdown-item" href="{{ route('dashboard') }}">
                                     <i class="fas fa-user-cog"></i>
