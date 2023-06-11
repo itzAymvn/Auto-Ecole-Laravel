@@ -16,6 +16,7 @@ use App\Http\Controllers\Crud\PaymentController;
 use App\Http\Controllers\Crud\SessionController;
 use App\Http\Controllers\Crud\VehicleController;
 use App\Http\Controllers\Crud\SpendingController;
+use App\Http\Controllers\PermissionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,7 +40,7 @@ Route::post('/profile', [ProfileController::class, 'update'])->name('update-prof
 Route::post('/profile/password', [ProfileController::class, 'updatePassword'])->name('update-password');
 
 // Dashboard
-Route::prefix('dashboard')->group(function () {
+Route::prefix('dashboard')->middleware('auth', 'dashboard')->group(function () {
     Route::get('/', [UserController::class, 'dashboard'])->name('dashboard');
 
     // Users
@@ -69,6 +70,14 @@ Route::prefix('dashboard')->group(function () {
 
     // Statistics
     Route::get("statistics", [StatisticsController::class, 'index'])->name('statistics.index');
+});
+
+// Settings
+Route::prefix('settings')->middleware('auth', 'admin')->group(function () {
+    Route::redirect('/', '/settings/permissions')->name('settings');
+
+    // Permissions
+    Route::resource('permissions', PermissionController::class);
 });
 
 // Contact

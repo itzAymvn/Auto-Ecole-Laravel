@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class Admin
+class Dashboard
 {
     /**
      * Handle an incoming request.
@@ -16,8 +16,8 @@ class Admin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!in_array(Auth::user()->type, ['admin'])) {
-            abort(403, 'Only admins can access this page.');
+        if (!in_array(Auth::user()->type, ['admin', 'instructor'])) {
+            abort(403, "You don't have permission to access this page.");
         }
         return $next($request);
     }

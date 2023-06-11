@@ -3,7 +3,7 @@
 
     <div class="d-flex align-items-center">
 
-        @if (request()->is('dashboard*'))
+        @if (request()->is('dashboard*') || request()->is('settings*'))
             {{-- Button for the small screens --}}
             <button class="d-md-none mx-2 btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar"
                 aria-controls="sidebar">
@@ -82,6 +82,17 @@
                                 <hr class="dropdown-divider">
                             </li>
                         @endif
+                        @can('view-settings')
+                            <li>
+                                <a class="dropdown-item" href="{{ route('settings') }}">
+                                    <i class="fas fa-cog"></i>
+                                    <span>Paramètres</span>
+                                </a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                        @endcan
                         <li>
                             <a class="dropdown-item" href="{{ route('logout') }}">
                                 <i class="fas fa-sign-out-alt"></i>
