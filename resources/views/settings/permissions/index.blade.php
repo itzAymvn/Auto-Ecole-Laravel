@@ -4,18 +4,43 @@
 
 @section('content')
 
-    @foreach ($permissions as $role => $rolePermissions)
-        <div class="mb-4">
-            <h2>{{ ucfirst($role) }} Permissions</h2>
+    <h5 class="text-center my-3 bg-light p-3 rounded-3 d-flex justify-content-between align-items-center flex-wrap gap-3">
+        <span>
+            <i class="fas fa-user-lock"></i>
+            <span>Gestion des permissions des rôles</span>
+        </span>
+    </h5>
 
+    <div class="alert alert-info">
+        Ci-dessous vous pouvez gérer les permissions des rôles.
+    </div>
+
+    @foreach ($permissions as $role => $rolePermissions)
+        <h5 class="text-center my-3 bg-light p-3 rounded-3 d-flex justify-content-between align-items-center flex-wrap gap-3 border border-2 border-primary"
+            data-bs-toggle="collapse" data-bs-target="#permissions_{{ $role }}" aria-expanded="false"
+            aria-controls="permissions_{{ $role }}">
+            <span>
+                <i class="fas fa-user-tag"></i>
+                <span>{{ ucfirst($role) }}</span>
+            </span>
+            <i class="fas fa-chevron-down"></i>
+        </h5>
+
+        <div id="permissions_{{ $role }}" class="collapse">
             @foreach ($rolePermissions as $resource => $resourcePermissions)
                 <h3>{{ ucfirst($resource) }}</h3>
                 <div class="table-responsive">
-                    <table class="table table-bordered">
-                        <thead>
+                    <table class="table table-striped table-hover table-bordered">
+                        <thead class="table-dark">
                             <tr>
-                                <th>Permission</th>
-                                <th>Status</th>
+                                <th>
+                                    <i class="fas fa-user-tag"></i>
+                                    Permission
+                                </th>
+                                <th>
+                                    <i class="fas fa-toggle-on"></i>
+                                    Status
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -41,6 +66,12 @@
         </div>
     @endforeach
 
+@endsection
+
+
+
+
+@push('scripts')
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
@@ -67,5 +98,4 @@
             });
         });
     </script>
-
-@endsection
+@endpush

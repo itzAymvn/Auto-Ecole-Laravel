@@ -6,7 +6,7 @@
     <main class="d-flex justify-content-between flex-row">
         {{-- @include('dashboard.panel') --}}
 
-        <section class="manage-vehicle-section container py-3">
+        <section class="manage-vehicle-section w-100 py-3">
 
             <x-alerts></x-alerts>
 

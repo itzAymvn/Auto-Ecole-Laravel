@@ -106,7 +106,7 @@ class ExamController extends Controller
         $exam->instructor_id = $request->instructor_id;
 
         // Check if the request has a vehicle id
-        if ($request->has('vehicle_id')) {
+        if ($exam->type == "drive") {
             $exam->vehicle_id = $request->vehicle_id;
         }
 
@@ -200,6 +200,7 @@ class ExamController extends Controller
             'exam_title' => 'required',
             'exam_date' => 'required',
             'exam_time' => 'required',
+            'exam_type' => 'required|in:drive,code',
             'exam_location' => 'required',
             'instructor_id' => 'required|exists:users,id',
             'vehicle_id' => 'required_if:exam_type,==,drive|exists:vehicles,id',
@@ -214,7 +215,7 @@ class ExamController extends Controller
         $exam->instructor_id = $request->instructor_id;
 
         // checking if the request has a vehicle id
-        if ($request->has('vehicle_id')) {
+        if ($exam->exam_type == 'drive') {
             $exam->vehicle_id = $request->vehicle_id;
         }
 

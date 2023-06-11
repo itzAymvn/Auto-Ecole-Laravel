@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <div class="container mb-5">
+    <div class="mb-5">
         <x-alerts />
         <div class="row">
             <div class="col-md-12">
@@ -120,7 +120,7 @@
             </div>
             {{-- More data section --}}
 
-            <section class="container py-5">
+            <section class="py-5">
                 <div class="d-flex justify-content-between mb-3">
                     <h5>
                         <i class="fas fa-info-circle"></i>
@@ -130,7 +130,7 @@
                     </h5>
                 </div>
                 @if ($user->type != 'admin')
-                    <div class="container" id="moredata">
+                    <div id="moredata">
                         <ul class="list-group">
                             <li class="list-group-item">
                                 <a href="{{ route('exams.index', ['user_id' => $user->id]) }}"

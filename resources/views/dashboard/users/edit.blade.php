@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <main class="d-flex justify-content-between container flex-column">
+    <main class="d-flex justify-content-between flex-column">
 
         <h5
             class="text-center my-3 bg-light p-3 rounded-3 d-flex justify-content-between align-items-center flex-wrap gap-3">
@@ -24,8 +24,8 @@
 
         {{-- Update user section --}}
 
-        <section class="manage-users-section container py-5">
-            <div class="d-flex justify-content-between mb-3">
+        <section class="manage-users-section py-5">
+            <div class="d-flex justify-content-between mb-2">
                 <h4>
                     <i class="fas fa-user-edit"></i>
                     <span>
@@ -33,7 +33,7 @@
                     </span>
                 </h4>
             </div>
-            <form id="updateuserform" class="container" action="{{ route('users.update', $user->id) }}" method="POST"
+            <form id="updateuserform" action="{{ route('users.update', $user->id) }}" method="POST"
                 enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
@@ -120,7 +120,7 @@
 
         {{-- Delete user section --}}
 
-        <section class="delete-user-section container py-5">
+        <section class="delete-user-section py-5">
             <div class="d-flex justify-content-between mb-3">
                 <h4>
                     <i class="fas fa-trash"></i>
@@ -129,7 +129,7 @@
                     </span>
                 </h4>
             </div>
-            <form class="container" id="deleteuserform" action="{{ route('users.destroy', $user->id) }}" method="POST">
+            <form id="deleteuserform" action="{{ route('users.destroy', $user->id) }}" method="POST">
                 @csrf
                 @method('DELETE')
 

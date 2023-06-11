@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <div class="container py-3">
+    <div class=" py-3">
 
         <x-alerts></x-alerts>
 

@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <div class="container mt-3 mb-5">
+    <div class=" mt-3 mb-5">
 
         <x-alerts></x-alerts>
 
@@ -49,19 +49,7 @@
                                     value="{{ $exam->exam_time }}" required>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="exam_type">Le type</label>
-                                <select class="form-control" id="exam_type" required disabled>
-                                    <option value="drive" {{ $exam->exam_type === 'drive' ? 'selected' : '' }}>
-                                        Conduite
-                                    </option>
-                                    <option value="code" {{ $exam->exam_type === 'code' ? 'selected' : '' }}>
-                                        Code
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
+                        <input type="hidden" name="exam_type" value="{{ $exam->exam_type }}">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="exam_location">Localisation</label>

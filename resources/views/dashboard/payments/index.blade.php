@@ -6,7 +6,7 @@
 
     <main class="d-flex justify-content-between flex-row">
 
-        <section class="manage-payments-section container">
+        <section class="manage-payments-section w-100">
 
             <x-alerts></x-alerts>
 

@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <div class="container mt-3 mb-5">
+    <div class=" mt-3 mb-5">
         <h5 class="text-center bg-light p-3 rounded-3 d-flex justify-content-between align-items-center flex-wrap gap-3">
             <span>
                 <i class="fas fa-money-bill-wave"></i>
@@ -16,7 +16,10 @@
             @csrf
 
             <div class="form-group mb-3">
-                <label for="type">Type:</label>
+                <label for="type">
+                    <i class="fas fa-money-bill-wave"></i>
+                    Type:
+                </label>
                 <select name="type" id="type" class="form-control">
                     <option value="other" @if (!request()->has('user_id')) selected @endif>Autre</option>
                     <option value="payment" @if (request()->has('user_id')) selected @endif>Paiement</option>
@@ -24,7 +27,10 @@
             </div>
 
             <div class="form-group mb-3" id="userField" @if (!request()->has('user_id')) style="display: none;" @endif>
-                <label for="user_id">Utilisateur:</label>
+                <label for="user_id">
+                    <i class="fas fa-user"></i>
+                    Utilisateur:
+                </label>
                 <select name="user_id" id="user_id" class="form-control">
                     @foreach ($users as $user)
                         <option value="{{ $user->id }}" @if (request()->has('user_id') && request()->user_id == $user->id) selected @endif>
@@ -34,16 +40,25 @@
             </div>
 
             <div class="form-group mb-3">
-                <label for="amount">Montant:</label>
+                <label for="amount">
+                    <i class="fas fa-coins"></i>
+                    Montant:
+                </label>
                 <input type="text" name="amount" id="amount" class="form-control">
             </div>
 
             <div class="form-group mb-3">
-                <label for="description">Description:</label>
+                <label for="description">
+                    <i class="fas fa-info-circle"></i>
+                    Description:
+                </label>
                 <textarea name="description" id="description" class="form-control"></textarea>
             </div>
 
-            <button type="submit" class="btn btn-primary">Créer</button>
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-plus"></i>
+                Ajouter
+            </button>
         </form>
 
     </div>

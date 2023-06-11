@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <main class="d-flex justify-content-between container flex-column mb-5">
+    <main class="d-flex justify-content-between  flex-column mb-5">
 
         <h5
             class="text-center my-3 bg-light p-3 rounded-3 d-flex justify-content-between align-items-center flex-wrap gap-3">

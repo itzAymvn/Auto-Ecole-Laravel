@@ -3,7 +3,7 @@
 @section('title', 'Statistiques')
 
 @section('content')
-    <div class="container-fluid my-xl-4 my-lg-4 my-md-3 my-sm-2 my-1">
+    <div class="-fluid my-xl-4 my-lg-4 my-md-3 my-sm-2 my-1">
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center flex-wrap">
                 <h3 class="card-title">Utilisateurs créés au fil du temps</h3>

@@ -5,7 +5,7 @@
 @section('content')
 
     <main class="d-flex justify-content-between flex-column">
-        <section class="manage-users-section container py-5">
+        <section class="manage-users-section  py-5">
 
             <x-alerts></x-alerts>
 
@@ -81,7 +81,7 @@
                 <div class="p-3 mb-3 bg-light rounded border">
                     <h4 class="mb-3">Étudiants</h4>
 
-                    <div class="student-container">
+                    <div class="student-">
                         <div class="mb-3">
                             <label for="student" class="form-label">Étudiant 1</label>
                             <select class="form-select" aria-label="Default select example" name="student_id_1">
@@ -116,7 +116,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var addButton = document.getElementById('add-student');
-            var studentContainer = document.querySelector('.student-container');
+            var studentContainer = document.querySelector('.student-');
             var studentCount = 1;
 
             addButton.addEventListener('click', function() {

@@ -5,7 +5,7 @@
 @section('content')
 
     <main class="d-flex justify-content-between flex-column">
-        <section class="manage-users-section container py-5">
+        <section class="manage-users-section  py-5">
 
             <x-alerts></x-alerts>
 
@@ -45,12 +45,27 @@
                 {{-- Type (drive, code) --}}
                 <div class="mb-3">
                     <label for="type" class="form-label">Type</label>
-                    <select class="form-select" aria-label="Default select example" name="type">
+                    <select class="form-select" aria-label="Default select example" name="type" id="type">
                         <option value="drive">Conduite</option>
                         <option value="code">Code</option>
                     </select>
 
                     @error('type')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                {{-- La vehicule --}}
+                <div class="mb-3" id="vehicle-input-container">
+                    <label for="vehicle" class="form-label">Véhicule</label>
+                    <select class="form-select" aria-label="Default select example" name="vehicle_id" id="vehicle">
+                        <option disabled selected value> -- select an option -- </option>
+                        @foreach ($vehicles as $vehicle)
+                            <option value="{{ $vehicle->id }}">{{ $vehicle->model }}</option>
+                        @endforeach
+                    </select>
+
+                    @error('vehicle_id')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
@@ -82,21 +97,6 @@
                         value="{{ old('location') }}">
 
                     @error('location')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                {{-- La vehicule --}}
-                <div class="mb-3">
-                    <label for="vehicle" class="form-label">Véhicule</label>
-                    <select class="form-select" aria-label="Default select example" name="vehicle_id">
-                        <option disabled selected value> -- select an option -- </option>
-                        @foreach ($vehicles as $vehicle)
-                            <option value="{{ $vehicle->id }}">{{ $vehicle->model }}</option>
-                        @endforeach
-                    </select>
-
-                    @error('vehicle_id')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
@@ -187,3 +187,22 @@
     </main>
 
 @endsection
+
+@push('scripts')
+    <script>
+        const examTypeInput = document.getElementById('type');
+        const vehicleInputContainer = document.getElementById('vehicle-input-container');
+        const vehicleInput = document.getElementById('vehicle');
+
+        examTypeInput.addEventListener('change', () => {
+            if (examTypeInput.value === 'drive') {
+                vehicleInputContainer.style.display = 'block';
+                vehicleInput.required = true;
+            } else {
+                vehicleInputContainer.style.display = 'none';
+                vehicleInput.required = false;
+                vehicleInput.value = '';
+            }
+        });
+    </script>
+@endpush

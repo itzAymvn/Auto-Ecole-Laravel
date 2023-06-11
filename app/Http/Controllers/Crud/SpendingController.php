@@ -94,7 +94,7 @@ class SpendingController extends Controller
         $request->validate([
             'type' => 'required|in:payment,other',
             'amount' => 'required|numeric',
-            'description' => 'required|string',
+            'description' => 'nullable',
         ]);
 
         // Create the spending
@@ -103,8 +103,12 @@ class SpendingController extends Controller
             $spending->user_id = $request->user_id;
         }
         $spending->amount = $request->amount;
-        $spending->description = $request->description;
 
+        if ($request->description == null) {
+            $spending->description = 'Aucune description';
+        } else {
+            $spending->description = $request->description;
+        }
         if ($spending->save()) {
             return redirect()->route('spendings.index')->with('success', 'Dépense créée avec succès.');
         } else {
