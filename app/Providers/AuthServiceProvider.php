@@ -14,6 +14,18 @@ class AuthServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+
+        /**
+         * Register any authentication / authorization services.
+         *
+         * ------------------------------------------------------
+         * To avoid the error "SQLSTATE[HY000] [2002] Connection refused"
+         * We need to check if the database connection is available
+         * ------------------------------------------------------
+         * To avoid the error "SQLSTATE[42S02]: Base table or view not found: 1146 Table 'database.permissions' doesn't exist"
+         * We need to check if the permissions table exists
+         * ------------------------------------------------------
+         */
         try {
             // Check if the database connection is available
             DB::connection()->getPdo();

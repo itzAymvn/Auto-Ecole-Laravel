@@ -1,8 +1,8 @@
 :root {
-    --primary: #F3BD00;
+    --primary: #f3bd00;
     --secondary: #757575;
-    --light: #F3F6F8;
-    --dark: #0C2B4B;
+    --light: #f3f6f8;
+    --dark: #0c2b4b;
 }
 
 /* Scroll bar */
@@ -11,7 +11,7 @@
 }
 
 ::-webkit-scrollbar-track {
-    background: #F1F1F1;
+    background: #f1f1f1;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -33,7 +33,6 @@
     margin-bottom: 6rem;
 }
 
-
 /* back to top button */
 .back-to-top {
     position: fixed;
@@ -43,37 +42,35 @@
     z-index: 99;
 }
 
-
 /* Spinner styling */
 #spinner {
     opacity: 0;
     visibility: hidden;
-    -webkit-transition: opacity .5s ease-out, visibility 0s linear .5s;
-    -o-transition: opacity .5s ease-out, visibility 0s linear .5s;
-    transition: opacity .5s ease-out, visibility 0s linear .5s;
+    -webkit-transition: opacity 0.5s ease-out, visibility 0s linear 0.5s;
+    -o-transition: opacity 0.5s ease-out, visibility 0s linear 0.5s;
+    transition: opacity 0.5s ease-out, visibility 0s linear 0.5s;
     z-index: 99999;
 }
 
 #spinner.show {
-    -webkit-transition: opacity .5s ease-out, visibility 0s linear 0s;
-    -o-transition: opacity .5s ease-out, visibility 0s linear 0s;
-    transition: opacity .5s ease-out, visibility 0s linear 0s;
+    -webkit-transition: opacity 0.5s ease-out, visibility 0s linear 0s;
+    -o-transition: opacity 0.5s ease-out, visibility 0s linear 0s;
+    transition: opacity 0.5s ease-out, visibility 0s linear 0s;
     visibility: visible;
     opacity: 1;
 }
 
-
 /* Buttons global styling */
 .btn {
     font-weight: 500;
-    -webkit-transition: .5s;
-    -o-transition: .5s;
-    transition: .5s;
+    -webkit-transition: 0.5s;
+    -o-transition: 0.5s;
+    transition: 0.5s;
 }
 
 .btn.btn-primary,
 .btn.btn-outline-primary:hover {
-    color: #FFFFFF;
+    color: #ffffff;
 }
 
 .btn-square {
@@ -107,18 +104,17 @@
     font-weight: normal;
 }
 
-
 /* Styling the navbar */
 .navbar.sticky-top {
     top: -100px;
-    -webkit-transition: .5s;
-    -o-transition: .5s;
-    transition: .5s;
+    -webkit-transition: 0.5s;
+    -o-transition: 0.5s;
+    transition: 0.5s;
 }
 
 .navbar .navbar-brand,
 .navbar a.btn {
-    height: 80px
+    height: 80px;
 }
 
 .navbar .navbar-nav .nav-link {
@@ -151,7 +147,7 @@
     }
 
     .navbar .navbar-nav {
-        border-top: 1px solid #EEEEEE;
+        border-top: 1px solid #eeeeee;
     }
 }
 
@@ -163,21 +159,20 @@
         top: 150%;
         opacity: 0;
         visibility: hidden;
-        -webkit-transition: .5s;
-        -o-transition: .5s;
-        transition: .5s;
+        -webkit-transition: 0.5s;
+        -o-transition: 0.5s;
+        transition: 0.5s;
     }
 
     .navbar .nav-item:hover .dropdown-menu {
         top: 100%;
         visibility: visible;
-        -webkit-transition: .5s;
-        -o-transition: .5s;
-        transition: .5s;
+        -webkit-transition: 0.5s;
+        -o-transition: 0.5s;
+        transition: 0.5s;
         opacity: 1;
     }
 }
-
 
 /* Header styling */
 .carousel-caption {
@@ -195,7 +190,7 @@
     -ms-flex-pack: center;
     justify-content: center;
     text-align: center;
-    background: rgba(0, 0, 0, .75);
+    background: rgba(0, 0, 0, 0.75);
     z-index: 1;
 }
 
@@ -228,13 +223,22 @@
 }
 
 .page-header {
-    background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, .75)), to(rgba(0, 0, 0, .75))), url(../img/carousel-1.jpg) center center no-repeat;
-    background: -o-linear-gradient(rgba(0, 0, 0, .75), rgba(0, 0, 0, .75)), url(../img/carousel-1.jpg) center center no-repeat;
-    background: linear-gradient(rgba(0, 0, 0, .75), rgba(0, 0, 0, .75)), url(../img/carousel-1.jpg) center center no-repeat;
+    background: -webkit-gradient(
+            linear,
+            left top,
+            left bottom,
+            from(rgba(0, 0, 0, 0.75)),
+            to(rgba(0, 0, 0, 0.75))
+        ),
+        url(../img/carousel-1.jpg) center center no-repeat;
+    background: -o-linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)),
+        url(../img/carousel-1.jpg) center center no-repeat;
+    background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)),
+        url(../img/carousel-1.jpg) center center no-repeat;
     background-size: cover;
 }
 
-.breadcrumb-item+.breadcrumb-item::before {
+.breadcrumb-item + .breadcrumb-item::before {
     color: #999999;
 }
 
@@ -247,7 +251,6 @@
     }
 }
 
-
 /* footer styling */
 .footer .btn.btn-link {
     display: block;
@@ -257,9 +260,9 @@
     color: var(--light);
     font-weight: normal;
     text-transform: capitalize;
-    -webkit-transition: .3s;
-    -o-transition: .3s;
-    transition: .3s;
+    -webkit-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
 }
 
 .footer .btn.btn-link::before {
@@ -288,4 +291,53 @@
 
 .copyright a:hover {
     color: var(--light);
+}
+
+/*** Team ***/
+.team-items {
+    margin: -0.75rem;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.team-item {
+    padding: 0.75rem;
+}
+
+.team-item::after {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 0;
+    top: 0;
+    left: 0;
+    background: #ffffff;
+    transition: 0.5s;
+    z-index: -1;
+}
+
+.team-item:hover::after {
+    height: 100%;
+    background: var(--primary);
+}
+
+.team-item .team-social {
+    position: absolute;
+    width: 100%;
+    height: 0;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.75);
+    overflow: hidden;
+    opacity: 0;
+    transition: 0.5s;
+}
+
+.team-item:hover .team-social {
+    height: 100%;
+    opacity: 1;
 }

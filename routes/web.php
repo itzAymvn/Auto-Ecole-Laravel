@@ -3,11 +3,12 @@
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+
 use App\Http\Controllers\contactController;
-
 use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\Crud\ExamController;
 
+use App\Http\Controllers\Crud\ExamController;
 use App\Http\Controllers\Crud\UserController;
 use App\Http\Controllers\StatisticsController;
 use App\Http\Controllers\Auth\ProfileController;
@@ -27,7 +28,7 @@ use App\Http\Controllers\Crud\SpendingController;
 |
 */
 
-Route::view('/', 'main')->name('main');
+Route::get('/', [HomeController::class, 'index'])->name('main');
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login-show');
 Route::post('/login', [AuthController::class, 'login'])->name('login');

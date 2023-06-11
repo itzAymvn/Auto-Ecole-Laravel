@@ -39,6 +39,10 @@
                 <i class="fas fa-phone"></i>
                 <span>Contact</span>
             </a>
+            <a team-section href="{{ route('main') }}#team-section" class="nav-item nav-link">
+                <i class="fas fa-users"></i>
+                <span>Equipe</span>
+            </a>
 
             {{-- If the user is connected --}}
             @if (Auth::check())

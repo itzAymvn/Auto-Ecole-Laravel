@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
             VehiclesSeeder::class,
             ExamsSeeder::class,
             PermissionsSeeder::class,
+            SessionsSeeder::class,
         ]);
     }
 }

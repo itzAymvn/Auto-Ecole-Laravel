@@ -206,16 +206,65 @@
         </div>
     </section>
 
+    <!-- Team Start -->
+    <div class="container-xxl py-6" id="team-section">
+        <div class="container">
+            <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+                <h6 class="text-primary text-uppercase mb-2">RENCONTRER L'ÉQUIPE</h6>
+                <h1 class="display-6 mb-4">Nous avons une grande expérience de conduite</h1>
+            </div>
+            <div class="row g-0 team-items">
+                @foreach ($staff as $member)
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="team-item position-relative">
+                            <div class="position-relative">
+                                @if ($member->image)
+                                    <img class="img-fluid w-100" src="{{ asset('storage/profiles/' . $member->image) }}"
+                                        alt="">
+                                @else
+                                    <img class="img-fluid w-100" src="{{ asset('images/default-user.jpg') }}"
+                                        alt="">
+                                @endif
+                            </div>
+                            <div class="team-social text-center">
+                                <a href="mailto:{{ $member->email }}"
+                                    class="btn btn-square btn-outline-primary border-2 m-1"><i
+                                        class="fa fa-envelope"></i></a>
+                                <a href="tel:{{ $member->phone }}"
+                                    class="btn btn-square btn-outline-primary border-2 m-1"><i
+                                        class="fa fa-phone-alt"></i></a>
+
+                            </div>
+                            <div class="bg-light text-center p-4">
+                                <h5 class="mt-2">{{ $member->name }}</h5>
+                                <p class="text-capitalize">
+                                    @if ($member->type == 'admin')
+                                        <span class="badge bg-danger">Administrateur</span>
+                                    @elseif($member->type == 'instructor')
+                                        <span class="badge bg-success">Instructeur</span>
+                                    @endif
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+
+            </div>
+        </div>
+    </div>
+    <!-- Team End -->
+
     <!-- Contact section -->
-    <section class="container-xxl py-6" id="contact-section">
+    <section class="container-xxl
+                py-6" id="contact-section">
         <div class="container">
             <div class="col-lg-6">
                 <h6 class="text-primary text-uppercase mb-2">
                     Contactez nous
                 </h6>
 
-                <x-alerts/>
-                
+                <x-alerts />
+
                 <h1 class="display-6 mb-4">
                     Nous sommes à votre écoute, n'hésitez pas à nous
                     contacter
