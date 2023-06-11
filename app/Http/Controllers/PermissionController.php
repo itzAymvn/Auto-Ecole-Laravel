@@ -60,9 +60,17 @@ class PermissionController extends Controller
         $status = $request->input('status');
 
         $permission->status = $status;
-        $permission->save();
+        $permission_name = $permission->permission . '-' . $permission->resource;
+        $permission_status = $status ? 'activée' : 'désactivée';
+        if ($permission->save()) {
+            $message = "La permission $permission_name a été $permission_status pour le rôle $permission->role";
+        } else {
+            $message = "Une erreur s'est produite lors de la mise à jour de la permission $permission_name pour le rôle $permission->role";
+        }
 
-        return response()->json(['message' => 'Permission status updated successfully']);
+        return response()->json([
+            'message' => $message,
+        ]);
     }
 
 

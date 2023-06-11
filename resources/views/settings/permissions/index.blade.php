@@ -42,6 +42,7 @@
     @endforeach
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <script>
         $(document).ready(function() {
             $('.permission-status').on('change', function() {
@@ -57,11 +58,10 @@
                         status: status
                     },
                     success: function(response) {
-                        // send a notification
-                        
+                        toastr.success(response.message);
                     },
                     error: function(xhr, status, error) {
-                        console.error('Error updating permission status: ' + error);
+                        toastr.error(xhr.responseJSON.message);
                     }
                 });
             });
