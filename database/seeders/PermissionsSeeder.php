@@ -15,201 +15,121 @@ class PermissionsSeeder extends Seeder
     {
         $permissions = [
             // Admin permissions
-            [
-                'role' => 'admin',
-                'resource' => 'users',
-                'permission' => 'view',
-                'status' => 1,
-            ],
-            [
-                'role' => 'admin',
-                'resource' => 'users',
-                'permission' => 'create',
-                'status' => 1,
-            ],
-            [
-                'role' => 'admin',
-                'resource' => 'users',
-                'permission' => 'edit',
-                'status' => 1,
-            ],
-            [
-                'role' => 'admin',
-                'resource' => 'users',
-                'permission' => 'delete',
-                'status' => 1,
-            ],
-            [
-                'role' => 'admin',
-                'resource' => 'vehicles',
-                'permission' => 'view',
-                'status' => 1,
-            ],
-            [
-                'role' => 'admin',
-                'resource' => 'vehicles',
-                'permission' => 'create',
-                'status' => 1,
-            ],
-            [
-                'role' => 'admin',
-                'resource' => 'vehicles',
-                'permission' => 'edit',
-                'status' => 1,
-            ],
-            [
-                'role' => 'admin',
-                'resource' => 'vehicles',
-                'permission' => 'delete',
-                'status' => 1,
-            ],
-            [
-                'role' => 'admin',
-                'resource' => 'exams',
-                'permission' => 'view',
-                'status' => 1,
-            ],
-            [
-                'role' => 'admin',
-                'resource' => 'exams',
-                'permission' => 'create',
-                'status' => 1,
-            ],
-            [
-                'role' => 'admin',
-                'resource' => 'exams',
-                'permission' => 'edit',
-                'status' => 1,
-            ],
-            [
-                'role' => 'admin',
-                'resource' => 'exams',
-                'permission' => 'delete',
-                'status' => 1,
-            ],
-            [
-                'role' => 'admin',
-                'resource' => 'payments',
-                'permission' => 'view',
-                'status' => 1,
-            ],
-            [
-                'role' => 'admin',
-                'resource' => 'payments',
-                'permission' => 'create',
-                'status' => 1,
-            ],
-            [
-                'role' => 'admin',
-                'resource' => 'payments',
-                'permission' => 'edit',
-                'status' => 1,
-            ],
-            [
-                'role' => 'admin',
-                'resource' => 'payments',
-                'permission' => 'delete',
-                'status' => 1,
-            ],
-            [
-                'role' => 'admin',
-                'resource' => 'spendings',
-                'permission' => 'view',
-                'status' => 1,
-            ],
-            [
-                'role' => 'admin',
-                'resource' => 'spendings',
-                'permission' => 'create',
-                'status' => 1,
-            ],
-            [
-                'role' => 'admin',
-                'resource' => 'spendings',
-                'permission' => 'edit',
-                'status' => 1,
-            ],
-            [
-                'role' => 'admin',
-                'resource' => 'spendings',
-                'permission' => 'delete',
-                'status' => 1,
-            ],
-            [
-                'role' => 'admin',
-                'resource' => 'sessions',
-                'permission' => 'view',
-                'status' => 1,
-            ],
-            [
-                'role' => 'admin',
-                'resource' => 'sessions',
-                'permission' => 'create',
-                'status' => 1,
-            ],
-            [
-                'role' => 'admin',
-                'resource' => 'sessions',
-                'permission' => 'edit',
-                'status' => 1,
-            ],
-            [
-                'role' => 'admin',
-                'resource' => 'sessions',
-                'permission' => 'delete',
-                'status' => 1,
-            ],
-            [
-                'role' => 'admin',
-                'resource' => 'statistics',
-                'permission' => 'view',
-                'status' => 1,
-            ],
-            [
-                'role' => 'admin',
-                'resource' => 'statistics',
-                'permission' => 'create',
-                'status' => 1,
-            ],
-            [
-                'role' => 'admin',
-                'resource' => 'statistics',
-                'permission' => 'edit',
-                'status' => 1,
-            ],
-            [
-                'role' => 'admin',
-                'resource' => 'statistics',
-                'permission' => 'delete',
-                'status' => 1,
+            'admin' => [
+                'users' => [
+                    'view' => 1,
+                    'create' => 1,
+                    'edit' => 1,
+                    'delete' => 1,
+                ],
+                'vehicles' => [
+                    'view' => 1,
+                    'create' => 1,
+                    'edit' => 1,
+                    'delete' => 1,
+                ],
+                'exams' => [
+                    'view' => 1,
+                    'create' => 1,
+                    'edit' => 1,
+                    'delete' => 1,
+                ],
+                'payments' => [
+                    'view' => 1,
+                    'create' => 1,
+                    'edit' => 1,
+                    'delete' => 1,
+                ],
+                'spendings' => [
+                    'view' => 1,
+                    'create' => 1,
+                    'edit' => 1,
+                    'delete' => 1,
+                ],
+                'sessions' => [
+                    'view' => 1,
+                    'create' => 1,
+                    'edit' => 1,
+                    'delete' => 1,
+                ],
+                'statistics' => [
+                    'view' => 1,
+                    'create' => 1,
+                    'edit' => 1,
+                    'delete' => 1,
+                ],
+                'settings' => [
+                    'view' => 1,
+                    'edit' => 1,
+                ],
             ],
             // Instructor permissions
-            [
-                'role' => 'instructor',
-                'resource' => 'sessions',
-                'permission' => 'view',
-                'status' => 1,
-            ],
-            [
-                'role' => 'instructor',
-                'resource' => 'sessions',
-                'permission' => 'create',
-                'status' => 1,
-            ],
-            [
-                'role' => 'instructor',
-                'resource' => 'sessions',
-                'permission' => 'edit',
-                'status' => 1,
-            ],
-            [
-                'role' => 'instructor',
-                'resource' => 'sessions',
-                'permission' => 'delete',
-                'status' => 1,
+            'instructor' => [
+                'users' => [
+                    'view' => 0,
+                    'create' => 0,
+                    'edit' => 0,
+                    'delete' => 0,
+                ],
+                'vehicles' => [
+                    'view' => 0,
+                    'create' => 0,
+                    'edit' => 0,
+                    'delete' => 0,
+                ],
+                'exams' => [
+                    'view' => 0,
+                    'create' => 0,
+                    'edit' => 0,
+                    'delete' => 0,
+                ],
+                'payments' => [
+                    'view' => 0,
+                    'create' => 0,
+                    'edit' => 0,
+                    'delete' => 0,
+                ],
+                'spendings' => [
+                    'view' => 0,
+                    'create' => 0,
+                    'edit' => 0,
+                    'delete' => 0,
+                ],
+                'sessions' => [
+                    'view' => 1,
+                    'create' => 1,
+                    'edit' => 1,
+                    'delete' => 1,
+                ],
+                'statistics' => [
+                    'view' => 0,
+                    'create' => 0,
+                    'edit' => 0,
+                    'delete' => 0,
+                ],
+                'settings' => [
+                    'view' => 0,
+                    'edit' => 0,
+                ],
             ],
         ];
 
-        DB::table('permissions')->insert($permissions);
+        $groupedPermissions = [];
+
+        // Group permissions by role and resource
+        foreach ($permissions as $role => $resources) {
+            foreach ($resources as $resource => $permissionData) {
+                foreach ($permissionData as $permission => $status) {
+                    $groupedPermissions[] = [
+                        'role' => $role,
+                        'resource' => $resource,
+                        'permission' => $permission,
+                        'status' => $status,
+                    ];
+                }
+            }
+        }
+
+        DB::table('permissions')->insert($groupedPermissions);
     }
 }
