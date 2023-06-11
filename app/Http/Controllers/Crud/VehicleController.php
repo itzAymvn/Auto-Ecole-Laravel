@@ -74,14 +74,12 @@ class VehicleController extends Controller
      */
     public function show(Vehicle $vehicle)
     {
-        // Get sessions of the vehicle
-        $sessions = $vehicle->sessions;
 
         // Get exams of the vehicle
         $exams = $vehicle->exams;
 
         // Redirect to the vehicles show page
-        return view('dashboard.vehicles.show', compact('vehicle', 'sessions', 'exams'));
+        return view('dashboard.vehicles.show', compact('vehicle', 'exams'));
     }
 
     /**
