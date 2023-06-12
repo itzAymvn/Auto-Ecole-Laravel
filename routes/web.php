@@ -39,6 +39,12 @@ Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
 Route::post('/profile', [ProfileController::class, 'update'])->name('update-profile');
 Route::post('/profile/password', [ProfileController::class, 'updatePassword'])->name('update-password');
 
+// Password Reset
+Route::get('/password/reset', [AuthController::class, 'showPasswordResetForm'])->name('password.request');
+Route::post('/password/email', [AuthController::class, 'sendResetLinkEmail'])->name('password.email');
+Route::get('/password/reset/{token}', [AuthController::class, 'showResetForm'])->name('password.reset');
+Route::post('/password/reset', [AuthController::class, 'resetPassword'])->name('password.update');
+
 // Dashboard
 Route::prefix('dashboard')->middleware('auth', 'dashboard')->group(function () {
     Route::get('/', [UserController::class, 'dashboard'])->name('dashboard');

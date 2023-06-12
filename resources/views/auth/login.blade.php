@@ -45,20 +45,25 @@
                                 <div class="alert alert-danger mt-2">{{ $errors->first('password') }}</div>
                             @endif
                         </div>
-                        <div class="mb-3 form-check">
-                            <input type="checkbox" class="form-check-input" id="remember" name="remember"
-                                {{ old('remember') ? 'checked' : '' }}>
-                            <label class="form-check-label" for="remember">
-                                Se souvenir de moi
-                            </label>
+                        <div class="mb-3">
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="remember" name="remember"
+                                    {{ old('remember') ? 'checked' : '' }}>
+                                <label class="form-check-label" for="remember">
+                                    Se souvenir de moi
+                                </label>
+                            </div>
                         </div>
 
-
-                        <div class="d-grid">
+                        <div class="d-grid gap-2">
                             <button type="submit" disabled id="login" class="btn btn-primary py-2">
                                 <i class="bi bi-box-arrow-in-right"></i>
                                 Se connecter
                             </button>
+                            <a href="{{ route('password.request') }}" class="btn btn-link">
+                                <i class="bi bi-question-circle"></i>
+                                Mot de passe oublié?
+                            </a>
                         </div>
                     </form>
                 </div>
@@ -66,6 +71,7 @@
         </div>
     </section>
 @endsection
+
 
 @push('scripts')
     <script>
