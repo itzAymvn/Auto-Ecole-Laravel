@@ -16,6 +16,8 @@ class PaymentController extends Controller
      */
     public function index(Request $request)
     {
+        $this->authorize('view-payments');
+
         $query = Payment::query();
 
         $payments = Payment::select(
@@ -75,6 +77,8 @@ class PaymentController extends Controller
      */
     public function create()
     {
+        $this->authorize('create-payments');
+
         if (request()->query('user_id')) {
             $user = User::findOrFail(request()->query('user_id'));
 
@@ -96,6 +100,7 @@ class PaymentController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create-payments');
 
         $validated = $request->validate([
             'goal_amount' => 'required|numeric',
@@ -120,6 +125,8 @@ class PaymentController extends Controller
      */
     public function show($student_id)
     {
+        $this->authorize('view-payments');
+
         $user = User::findOrFail($student_id);
         $payments = $user->payments;
 
@@ -147,6 +154,9 @@ class PaymentController extends Controller
      */
     public function destroy(Payment $payment)
     {
+
+        $this->authorize('delete-payments');
+
         if ($payment->delete()) {
             return redirect()->back()->with('success', 'Le paiement a été supprimé avec succès');
         }

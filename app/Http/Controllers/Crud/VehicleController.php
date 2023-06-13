@@ -14,6 +14,8 @@ class VehicleController extends Controller
      */
     public function index()
     {
+        $this->authorize('view-vehicles');
+
         // Get all the vehicles
         $vehicles = Vehicle::all();
 
@@ -26,6 +28,8 @@ class VehicleController extends Controller
      */
     public function create()
     {
+        $this->authorize('create-vehicles');
+
         // Redirect to the vehicles create page
         return view('dashboard.vehicles.create');
     }
@@ -35,6 +39,7 @@ class VehicleController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create-vehicles');
 
         // Validate the request
         $request->validate([
@@ -74,6 +79,7 @@ class VehicleController extends Controller
      */
     public function show(Vehicle $vehicle)
     {
+        $this->authorize('view-vehicles');
 
         // Get exams of the vehicle
         $exams = $vehicle->exams;
@@ -87,6 +93,7 @@ class VehicleController extends Controller
      */
     public function edit(Vehicle $vehicle)
     {
+        $this->authorize('edit-vehicles');
         return view('dashboard.vehicles.edit', compact('vehicle'));
     }
 
@@ -95,6 +102,8 @@ class VehicleController extends Controller
      */
     public function update(Request $request, Vehicle $vehicle)
     {
+        $this->authorize('edit-vehicles');
+
         // Validate the request
         $request->validate([
             'matricule' => 'required|unique:vehicles,matricule,' . $vehicle->id,
@@ -138,6 +147,8 @@ class VehicleController extends Controller
      */
     public function destroy(Vehicle $vehicle)
     {
+        $this->authorize('delete-vehicles');
+
         // Delete the vehicle image if it exists
         if ($vehicle->image) {
 

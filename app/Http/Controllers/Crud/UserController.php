@@ -18,6 +18,8 @@ class UserController extends Controller
 
     public function index()
     {
+        $this->authorize('view-users');
+
         $query = User::query();
 
         if (request()->has('search') && request()->input('search') != '') {
@@ -66,6 +68,7 @@ class UserController extends Controller
      */
     public function create()
     {
+        $this->authorize('create-users');
         return view('dashboard.users.create');
     }
 
@@ -74,6 +77,8 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create-users');
+
         // Validate the request
         $request->validate([
             'name' => 'required',
@@ -125,6 +130,8 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
+        $this->authorize('view-users');
+
         if ($user->id == Auth::user()->id) {
             return redirect()->route('profile');
         } else {
@@ -137,6 +144,8 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        $this->authorize('edit-users');
+
         if ($user->id == Auth::user()->id) {
             return redirect()->route('profile');
         } else {
@@ -149,6 +158,8 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        $this->authorize('edit-users');
+
         // Validate the request
         $request->validate([
             'name' => 'required',
@@ -197,6 +208,8 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        $this->authorize('delete-users');
+
         // If the user has an image, delete it
         if ($user->image) {
             if (file_exists(storage_path('app/public/profiles/' . $user->image))) {

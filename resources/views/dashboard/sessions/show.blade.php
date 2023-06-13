@@ -32,9 +32,13 @@
                                 </strong>
                             </td>
                             <td>
-                                <a href="{{ route('users.show', $session->instructor_id) }}">
+                                @can('view-users')
+                                    <a href="{{ route('users.show', $session->instructor_id) }}">
+                                        {{ $instructor->name }}
+                                    </a>
+                                @else
                                     {{ $instructor->name }}
-                                </a>
+                                @endcan
                             </td>
                         </tr>
                         <tr>
@@ -88,7 +92,13 @@
                                                 width="50" height="50" class="me-2 rounded-circle">
                                         @endempty
                                         <div>
-                                            <a href="{{ route('users.show', $user->id) }}">{{ $user->name }}</a>
+                                            @can('view-users')
+                                                <a href="{{ route('users.show', $user->id) }}">
+                                                    {{ $user->name }}
+                                                </a>
+                                            @else
+                                                <span class="text-primary">{{ $user->name }}</span>
+                                            @endcan
                                             <p class="text-muted mb-0">{{ $user->email }}</p>
                                         </div>
                                     </div>
@@ -136,10 +146,12 @@
                 @endif
             </div>
         </div>
-        <a href="{{ route('sessions.edit', $session->id) }}" class="btn btn-primary mt-3">
-            <i class="fas fa-edit"></i>
-            Modifier les informations de la session
-        </a>
+        @can('edit-sessions')
+            <a href="{{ route('sessions.edit', $session->id) }}" class="btn btn-primary mt-3">
+                <i class="fas fa-edit"></i>
+                Modifier les informations de la session
+            </a>
+        @endcan
     </div>
 
 @endsection

@@ -15,19 +15,25 @@
                             {{-- If the route has a query param --}}
                             @if (request()->has('student_id'))
                                 Sessions de l'étudiant
-                                <a href="{{ route('users.show', request()->student_id) }}">
+                                @can('view-users')
+                                    <a href="{{ route('users.show', request()->student_id) }}">
+                                        {{ $sessions->student_name }}
+                                    </a>
+                                @else
                                     {{ $sessions->student_name }}
-                                </a>
+                                @endcan
                                 ({{ count($sessions) }})
                             @else
                                 Gérer les sessions
                                 ({{ count($sessions) }})
                             @endif
                         </h5>
-                        <a href="{{ route('sessions.create') }}" class="btn btn-primary d-flex align-items-center shadow-sm">
-                            <i class="fa-solid fa-circle-plus me-2"></i>
-                            Ajouter une session
-                        </a>
+                        @can('create-sessions')
+                            <a href="{{ route('sessions.create') }}" class="btn btn-primary d-flex align-items-center shadow-sm">
+                                <i class="fa-solid fa-circle-plus me-2"></i>
+                                Ajouter une session
+                            </a>
+                        @endcan
                     </div>
                 </div>
 
@@ -40,7 +46,9 @@
                             <th scope="col">Instructeur</th>
                             <th scope="col">Nb. étudiants</th>
                             <th scope="col">Location</th>
-                            <th scope="col"></th>
+                            @if (!Gate::none(['view-sessions', 'edit-sessions', 'delete-sessions']))
+                                <th scope="col"></th>
+                            @endif
                         </tr>
                     </thead>
                     <tbody>
@@ -50,27 +58,40 @@
                                 <td>{{ $session->session_date }}</td>
                                 <td>{{ $session->session_time }}</td>
                                 <td>
-                                    <a href="{{ route('users.show', $session->instructor_id) }}">
+                                    @can('view-users')
+                                        <a href="{{ route('users.show', $session->instructor_id) }}">
+                                            {{ $session->instructor_name }}
+                                        </a>
+                                    @else
                                         {{ $session->instructor_name }}
-                                    </a>
+                                    @endcan
                                 </td>
                                 <td>{{ $session->students_count }}</td>
                                 <td>{{ $session->session_location }}</td>
                                 <td>
-                                    <a href="{{ route('sessions.show', $session->id) }}"
-                                        class="btn btn-primary">Détails</a>
-                                    <a href="{{ route('sessions.edit', $session->id) }}"
-                                        class="btn btn-outline-secondary me-2">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    <form action="{{ route('sessions.destroy', $session->id) }}" method="POST"
-                                        class="d-inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-outline-danger">
-                                            <i class="fas fa-trash-alt"></i>
-                                        </button>
-                                    </form>
+
+                                    @can('view-sessions')
+                                        <a href="{{ route('sessions.show', $session->id) }}"
+                                            class="btn btn-primary">Détails</a>
+                                    @endcan
+
+                                    @can('edit-sessions')
+                                        <a href="{{ route('sessions.edit', $session->id) }}"
+                                            class="btn btn-outline-secondary me-2">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                    @endcan
+
+                                    @can('delete-sessions')
+                                        <form action="{{ route('sessions.destroy', $session->id) }}" method="POST"
+                                            class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-outline-danger">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </form>
+                                    @endcan
                                 </td>
                             </tr>
                         @endforeach
@@ -81,26 +102,22 @@
                     <h4 class="alert-heading">Aucune session</h4>
                     <p>
                         @if (request()->has('student_id'))
-                            Cet étudiant n'a pas encore de session. Vous pouvez en créer une en cliquant sur le bouton
-                            ci-dessous.
+                            Cet étudiant n'a pas encore de session avec vous. Créer une session en cliquant sur le bouton
+                            ci-dessous. En créant une session, vous pourrez ajouter cet étudiant à la session.
                         @else
                             Vous n'avez pas encore de session. Vous pouvez en créer une en cliquant sur le bouton
                             ci-dessous.
                         @endif
                     </p>
                     <hr>
-                    <p class="mb-0">
-                        @if (request()->has('student_id'))
-                            <button type="button" class="btn btn-primary">
-                                Créer une session
-                            </button>
-                        @else
+                    @can('create-sessions')
+                        <p class="mb-0">
                             <a href="{{ route('sessions.create') }}" class="btn btn-primary">
                                 Créer une session
                             </a>
-                        @endif
+                        </p>
+                    @endcan
 
-                    </p>
                 </div>
 
             @endif

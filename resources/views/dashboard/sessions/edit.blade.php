@@ -105,8 +105,12 @@
                                                 alt="Image" width="50" height="50" class="me-2 rounded-circle">
                                         @endempty
                                         <div>
-                                            <a
-                                                href="{{ route('users.show', $session_student->id) }}">{{ $session_student->name }}</a>
+                                            @can('view-users')
+                                                <a href="{{ route('users.show', $session_student->id) }}">{{ $session_student->name }}
+                                                </a>
+                                            @else
+                                                <span class="text-primary">{{ $session_student->name }}</span>
+                                            @endcan
                                             <p class="text-muted mb-0">{{ $session_student->email }}</p>
                                         </div>
                                     </div>

@@ -16,6 +16,8 @@ class ExamController extends Controller
      */
     public function index()
     {
+        $this->authorize('view-exams');
+
         // Get all the exams
         $exams = Exam::all();
 
@@ -59,6 +61,8 @@ class ExamController extends Controller
      */
     public function create()
     {
+        $this->authorize('create-exams');
+
         // Get the students
         $students = User::where('type', 'student')->get();
 
@@ -77,6 +81,8 @@ class ExamController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create-exams');
+
         // Validate the request
         $request->validate([
             'title' => 'required',
@@ -140,6 +146,8 @@ class ExamController extends Controller
      */
     public function show(Exam $exam)
     {
+        $this->authorize('view-exams');
+
         // Get the exam details and the students in one query
         $exam = Exam::with('user')->findOrFail($exam->id);
 
@@ -166,6 +174,8 @@ class ExamController extends Controller
      */
     public function edit(Exam $exam)
     {
+        $this->authorize('edit-exams');
+
         // Get the exam details and the students in one query
         $exam = Exam::with('user')->findOrFail($exam->id);
 
@@ -194,6 +204,7 @@ class ExamController extends Controller
      */
     public function update(Request $request, Exam $exam)
     {
+        $this->authorize('edit-exams');
 
         // valdiating the request
         $request->validate([
@@ -235,6 +246,8 @@ class ExamController extends Controller
      */
     public function destroy(Exam $exam)
     {
+        $this->authorize('delete-exams');
+
         // findOrFail the exam 
         $exam = Exam::findOrfail($exam->id);
 
@@ -250,6 +263,8 @@ class ExamController extends Controller
      */
     public function addStudent(Request $request)
     {
+        $this->authorize('edit-exams');
+
         // Find the exam
         $exam = Exam::findOrFail($request->exam_id);
 
@@ -266,6 +281,8 @@ class ExamController extends Controller
      */
     public function removeStudent(Request $request)
     {
+        $this->authorize('edit-exams');
+
         // Find the exam
         $exam = Exam::findOrFail($request->exam_id);
 
@@ -281,6 +298,8 @@ class ExamController extends Controller
      */
     public function updateResult(Request $request)
     {
+        $this->authorize('edit-exams');
+
         // Validate the request
         $request->validate([
             'result' => 'required|numeric|min:0|max:100',

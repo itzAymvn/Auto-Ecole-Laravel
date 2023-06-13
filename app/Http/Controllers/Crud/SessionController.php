@@ -14,8 +14,10 @@ class SessionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $this->authorize('view-sessions');
+
         // Get the logged-in user
         $user = Auth::user();
 
@@ -26,6 +28,12 @@ class SessionController extends Controller
         } else {
             // Get all the sessions and sort them by date & time
             $sessions = Session::all()->sortBy('session_date');
+        }
+
+        if ($request->has('student_id')) {
+            $student = User::findOrFail($request->student_id);
+            $sessions = $student->sessions;
+            $sessions->student_name = $student->name;
         }
 
         // for each session, get the instructor name and number of students
@@ -42,6 +50,8 @@ class SessionController extends Controller
      */
     public function create()
     {
+        $this->authorize('create-sessions');
+
         // Get the students
         $students = User::where('type', 'student')->get();
 
@@ -63,6 +73,8 @@ class SessionController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create-sessions');
+
         // Validate the request
         $request->validate([
             'instructor_id' => 'required|integer|exists:users,id',
@@ -107,6 +119,8 @@ class SessionController extends Controller
      */
     public function show(Session $session)
     {
+        $this->authorize('view-sessions');
+
         // Get the session details and the students in one query
         $session = Session::with('user')->findOrFail($session->id);
 
@@ -126,6 +140,8 @@ class SessionController extends Controller
      */
     public function edit(Session $session)
     {
+        $this->authorize('edit-sessions');
+
         // Get the session details and the students in one query
         $session = Session::with('user')->findOrFail($session->id);
 
@@ -153,6 +169,7 @@ class SessionController extends Controller
      */
     public function update(Request $request, Session $session)
     {
+        $this->authorize('edit-sessions');
 
         // valdiating the request
         $request->validate([
@@ -188,6 +205,8 @@ class SessionController extends Controller
      */
     public function destroy(Session $session)
     {
+        $this->authorize('delete-sessions');
+
         // findOrFail the session
         $session = Session::findOrFail($session->id);
 
@@ -208,6 +227,8 @@ class SessionController extends Controller
      */
     public function addStudent(Request $request)
     {
+        $this->authorize('edit-sessions');
+
         // Find the session
         $session = Session::findOrFail($request->session_id);
 
@@ -224,6 +245,8 @@ class SessionController extends Controller
      */
     public function removeStudent(Request $request)
     {
+        $this->authorize('edit-sessions');
+
         // Find the session
         $session = Session::findOrFail($request->session_id);
 
@@ -239,6 +262,8 @@ class SessionController extends Controller
      */
     public function updateIsAttended(Request $request)
     {
+        $this->authorize('edit-sessions');
+
         // Validate the request
         $request->validate([
             'attended' => 'required|boolean',

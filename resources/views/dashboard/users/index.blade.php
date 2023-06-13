@@ -171,7 +171,7 @@
                                 <th scope="col">Type</th>
                                 <th scope="col">Créé à</th>
                                 <th scope="col">Modifié à</th>
-                                <th scope="col">Actions</th>
+                                <th scope="col"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -199,28 +199,39 @@
                                         <a href="{{ route('users.show', $user->id) }}">
                                             <i class="fas fa-eye"></i>
                                         </a>
-                                        <a href="{{ route('users.edit', $user->id) }}">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                        <form action="{{ route('users.destroy', $user->id) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-link p-0">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </button>
-                                        </form>
+
+                                        @can('edit-users')
+                                            <a href="{{ route('users.edit', $user->id) }}">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                        @endcan
+
+                                        @can('delete-users')
+                                            <form action="{{ route('users.destroy', $user->id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-link p-0">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </button>
+                                            </form>
+                                        @endcan
+
                                         @if ($user->type == 'student')
-                                            <a href="{{ route('payments.create', ['user_id' => $user->id]) }}">
-                                                <i
-                                                    class="fas
+                                            @can('create-payments')
+                                                <a href="{{ route('payments.create', ['user_id' => $user->id]) }}">
+                                                    <i
+                                                        class="fas
                                             fa-money-bill-wave"></i>
-                                            </a>
+                                                </a>
+                                            @endcan
                                         @elseif ($user->type == 'instructor' || $user->type == 'admin')
-                                            <a href="{{ route('spendings.create', ['user_id' => $user->id]) }}">
-                                                <i
-                                                    class="fas
+                                            @can('create-spendings')
+                                                <a href="{{ route('spendings.create', ['user_id' => $user->id]) }}">
+                                                    <i
+                                                        class="fas
                                             fa-money-bill-wave"></i>
-                                            </a>
+                                                </a>
+                                            @endcan
                                         @endif
                                     </td>
                                 </tr>
@@ -238,12 +249,14 @@
                     Aucun utilisateur n'a été trouvé
                 </div>
 
-                <div class="d-flex justify-content-start mt-3">
-                    <a href="{{ route('users.create') }}" class="btn btn-primary d-flex align-items-center shadow-sm">
-                        <i class="fa-solid fa-circle-plus me-2"></i>
-                        Ajouter un utilisateur
-                    </a>
-                </div>
+                @can('create-users')
+                    <div class="d-flex justify-content-start mt-3">
+                        <a href="{{ route('users.create') }}" class="btn btn-primary d-flex align-items-center shadow-sm">
+                            <i class="fa-solid fa-circle-plus me-2"></i>
+                            Ajouter un utilisateur
+                        </a>
+                    </div>
+                @endcan
             @endif
         </section>
     </main>

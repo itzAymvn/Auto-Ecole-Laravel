@@ -16,6 +16,8 @@ class SpendingController extends Controller
      */
     public function index()
     {
+        $this->authorize('view-spendings');
+
         $query = Spending::query();
 
         if (request()->has('user_id')) {
@@ -65,6 +67,9 @@ class SpendingController extends Controller
      */
     public function create()
     {
+
+        $this->authorize('create-spendings');
+
         $users = User::where('type', '!=', 'student')->get();
         // check if there is a user_id in the request
         // if there is, then we are creating a payment for a specific user
@@ -88,6 +93,8 @@ class SpendingController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create-spendings');
+
         $spending = new Spending();
 
         // Validate the request

@@ -109,45 +109,49 @@
                     @enderror
                 </div>
 
-                <button type="submit" class="btn btn-primary">
-                    <i class="fas fa-user-edit"></i>
-                    <span>
-                        Modifier l'utilisateur
-                    </span>
-                </button>
+                @can('edit-users')
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-user-edit"></i>
+                        <span>
+                            Modifier l'utilisateur
+                        </span>
+                    </button>
+                @endcan
             </form>
         </section>
 
         {{-- Delete user section --}}
 
-        <section class="delete-user-section py-5">
-            <div class="d-flex justify-content-between mb-3">
-                <h4>
-                    <i class="fas fa-trash"></i>
-                    <span>
-                        Supprimer l'utilisateur
-                    </span>
-                </h4>
-            </div>
-            <form id="deleteuserform" action="{{ route('users.destroy', $user->id) }}" method="POST">
-                @csrf
-                @method('DELETE')
-
-                <div class="mb-3">
-                    <p class="alert alert-danger d-flex flex-column">
+        @can('delete-users')
+            <section class="delete-user-section py-5">
+                <div class="d-flex justify-content-between mb-3">
+                    <h4>
+                        <i class="fas fa-trash"></i>
                         <span>
-                            Attention! Vous êtes sur le point de supprimer cet utilisateur. Cette action est irréversible.
+                            Supprimer l'utilisateur
                         </span>
-                        <button type="submit" class="btn btn-danger mt-3 align-self-start">
-                            <i class="fas fa-trash"></i>
-                            <span>
-                                Supprimer l'utilisateur
-                            </span>
-                        </button>
-                    </p>
+                    </h4>
                 </div>
-            </form>
-        </section>
+                <form id="deleteuserform" action="{{ route('users.destroy', $user->id) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+
+                    <div class="mb-3">
+                        <p class="alert alert-danger d-flex flex-column">
+                            <span>
+                                Attention! Vous êtes sur le point de supprimer cet utilisateur. Cette action est irréversible.
+                            </span>
+                            <button type="submit" class="btn btn-danger mt-3 align-self-start">
+                                <i class="fas fa-trash"></i>
+                                <span>
+                                    Supprimer l'utilisateur
+                                </span>
+                            </button>
+                        </p>
+                    </div>
+                </form>
+            </section>
+        @endcan
 
     </main>
 

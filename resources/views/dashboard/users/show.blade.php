@@ -94,79 +94,94 @@
                         </tr>
                     </tbody>
                 </table>
-                <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary">
-                    <i class="fas fa-edit"></i>
-                    Modifier l'utilisateur
-                </a>
-                <form action="{{ route('users.destroy', $user->id) }}" method="POST" class="d-inline">
-                    @csrf
-                    @method('DELETE')
-                    <button class="btn btn-danger">
-                        <i class="fas fa-trash"></i>
-                        Supprimer l'utilisateur
-                    </button>
-                </form>
+
+                @can('edit-users')
+                    <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary">
+                        <i class="fas fa-edit"></i>
+                        Modifier l'utilisateur
+                    </a>
+                @endcan
+
+                @can('delete-users')
+                    <form action="{{ route('users.destroy', $user->id) }}" method="POST" class="d-inline">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-danger">
+                            <i class="fas fa-trash"></i>
+                            Supprimer l'utilisateur
+                        </button>
+                    </form>
+                @endcan
                 @if ($user->type == 'student')
-                    <a href="{{ route('payments.create', ['user_id' => $user->id]) }}" class="btn btn-success">
-                        <i class="fas fa-money-bill"></i>
-                        Ajouter un paiement
-                    </a>
+                    @can('create-payments')
+                        <a href="{{ route('payments.create', ['user_id' => $user->id]) }}" class="btn btn-success">
+                            <i class="fas fa-money-bill"></i>
+                            Ajouter un paiement
+                        </a>
+                    @endcan
                 @elseif ($user->type == 'instructor' || $user->type == 'admin')
-                    <a href="{{ route('spendings.create', ['user_id' => $user->id]) }}" class="btn btn-warning">
-                        <i class="fas fa-money-bill"></i>
-                        Ajouter une dépense
-                    </a>
+                    @can('create-spendings')
+                        <a href="{{ route('spendings.create', ['user_id' => $user->id]) }}" class="btn btn-warning">
+                            <i class="fas fa-money-bill"></i>
+                            Ajouter une dépense
+                        </a>
+                    @endcan
                 @endif
             </div>
             {{-- More data section --}}
 
-            <section class="py-5">
-                <div class="d-flex justify-content-between mb-3">
-                    <h5>
-                        <i class="fas fa-info-circle"></i>
-                        <span>
-                            Voir plus d'informations
-                        </span>
-                    </h5>
-                </div>
-                @if ($user->type != 'admin')
+            @if ($user->type != 'admin')
+                <section class="py-5">
+                    <div class="d-flex justify-content-between mb-3">
+                        <h5>
+                            <i class="fas fa-info-circle"></i>
+                            <span>
+                                Voir plus d'informations
+                            </span>
+                        </h5>
+                    </div>
                     <div id="moredata">
                         <ul class="list-group">
-                            <li class="list-group-item">
-                                <a href="{{ route('exams.index', ['user_id' => $user->id]) }}"
-                                    class="d-flex align-items-center">
-                                    <i class="fa-solid fa-car"></i>
-                                    <span class="ms-2">
-                                        Les examens
-                                    </span>
-                                </a>
-                            </li>
+                            @can('view-exams')
+                                <li class="list-group-item">
+                                    <a href="{{ route('exams.index', ['user_id' => $user->id]) }}"
+                                        class="d-flex align-items-center">
+                                        <i class="fa-solid fa-car"></i>
+                                        <span class="ms-2">
+                                            Les examens
+                                        </span>
+                                    </a>
+                                </li>
+                            @endcan
                             @if ($user->type == 'student')
-                                <li class="list-group-item">
-                                    <a href="{{ route('payments.index', ['user_id' => $user->id]) }}"
-                                        class="d-flex align-items-center">
-                                        <i class="fa-solid fa-money-bill"></i>
-                                        <span class="ms-2">
-                                            Les paiements
-                                        </span>
-                                    </a>
-                                </li>
+                                @can('view-payments')
+                                    <li class="list-group-item">
+                                        <a href="{{ route('payments.index', ['user_id' => $user->id]) }}"
+                                            class="d-flex align-items-center">
+                                            <i class="fa-solid fa-money-bill"></i>
+                                            <span class="ms-2">
+                                                Les paiements
+                                            </span>
+                                        </a>
+                                    </li>
+                                @endcan
                             @elseif($user->type == 'instructor')
-                                <li class="list-group-item">
-                                    <a href="{{ route('spendings.index', ['user_id' => $user->id]) }}"
-                                        class="d-flex align-items-center">
-                                        <i class="fa-solid fa-money-bill"></i>
-                                        <span class="ms-2">
-                                            Les dépenses
-                                        </span>
-                                    </a>
-                                </li>
+                                @can('view-spendings')
+                                    <li class="list-group-item">
+                                        <a href="{{ route('spendings.index', ['user_id' => $user->id]) }}"
+                                            class="d-flex align-items-center">
+                                            <i class="fa-solid fa-money-bill"></i>
+                                            <span class="ms-2">
+                                                Les dépenses
+                                            </span>
+                                        </a>
+                                    </li>
+                                @endcan
                             @endif
                         </ul>
                     </div>
-                @endif
-            </section>
-
+                </section>
+            @endif
         </div>
     </div>
 

@@ -9,6 +9,8 @@ class StatisticsController extends Controller
 {
     public function index()
     {
+        $this->authorize('view-statistics');
+
         $users = User::selectRaw('DATE_FORMAT(created_at, "%Y-%m") as month, COUNT(*) as count')
             ->groupBy('month')
             ->orderBy('month')
