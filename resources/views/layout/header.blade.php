@@ -43,6 +43,25 @@
                 <i class="fas fa-users"></i>
                 <span>Equipe</span>
             </a>
+            <div class="nav-item dropdown me-lg-3 me-xl-4">
+                <a class="nav-link dropdown-toggle d-flex align-items-center gap-2" id="langDropdown" role="button"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-globe"></i>
+                    <div>
+                        {{ strtoupper(app()->getLocale()) }}
+                    </div>
+                </a>
+
+                <ul class="dropdown-menu dropdown-menu w-100 border-0 shadow" aria-labelledby="langDropdown">
+                    @foreach (config('app.available_locales') as $key => $locale)
+                        <li>
+                            <a class="dropdown-item" href="{{ route('language', $key) }}">
+                                {{ strtoupper($locale) }}
+                            </a>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
 
             {{-- If the user is connected --}}
             @if (Auth::check())
@@ -93,6 +112,7 @@
                                 <hr class="dropdown-divider">
                             </li>
                         @endcan
+
                         <li>
                             <a class="dropdown-item" href="{{ route('logout') }}">
                                 <i class="fas fa-sign-out-alt"></i>

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Password;
 
 class AuthController extends Controller
@@ -43,9 +44,9 @@ class AuthController extends Controller
         // Determine whether the email or password is incorrect
         $errors = [];
         if (!User::where('email', $request->email)->first()) {
-            $errors['email'] = 'The provided email is incorrect.';
+            $errors['email'] = Lang::get('auth.email');
         } else {
-            $errors['password'] = 'The provided password is incorrect.';
+            $errors['password'] = Lang::get('auth.password');
         }
 
         return back()->withErrors($errors)->withInput();
@@ -83,7 +84,7 @@ class AuthController extends Controller
 
 
         return $status === Password::RESET_LINK_SENT
-            ? back()->with(['success' => 'Le lien de réinitialisation du mot de passe a été envoyé à votre adresse e-mail.'])
+            ? back()->with(['success' => Lang::get('auth.sent')])
             : back()->withErrors(['email' => trans($status)]);
     }
 
@@ -132,7 +133,7 @@ class AuthController extends Controller
         );
 
         return $status === Password::PASSWORD_RESET
-            ? redirect()->route('login')->with('status', trans($status))
+            ? redirect()->route('login')->with('status', Lang::get('auth.reset'))
             : back()->withErrors(['email' => trans($status)]);
     }
 }

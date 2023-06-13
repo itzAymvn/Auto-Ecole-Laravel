@@ -17,6 +17,7 @@ use App\Http\Controllers\Crud\SessionController;
 use App\Http\Controllers\Crud\VehicleController;
 use App\Http\Controllers\Crud\SpendingController;
 use App\Http\Controllers\PermissionController;
+use Illuminate\Support\Facades\App;
 
 /*
 |--------------------------------------------------------------------------
@@ -88,3 +89,19 @@ Route::prefix('settings')->middleware('auth', 'admin')->group(function () {
 
 // Contact
 Route::post('/contact', [contactController::class, 'send'])->name('contact.send');
+
+// Language
+Route::get('language/{locale}', function ($locale) {
+    if (!array_key_exists($locale, config('app.available_locales'))) {
+        abort(404);
+    }
+
+    // Set the locale
+    app()->setLocale($locale);
+
+    // Store the locale in session so that the middleware can register it
+    session()->put('locale', $locale);
+
+    // Redirect back to the last page, or home as a fallback
+    return redirect()->back();
+})->name('language');
