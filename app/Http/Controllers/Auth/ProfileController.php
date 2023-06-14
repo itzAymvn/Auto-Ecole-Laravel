@@ -18,9 +18,17 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
 
-        return view('auth.profile', [
-            'user' => $user,
-        ]);
+        // Get the payments history / exam history / sessions history if the user is a student
+        if ($user->type == 'student') {
+
+            $payments = $user->payments->sortBy('created_at');
+            $exams = $user->exams()->withPivot('result')->get();
+            $sessions = $user->sessions()->withPivot('attended')->get();
+
+            return view('auth.profile', compact('user', 'payments', 'exams', 'sessions'));
+        }
+
+        return view('auth.profile', compact('user'));
     }
 
     public function update(Request $request)

@@ -11,10 +11,17 @@
                 </div>
                 <div class="card-body">
                     <form id="settings-form">
+                        <div class="alert alert-info">
+                            <strong>Info!</strong> Si vous laissez le champ vide, il résultera en la valeur par défaut
+                        </div>
                         @foreach ($general as $setting)
                             <div class="form-group mb-3">
-                                <label for="{{ $setting->name }}"
-                                    class="text-capitalize form-label">{{ $setting->title }}</label>
+
+                                <label for="{{ $setting->name }}" class="text-capitalize form-label">
+                                    {{ $setting->title }} - <span class="text-muted">Default:
+                                        {{ $setting->default_value }}</span>
+                                </label>
+
                                 <div class="input-group">
                                     <input type="text" class="form-control" id="{{ $setting->id }}"
                                         name="{{ $setting->name }}"

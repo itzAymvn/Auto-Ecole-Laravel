@@ -136,16 +136,18 @@
 
 
 @push('scripts')
-    <script>
-        const sideBarToggle = document.getElementById('sidebar-toggle');
+    @if (request()->is('dashboard*') || request()->is('settings*'))
+        <script>
+            const sideBarToggle = document.getElementById('sidebar-toggle');
 
-        // add event listener to the button
-        sideBarToggle.addEventListener("click", () => {
-            // hide the sidebar
-            document.getElementById('sidebar-container').classList.toggle('d-md-block');
+            // add event listener to the button
+            sideBarToggle.addEventListener("click", () => {
+                // hide the sidebar
+                document.getElementById('sidebar-container').classList.toggle('d-md-block');
 
-            // change the width of the main container to 100%
-            document.getElementById('main-container').classList.toggle('col-md-12');
-        })
-    </script>
+                // change the width of the main container to 100%
+                document.getElementById('main-container').classList.toggle('col-md-12');
+            })
+        </script>
+    @endif
 @endpush

@@ -31,12 +31,15 @@ use App\Http\Controllers\Crud\SpendingController;
 |
 */
 
+// Main
 Route::get('/', [HomeController::class, 'index'])->name('main');
 
+// Auth
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login-show');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
+// Profile
 Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
 Route::post('/profile', [ProfileController::class, 'update'])->name('update-profile');
 Route::post('/profile/password', [ProfileController::class, 'updatePassword'])->name('update-password');
@@ -72,7 +75,6 @@ Route::prefix('dashboard')->middleware('auth', 'dashboard')->group(function () {
 
     // Payments
     Route::resource('payments', PaymentController::class);
-    Route::post('/payments/pdf', [PaymentController::class, 'paymentsPdf'])->name('payments.pdf');
 
     // Spendings
     Route::resource('spendings', SpendingController::class);
@@ -110,3 +112,5 @@ Route::get('language/{locale}', function ($locale) {
     // Redirect back to the last page, or home as a fallback
     return redirect()->back();
 })->name('language');
+
+Route::post('payments/pdf', [PaymentController::class, 'paymentsPdf'])->name('payments.pdf');
