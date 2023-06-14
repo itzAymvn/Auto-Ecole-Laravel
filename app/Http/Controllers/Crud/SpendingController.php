@@ -25,8 +25,8 @@ class SpendingController extends Controller
             $query->where('user_id', $userId);
         }
 
-        if (request()->has('payment_type') && request()->input('payment_type') != '') {
-            $paymentType = request()->input('payment_type');
+        if (request()->has('type') && request()->input('type') != '') {
+            $paymentType = request()->input('type');
             $query->where('type', $paymentType);
         }
 
@@ -56,10 +56,6 @@ class SpendingController extends Controller
 
         return view('dashboard.spendings.index', compact('spendings'));
     }
-
-
-
-
 
 
     /**
@@ -99,14 +95,15 @@ class SpendingController extends Controller
 
         // Validate the request
         $request->validate([
-            'type' => 'required|in:payment,other',
+            'type' => 'required|in:salary,other',
             'amount' => 'required|numeric',
+            'user_id' => 'required_if:type,payment|exists:users,id',
             'description' => 'nullable',
         ]);
 
         // Create the spending
         $spending->type = $request->type;
-        if ($request->type === 'payment') {
+        if ($request->type === 'salary') {
             $spending->user_id = $request->user_id;
         }
         $spending->amount = $request->amount;

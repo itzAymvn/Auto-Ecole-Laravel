@@ -203,6 +203,31 @@ class UserController extends Controller
         }
     }
 
+    public function updatePassword(Request $request, User $user)
+    {
+        $this->authorize('edit-users');
+
+        // Validate the request
+        $request->validate([
+            'password' => 'required|confirmed',
+        ]);
+
+        // Check if password and password_confirmation are the same
+        if ($request->password != $request->password_confirmation) {
+            return redirect()->back()->with('error', 'Password and password confirmation are not the same');
+        }
+
+        // Update the user object
+        $user->password = bcrypt($request->password);
+
+        // Save the user object with an error/success message
+        if ($user->save()) {
+            return redirect()->back()->with('success', 'Le mot de passe a été modifié avec succès');
+        } else {
+            return redirect()->back()->with('error', 'Quelque chose s\'est mal passé, veuillez réessayer');
+        }
+    }
+
     /**
      * Delete the user from the database
      */

@@ -52,6 +52,7 @@ Route::prefix('dashboard')->middleware('auth', 'dashboard')->group(function () {
 
     // Users
     Route::resource('users', UserController::class);
+    Route::post('/users/{user}/password', [UserController::class, 'updatePassword'])->name('users.updatePassword');
 
     // Exams
     Route::resource('exams', ExamController::class);

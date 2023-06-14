@@ -11,7 +11,7 @@
             </button>
 
             {{-- Button for the large screens / THIS IS THE BUTTTON --}}
-            <button class="d-none d-md-block mx-2 btn" type="button" id="sidebar-toggle">
+            <button class="d-none d-md-block mx-4 btn" type="button" id="sidebar-toggle">
                 <i class="fas fa-bars"></i>
             </button>
         @endif

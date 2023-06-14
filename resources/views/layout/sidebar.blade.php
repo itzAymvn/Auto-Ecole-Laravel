@@ -15,8 +15,8 @@
     @can('view-users')
         <a href="{{ route('users.index') }}" title="Gestion des utilisateurs, création, modification, suppression, ..."
             class="btn btn-primary p-3 @if (Str::startsWith(Request::url(), route('users.index'))) btn-dark @endif btn-block mb-3">
-            <i class="bi bi-person"></i>
-            <span>
+            <span class="text-dark fw-bold @if (Str::startsWith(Request::url(), route('users.index'))) text-white @endif">
+                <i class="bi bi-person"></i>
                 Les utilisateurs
             </span>
         </a>
@@ -25,8 +25,8 @@
     @can('view-vehicles')
         <a href="{{ route('vehicles.index') }}" title="Gestion des véhicules, création, modification, suppression, ..."
             class="btn btn-primary p-3 @if (Str::startsWith(Request::url(), route('vehicles.index'))) btn-dark @endif btn-block mb-3">
-            <i class="bi bi-truck"></i>
-            <span>
+            <span class="text-dark fw-bold @if (Str::startsWith(Request::url(), route('vehicles.index'))) text-white @endif">
+                <i class="bi bi-truck"></i>
                 Les véhicules
             </span>
         </a>
@@ -35,8 +35,8 @@
     @can('view-exams')
         <a href="{{ route('exams.index') }}" title="Gestion des examens, création, modification, suppression, ..."
             class="btn btn-primary p-3 @if (Str::startsWith(Request::url(), route('exams.index'))) btn-dark @endif btn-block mb-3">
-            <i class="bi bi-clipboard-check"></i>
-            <span>
+            <span class="text-dark fw-bold @if (Str::startsWith(Request::url(), route('exams.index'))) text-white @endif">
+                <i class="bi bi-clipboard-check"></i>
                 Les examens
             </span>
         </a>
@@ -46,8 +46,8 @@
         <a href="{{ route('payments.index') }}" title="Gestion des paiements, création, modification, suppression, ..."
             class="btn btn-primary p-3
     @if (Str::startsWith(Request::url(), route('payments.index'))) btn-dark @endif btn-block mb-3">
-            <i class="bi bi-cash"></i>
-            <span>
+            <span class="text-dark fw-bold @if (Str::startsWith(Request::url(), route('payments.index'))) text-white @endif">
+                <i class="bi bi-cash"></i>
                 Les paiements
             </span>
         </a>
@@ -57,8 +57,8 @@
         <a href="{{ route('spendings.index') }}" title="Gestion des dépenses, création, modification, suppression, ..."
             class="btn btn-primary p-3
     @if (Str::startsWith(Request::url(), route('spendings.index'))) btn-dark @endif btn-block mb-3">
-            <i class="bi bi-cash"></i>
-            <span>
+            <span class="text-dark fw-bold @if (Str::startsWith(Request::url(), route('spendings.index'))) text-white @endif">
+                <i class="bi bi-cash"></i>
                 Les dépenses
             </span>
         </a>
@@ -68,8 +68,8 @@
         <a href="{{ route('sessions.index') }}" title="Gestion des sessions, création, modification, suppression, ..."
             class="btn btn-primary p-3
     @if (Str::startsWith(Request::url(), route('sessions.index'))) btn-dark @endif btn-block mb-3">
-            <i class="bi bi-clock"></i>
-            <span>
+            <span class="text-dark fw-bold @if (Str::startsWith(Request::url(), route('sessions.index'))) text-white @endif">
+                <i class="bi bi-clock"></i>
                 Les sessions
             </span>
         </a>
@@ -79,8 +79,8 @@
         <a href="{{ route('statistics.index') }}" title="Gestion des statistiques, création, modification, suppression, ..."
             class="btn btn-primary p-3
     @if (Str::startsWith(Request::url(), route('statistics.index'))) btn-dark @endif btn-block mb-3">
-            <i class="bi bi-graph-up"></i>
-            <span>
+            <span class="text-dark fw-bold @if (Str::startsWith(Request::url(), route('statistics.index'))) text-white @endif">
+                <i class="bi bi-graph-up"></i>
                 Les statistiques
             </span>
         </a>
@@ -88,8 +88,8 @@
 @elseif (request()->is('settings*'))
     <a href="{{ route('permissions.index') }}" title="Gestion des permissions"
         class="btn btn-primary p-3 @if (Str::startsWith(Request::url(), route('permissions.index'))) btn-dark @endif btn-block mb-3">
-        <i class="bi bi-shield-lock"></i>
-        <span>
+        <span class="text-dark fw-bold @if (Str::startsWith(Request::url(), route('permissions.index'))) text-white @endif">
+            <i class="bi bi-shield-lock"></i>
             Les permissions
         </span>
     </a>

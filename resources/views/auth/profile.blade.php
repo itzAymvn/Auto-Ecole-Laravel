@@ -9,13 +9,13 @@
 
             <x-alerts></x-alerts>
 
-            <div class="mb-3">
-                <h3 class="text-center">Bienvenue <span class="text-primary">{{ Auth::user()->name }}</span></h3>
+            <div class="mb-4 bg-light rounded-3 p-3 shadow-sm">
+                <h3 class="text-center">Bienvenue sur votre profile</h3>
             </div>
 
             <div class="d-flex justify-content-between align-items-center flex-wrap gap-4">
                 <div class="col-12">
-                    <div class="card shadow-sm">
+                    <div class="card shadow-sm rounded">
                         <div class="card-body">
                             <div class="d-flex align-items-center gap-3">
                                 <div class="flex-shrink-0">
@@ -39,7 +39,7 @@
                 {{-- Update Profile --}}
 
                 <div class="col-12">
-                    <div class="card shadow-sm">
+                    <div class="card shadow-sm rounded">
                         <div class="card-body">
                             <h5 class="mb-3">Mes informations</h5>
                             <form action="{{ route('update-profile') }}" method="POST" enctype="multipart/form-data">
@@ -129,7 +129,7 @@
                 {{-- Change password --}}
 
                 <div class="col-12">
-                    <div class="card shadow-sm">
+                    <div class="card shadow-sm rounded">
                         <div class="card-body">
                             <h5 class="mb-3">Changer le mot de passe</h5>
                             <form action="{{ route('update-password') }}" method="POST">
@@ -169,7 +169,7 @@
                 {{-- Delete account --}}
 
                 <div class="col-12">
-                    <div class="card shadow-sm">
+                    <div class="card shadow-sm rounded">
                         <div class="card-body">
                             <h5 class="mb-3">Supprimer le compte</h5>
                             <div class="alert alert-danger">

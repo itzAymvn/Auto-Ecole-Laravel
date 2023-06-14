@@ -22,7 +22,7 @@
                 </label>
                 <select name="type" id="type" class="form-control">
                     <option value="other" @if (!request()->has('user_id')) selected @endif>Autre</option>
-                    <option value="payment" @if (request()->has('user_id')) selected @endif>Paiement</option>
+                    <option value="salary" @if (request()->has('user_id')) selected @endif>Salaire</option>
                 </select>
             </div>
 
@@ -73,7 +73,7 @@
             var typeSelect = document.getElementById('type');
             var userField = document.getElementById('userField');
 
-            if (typeSelect.value === 'payment') {
+            if (typeSelect.value === 'salary') {
                 userField.style.display = 'block';
             } else {
                 userField.style.display = 'none';

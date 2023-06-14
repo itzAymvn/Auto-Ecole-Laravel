@@ -120,6 +120,59 @@
             </form>
         </section>
 
+        {{-- Update password section --}}
+        <section class="delete-user-section py-2">
+            <div class="d-flex justify-content-between mb-3">
+                <h4>
+                    <i class="fas fa-key"></i>
+                    <span>
+                        Modifier le mot de passe
+                    </span>
+                </h4>
+            </div>
+
+            <form action="{{ route('users.updatePassword', $user->id) }}" method="POST">
+                @csrf
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="password" class="form-label">
+                                <i class="fas fa-key"></i>
+                                Mot de passe
+                            </label>
+                            <input type="password" name="password" id="password" class="form-control">
+                            @error('password')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="password_confirmation" class="form-label">
+                                <i class="fas fa-key"></i>
+                                Confirmer le mot de passe
+                            </label>
+                            <input type="password" name="password_confirmation" id="password_confirmation"
+                                class="form-control">
+                            @error('password_confirmation')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-key"></i>
+                                <span>
+                                    Modifier le mot de passe
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </section>
+
         {{-- Delete user section --}}
 
         @can('delete-users')
@@ -139,7 +192,8 @@
                     <div class="mb-3">
                         <p class="alert alert-danger d-flex flex-column">
                             <span>
-                                Attention! Vous êtes sur le point de supprimer cet utilisateur. Cette action est irréversible.
+                                Attention! Vous êtes sur le point de supprimer cet utilisateur. Cette action est
+                                irréversible.
                             </span>
                             <button type="submit" class="btn btn-danger mt-3 align-self-start">
                                 <i class="fas fa-trash"></i>

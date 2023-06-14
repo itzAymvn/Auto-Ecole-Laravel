@@ -24,10 +24,10 @@
                         <div class="modal-body">
                             <form action="{{ route('spendings.index') }}" method="GET" id="filters_form">
                                 <div class="mb-3">
-                                    <label for="payment_type" class="form-label">Type de paiement:</label>
-                                    <select class="form-select" name="payment_type" id="payment_type">
+                                    <label for="type" class="form-label">Type de paiement:</label>
+                                    <select class="form-select" name="type" id="type">
                                         <option value="">Tous</option>
-                                        <option value="payment">Paiement</option>
+                                        <option value="salary">Salaire</option>
                                         <option value="other">Autre</option>
                                     </select>
                                 </div>

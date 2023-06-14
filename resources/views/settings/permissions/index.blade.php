@@ -28,7 +28,9 @@
 
         <div id="permissions_{{ $role }}" class="collapse">
             @foreach ($rolePermissions as $resource => $resourcePermissions)
-                <h3>{{ ucfirst($resource) }}</h3>
+                <h5>
+                    Les permissions pour {{ ucfirst($resource) }}
+                </h5>
                 <div class="table-responsive">
                     <table class="table table-striped table-hover table-bordered">
                         <thead class="table-dark">
