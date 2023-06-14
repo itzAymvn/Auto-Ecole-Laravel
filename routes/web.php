@@ -1,23 +1,24 @@
 <?php
 
+use Illuminate\Support\Facades\App;
+
 use Illuminate\Support\Facades\Auth;
-
 use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\HomeController;
-
 use App\Http\Controllers\contactController;
-use App\Http\Controllers\Auth\AuthController;
 
+use App\Http\Controllers\SettingController;
+use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Crud\ExamController;
 use App\Http\Controllers\Crud\UserController;
+use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\StatisticsController;
 use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\Crud\PaymentController;
 use App\Http\Controllers\Crud\SessionController;
 use App\Http\Controllers\Crud\VehicleController;
 use App\Http\Controllers\Crud\SpendingController;
-use App\Http\Controllers\PermissionController;
-use Illuminate\Support\Facades\App;
 
 /*
 |--------------------------------------------------------------------------
@@ -82,10 +83,13 @@ Route::prefix('dashboard')->middleware('auth', 'dashboard')->group(function () {
 
 // Settings
 Route::prefix('settings')->middleware('auth', 'admin')->group(function () {
-    Route::redirect('/', '/settings/permissions')->name('settings');
+    Route::redirect('/', '/settings/general')->name('settings');
 
     // Permissions
     Route::resource('permissions', PermissionController::class);
+
+    // General
+    Route::resource('general', SettingController::class);
 });
 
 // Contact

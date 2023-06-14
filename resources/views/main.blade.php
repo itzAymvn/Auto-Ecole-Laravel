@@ -123,16 +123,15 @@
                             toute confiance
                         </h1>
                         <div class="row g-4">
-                            {{-- <div class="col-sm-6">
-                                <a class="btn btn-primary py-3 px-5" href="">Read More</a>
-                            </div> --}}
                             <div class="col-sm-6">
                                 <a class="d-inline-flex align-items-center btn btn-outline-primary border-2 p-2"
                                     href="">
                                     <span class="flex-shrink-0 btn-square bg-primary">
                                         <i class="fa fa-phone-alt text-white"></i>
                                     </span>
-                                    <span class="px-3">000-000-0000</span>
+                                    <span class="px-3">
+                                        {{ config('settings.phone_number', '+212 6 00 00 00 00') }}
+                                    </span>
                                 </a>
                             </div>
                         </div>

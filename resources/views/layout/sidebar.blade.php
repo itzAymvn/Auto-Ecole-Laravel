@@ -86,6 +86,14 @@
         </a>
     @endcan
 @elseif (request()->is('settings*'))
+    <a href="{{ route('general.index') }}" title="Gestion des paramètres généraux"
+        class="btn btn-primary p-3 @if (Str::startsWith(Request::url(), route('general.index'))) btn-dark @endif btn-block mb-3">
+        <span class="text-dark fw-bold @if (Str::startsWith(Request::url(), route('general.index'))) text-white @endif">
+            <i class="bi bi-gear"></i>
+            Les paramètres généraux
+        </span>
+    </a>
+
     <a href="{{ route('permissions.index') }}" title="Gestion des permissions"
         class="btn btn-primary p-3 @if (Str::startsWith(Request::url(), route('permissions.index'))) btn-dark @endif btn-block mb-3">
         <span class="text-dark fw-bold @if (Str::startsWith(Request::url(), route('permissions.index'))) text-white @endif">

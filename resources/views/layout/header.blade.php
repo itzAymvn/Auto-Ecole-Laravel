@@ -18,7 +18,8 @@
 
         <a href="{{ route('main') }}" class="navbar-brand d-flex align-items-center border-end px-2 px-lg-5">
             <h2 class="m-0">
-                <i class="fas fa-car text-primary mx-2"></i>Auto-Ecole
+                <i class="fas fa-car text-primary mx-2"></i>
+                {{ config('settings.site_name', 'Votre site-name') }}
             </h2>
         </a>
     </div>

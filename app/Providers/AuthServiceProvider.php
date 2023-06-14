@@ -59,8 +59,18 @@ class AuthServiceProvider extends ServiceProvider
                     });
                 }
             }
+
+            if (Schema::hasTable("settings")) {
+                // Retrieve the settings from the database
+                $general = DB::table('settings')->get();
+
+                // Define settings globally
+                foreach ($general as $setting) {
+                    config()->set('settings.' . $setting->name, empty($setting->value) ? $setting->default_value : $setting->value);
+                }
+            }
         } catch (\Exception $e) {
-            // Handle any exceptions that occur
+            // Do nothing
         }
     }
 }
