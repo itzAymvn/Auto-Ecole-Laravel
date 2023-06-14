@@ -6,6 +6,8 @@
 
     <main class="d-flex justify-content-between  flex-column">
 
+        <x-alerts></x-alerts>
+
         <h5
             class="text-center my-3 bg-light p-3 rounded-3 d-flex justify-content-between align-items-center flex-wrap gap-3">
             <span>
@@ -19,8 +21,6 @@
                 Retour
             </a>
         </h5>
-
-        <x-alerts></x-alerts>
 
         {{-- Update vehicle section --}}
 

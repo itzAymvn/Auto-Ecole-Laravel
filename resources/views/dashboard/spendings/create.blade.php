@@ -5,6 +5,9 @@
 @section('content')
 
     <div class=" mt-3 mb-5">
+
+        <x-alerts></x-alerts>
+
         <h5 class="text-center bg-light p-3 rounded-3 d-flex justify-content-between align-items-center flex-wrap gap-3">
             <span>
                 <i class="fas fa-money-bill-wave"></i>

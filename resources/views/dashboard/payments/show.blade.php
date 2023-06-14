@@ -7,6 +7,8 @@
     <main class="d-flex justify-content-between flex-row">
 
         <section class="manage-payments-section w-100">
+            
+            <x-alerts></x-alerts>
 
             <h5
                 class="text-center my-3 bg-light p-3 rounded-3 d-flex justify-content-between align-items-center flex-wrap gap-3">

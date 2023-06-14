@@ -100,8 +100,23 @@ class ExamController extends Controller
             ->where('exam_time', 'like', substr($request->time, 0, 2) . '%')
             ->where('instructor_id', $request->instructor_id)
             ->get();
+
+
         if (count($exams) > 0) {
             return redirect()->back()->with('error', 'Il y a déjà un examen à la même date et heure avec le même instructeur.')->withInput();
+        }
+
+        // if the exam is drive, check if the vehicle is available
+        if ($request->type == "drive") {
+            $exams = Exam::where('exam_date', $request->date)
+                ->where('exam_date', $request->date)
+                ->where('exam_time', 'like', substr($request->time, 0, 2) . '%')
+                ->where('vehicle_id', $request->vehicle_id)
+                ->get();
+
+            if (count($exams) > 0) {
+                return redirect()->back()->with('error', 'Le véhicule est déjà utilisé à la même date et heure.')->withInput();
+            }
         }
 
         // Create a new exam object

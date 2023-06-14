@@ -6,6 +6,9 @@
 
     <div class=" mt-3 mb-5">
         <div class="row">
+
+            <x-alerts></x-alerts>
+
             <div class="col-md-12">
                 <h5 class="mb-3">
                     <span>

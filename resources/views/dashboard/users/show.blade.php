@@ -5,7 +5,9 @@
 @section('content')
 
     <div class="mb-5">
-        <x-alerts />
+        
+        <x-alerts></x-alerts>
+
         <div class="row">
             <div class="col-md-12">
                 <h5
