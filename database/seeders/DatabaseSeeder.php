@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
             ExamsSeeder::class,
             PermissionsSeeder::class,
             SessionsSeeder::class,
-            SettingsSeeder::class,
+            SettingSeeder::class,
         ]);
     }
 }
