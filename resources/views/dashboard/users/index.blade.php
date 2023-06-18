@@ -3,7 +3,7 @@
 @section('title', 'Gérer les utilisateurs')
 
 @section('content')
-    <main class="d-flex justify-content-between flex-row">
+    <main>
 
         <section class="manage-users-section w-100">
 

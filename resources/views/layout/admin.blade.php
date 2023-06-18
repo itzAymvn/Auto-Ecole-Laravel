@@ -46,19 +46,15 @@
         </div>
     </div>
 
-    <div class="container-fluid flex-grow-1">
-        <div class="row h-100">
-            {{-- This is the container --}}
-            <div class="col-md-3 bg-light d-none d-md-block" id="sidebar-container">
-                <div class="sidebar py-3 d-flex flex-column">
-                    @include('layout.sidebar')
-                </div>
+    <div class="d-flex justify-content-between flex-row flex-grow-1">
+        {{-- This is the container --}}
+        <div class="d-none d-md-block" id="sidebar-container">
+            <div class="sidebar d-flex flex-column">
+                @include('layout.sidebar')
             </div>
-            <div class="col-12 col-md-9" id="main-container">
-                <main class="p-1 px-md-3">
-                    @yield('content')
-                </main>
-            </div>
+        </div>
+        <div id="main-container">
+            @yield('content')
         </div>
     </div>
 

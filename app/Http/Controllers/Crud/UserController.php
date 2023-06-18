@@ -59,7 +59,7 @@ class UserController extends Controller
             $query->whereYear('created_at', $year);
         }
 
-        $users = $query->paginate(10);
+        $users = $query->paginate(7);
         return view('dashboard.users.index', compact('users'));
     }
 

@@ -5,13 +5,13 @@
 
         @if (request()->is('dashboard*') || request()->is('settings*'))
             {{-- Button for the small screens --}}
-            <button class="d-md-none mx-2 btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar"
+            <button class="d-md-none mx-1 btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar"
                 aria-controls="sidebar">
                 <i class="fas fa-bars"></i>
             </button>
 
             {{-- Button for the large screens / THIS IS THE BUTTTON --}}
-            <button class="d-none d-md-block mx-4 btn" type="button" id="sidebar-toggle">
+            <button class="d-none d-md-block mx-2 btn" type="button" id="sidebar-toggle">
                 <i class="fas fa-bars"></i>
             </button>
         @endif
@@ -23,7 +23,7 @@
             </h2>
         </a>
     </div>
-    <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+    <button type="button" class="navbar-toggler mx-2" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -143,10 +143,10 @@
             // add event listener to the button
             sideBarToggle.addEventListener("click", () => {
                 // hide the sidebar
-                document.getElementById('sidebar-container').classList.toggle('d-md-block');
+                document.getElementById('sidebar-container').classList.toggle('hidden');
+                document.getElementById('main-container').classList.toggle('full');
 
-                // change the width of the main container to 100%
-                document.getElementById('main-container').classList.toggle('col-md-12');
+
             })
         </script>
     @endif
