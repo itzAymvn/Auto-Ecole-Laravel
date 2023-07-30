@@ -114,3 +114,8 @@ Route::get('language/{locale}', function ($locale) {
 })->name('language');
 
 Route::post('payments/pdf', [PaymentController::class, 'paymentsPdf'])->name('payments.pdf');
+
+Route::fallback(function () {
+    // Return a custom 404 page
+    return view('errors.404');
+});
