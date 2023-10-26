@@ -1,3 +1,15 @@
+# Driving School Management System
+
+### Description
+This project is a web application for managing a driving school. It allows for the management of students, instructors, vehicles, driving sessions, and exams.
+
+### Features
+- User management (students, instructors, administrators)
+- Vehicle management
+- Driving session management
+- Exam management
+- Statistics visualization
+
 ### Installation
 
 **Prerequisites**
