@@ -1,36 +1,22 @@
-# Auto Ecole
-
-## Description
-
-Ce projet est une application web permettant de gérer une auto-école. Elle permet de gérer les élèves, les moniteurs, les véhicules, les sessions de conduite et les examens.
-
-## Fonctionnalités
-
--   Gestion des utilisateurs (élèves, moniteurs, administrateurs)
--   Gestion des véhicules
--   Gestion des sessions de conduite
--   Gestion des examens
--   Visualisation des statistiques
-
-## Installation
-
-### Prérequis
-
--   PHP 8.2
--   Composer
--   MySQL
--   NodeJS
-
 ### Installation
 
-1. Cloner le projet
+**Prerequisites**
+
+- PHP 8.2
+- Composer
+- MySQL
+- NodeJS
+
+**Installation Steps**
+
+1. Clone the project
 
     ```sh
-     git clone https://github.com/itzAymvn/AutoEcoleLaravel.git
-     cd AutoEcoleLaravel
+    git clone https://github.com/itzAymvn/AutoEcoleLaravel.git
+    cd AutoEcoleLaravel
     ```
 
-2. Installer les dépendances
+2. Install dependencies
 
     ```sh
     composer update
@@ -38,43 +24,43 @@ Ce projet est une application web permettant de gérer une auto-école. Elle per
     npm install
     ```
 
-3. Créer un fichier .env à partir du fichier .env.example
+3. Create a .env file from the .env.example file
 
     ```sh
     cp .env.example .env
     ```
 
-4. Générer une clé d'application
+4. Generate an application key
 
     ```sh
     php artisan key:generate
     ```
 
-5. Créer une base de données et configurer le fichier .env
+5. Create a database and configure the .env file
 
-6. Lancer les migrations
+6. Run migrations
 
     ```sh
     php artisan migrate
     ```
 
-    Vous pouvez également lancer les seeders pour avoir des données de test
+    You can also run seeders to have test data
 
     ```sh
     php artisan db:seed
     ```
 
-7. Lancer le serveur
+7. Start the server
 
     ```sh
     php artisan serve
     ```
 
-8. Pour se connecter, utiliser ses identifiants (le mots de passe est 'password') ou créer un compte
+8. To log in, use your credentials (the password is 'password') or create an account
 
-    - Administrateur :
-        - email : admin@mail.com
-        - mot de passe : password
-    - Moniteur :
-        - email : instructor1@mail.com / instructor2@mail.com
-        - mot de passe : password
+    - Administrator:
+        - email: admin@mail.com
+        - password: password
+    - Instructor:
+        - email: instructor1@mail.com / instructor2@mail.com
+        - password: password
