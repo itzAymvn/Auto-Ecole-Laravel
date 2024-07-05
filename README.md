@@ -1,5 +1,7 @@
 # Driving School Management System
 
+![Image](https://github.com/itzAymvn/AutoEcoleLaravel/blob/main/public/images/og.png?raw=true)
+
 ### Description
 This project is a web application for managing a driving school. It allows for the management of students, instructors, vehicles, driving sessions, and exams.
 
