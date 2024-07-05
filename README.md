@@ -2,6 +2,13 @@
 
 ![Image](https://github.com/itzAymvn/AutoEcoleLaravel/blob/main/public/images/og.png?raw=true)
 
+<!-- Menu -->
+
+-   [About](#about)
+-   [Description](#description)
+-   [Installation](#installation)
+-   [Usage](#usage)
+
 ### Description
 
 This project is a web application for managing a driving school. It allows for the management of students, instructors, vehicles, driving sessions, and exams.
@@ -63,15 +70,6 @@ This project is a web application for managing a driving school. It allows for t
     ```sh
     php artisan serve
     ```
-
-8. To log in, use your credentials (the password is 'password') or create an account
-
-    - Administrator:
-        - email: admin@mail.com
-        - password: password
-    - Instructor:
-        - email: instructor1@mail.com / instructor2@mail.com
-        - password: password
 
 **Option 2: Docker Installation**
 
