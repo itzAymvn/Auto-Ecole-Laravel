@@ -1,0 +1,39 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: auto-ecole-app
+    volumes:
+      - .:/var/www/html
+    environment:
+      - "DB_HOST=db"
+      - "DB_DATABASE=auto_ecole"
+      - "DB_USERNAME=user"
+      - "DB_PASSWORD=password"
+    depends_on:
+      - db
+    ports:
+      - "8000:80"  # Map port 8000 on host to port 80 on container for Apache
+
+  db:
+    image: mysql:5.7
+    container_name: auto-ecole-db
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: auto_ecole
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: auto-ecole-phpmyadmin
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: root_password
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
