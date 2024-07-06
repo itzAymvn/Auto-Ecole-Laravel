@@ -1,11 +1,7 @@
 services:
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    build: .
     container_name: auto-ecole-app
-    volumes:
-      - .:/var/www/html
     environment:
       - "DB_HOST=db"
       - "DB_DATABASE=auto_ecole"
