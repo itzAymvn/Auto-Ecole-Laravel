@@ -17,12 +17,14 @@ WORKDIR /var/www/html
 
 COPY . .
 
+# Set proper ownership and permissions
+RUN chown -R www-data:www-data /var/www/html/storage
+RUN chmod -R 775 /var/www/html/storage
+
 RUN mv .env.example .env
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 RUN composer install
-
-RUN chown 777 /var/www/html/storage /var/www/html/bootstrap/cache
 
 RUN php artisan key:generate
