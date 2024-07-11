@@ -3,7 +3,8 @@ FROM php:8.2-apache
 RUN apt-get update && \ 
     apt-get install -y \
     libzip-dev \
-    zip 
+    zip \
+    wget
 
 RUN a2enmod rewrite
 
@@ -27,4 +28,18 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 RUN composer install
 
-RUN php artisan key:generate
+# Copy the wait-for-it script
+COPY wait-for-it.sh /usr/local/bin/wait-for-it.sh
+RUN chmod +x /usr/local/bin/wait-for-it.sh
+
+# Set the database host and port
+ENV DB_HOST=db
+ENV DB_PORT=3306
+
+EXPOSE 80
+
+CMD /usr/local/bin/wait-for-it.sh ${DB_HOST}:${DB_PORT} --timeout=60 --strict -- \
+    && php artisan key:generate \
+    && php artisan migrate \
+    && php artisan db:seed \
+    && apache2-foreground
