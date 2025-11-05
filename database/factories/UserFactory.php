@@ -2,7 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Enums\UserType;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Hash;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -17,14 +19,34 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->name,
-            'email' => $this->faker->unique()->safeEmail,
-            'phone' => $this->faker->regexify('[0-9]{10}'),
-            'address' => $this->faker->address,
-            'birthdate' => $this->faker->date(),
-            'password' => bcrypt('password'),
-            'type' => 'student',
+            'name' => fake()->name(),
+            'email' => fake()->unique()->safeEmail(),
+            'phone' => fake()->regexify('[0-9]{10}'),
+            'address' => fake()->address(),
+            'birthdate' => fake()->date(),
+            'password' => Hash::make('password'),
+            'type' => UserType::STUDENT,
             'image' => null,
         ];
+    }
+
+    /**
+     * Indicate that the user is an instructor.
+     */
+    public function instructor(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'type' => UserType::INSTRUCTOR,
+        ]);
+    }
+
+    /**
+     * Indicate that the user is an admin.
+     */
+    public function admin(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'type' => UserType::ADMIN,
+        ]);
     }
 }
